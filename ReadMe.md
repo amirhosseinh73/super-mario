@@ -1,6 +1,6 @@
 # Super Mario
 
-![Super Mario Logo](./favicon.ico)
+![Super Mario Logo](./public/favicon.ico)
 
 ## Description
 
