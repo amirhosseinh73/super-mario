@@ -8,7 +8,7 @@ Super Mario is a classic platformer game developed using vanilla TypeScript.
 
 ## Demo
 
-You can play the game online at (wait for link)
+You can play the game online at [Link to the demo](https://super-mario-game-amirhoseinh73.netlify.app/).
 
 ## Technologies Used
 
