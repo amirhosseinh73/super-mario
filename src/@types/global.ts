@@ -1,4 +1,4 @@
-export type tileNamesType = "sky" | "ground"
+export type tileNamesType = "sky" | "ground" | "mario"
 
 export type imageTilesType = {
   [key in tileNamesType]: {

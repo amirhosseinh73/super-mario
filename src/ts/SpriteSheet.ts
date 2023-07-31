@@ -1,3 +1,5 @@
+import { tileNamesType } from "../@types/global"
+
 export default class SpriteSheet {
   image: CanvasImageSource
   width: number
@@ -18,7 +20,7 @@ export default class SpriteSheet {
     this.tiles = new Map()
   }
 
-  define(name: string, x: number, y: number) {
+  define(name: tileNamesType, x: number, y: number) {
     const buffer = document.createElement("canvas")
     buffer.width = this.width
     buffer.height = this.height
@@ -40,12 +42,12 @@ export default class SpriteSheet {
     this.tiles.set(name, buffer)
   }
 
-  draw(name: string, x: number, y: number) {
+  draw(name: tileNamesType, x: number, y: number) {
     const buffer = this.tiles.get(name)
     this.context.drawImage(buffer, x, y)
   }
 
-  drawTile(name: string, x: number, y: number) {
+  drawTile(name: tileNamesType, x: number, y: number) {
     this.draw(name, x * this.width, y * this.height)
   }
 }

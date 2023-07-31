@@ -11,4 +11,8 @@ export const IMAGE_TILES: imageTilesType = {
     X: 0,
     Y: 0,
   },
+  mario: {
+    X: 16,
+    Y: 3,
+  },
 }
