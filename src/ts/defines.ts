@@ -12,7 +12,12 @@ export const IMAGE_TILES: imageTilesType = {
     Y: 0,
   },
   mario: {
-    X: 16,
-    Y: 3,
+    X: 276,
+    Y: 44,
   },
+}
+
+export const marioPos = {
+  X: 64,
+  Y: 64, // 206
 }

@@ -4,50 +4,35 @@ export default class SpriteSheet {
   image: CanvasImageSource
   width: number
   height: number
-  context: CanvasRenderingContext2D
   tiles: Map<any, any>
 
-  constructor(
-    image: CanvasImageSource,
-    context: CanvasRenderingContext2D,
-    width: number,
-    height: number
-  ) {
+  constructor(image: CanvasImageSource, width: number, height: number) {
     this.image = image
-    this.context = context
     this.width = width
     this.height = height
     this.tiles = new Map()
   }
 
-  define(name: tileNamesType, x: number, y: number) {
+  define(name: tileNamesType, x: number, y: number, width: number, height: number) {
     const buffer = document.createElement("canvas")
-    buffer.width = this.width
-    buffer.height = this.height
+    buffer.width = width
+    buffer.height = height
 
-    buffer
-      .getContext("2d")
-      ?.drawImage(
-        this.image,
-        x * this.width,
-        y * this.height,
-        this.width,
-        this.height,
-        0,
-        0,
-        this.width,
-        this.height
-      )
+    buffer.getContext("2d")?.drawImage(this.image, x, y, width, height, 0, 0, width, height)
 
     this.tiles.set(name, buffer)
   }
 
-  draw(name: tileNamesType, x: number, y: number) {
-    const buffer = this.tiles.get(name)
-    this.context.drawImage(buffer, x, y)
+  defineTile(name: tileNamesType, x: number, y: number) {
+    this.define(name, x * this.width, y * this.height, this.width, this.height)
   }
 
-  drawTile(name: tileNamesType, x: number, y: number) {
-    this.draw(name, x * this.width, y * this.height)
+  draw(name: tileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
+    const buffer = this.tiles.get(name)
+    context.drawImage(buffer, x, y)
+  }
+
+  drawTile(name: tileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
+    this.draw(name, context, x * this.width, y * this.height)
   }
 }

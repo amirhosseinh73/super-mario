@@ -6,3 +6,8 @@ export type imageTilesType = {
     Y: number
   }
 }
+
+export type position = {
+  X: number
+  Y: number
+}
