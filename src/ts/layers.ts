@@ -1,23 +1,24 @@
-import { tileNamesType } from "../@types/global"
-import { backgroundsInterface } from "../@types/levels"
+import { TileNamesType } from "../@types/global"
+import { BackgroundsInterface } from "../@types/levels"
+import Entity from "./Entity"
 import SpriteSheet from "./SpriteSheet"
 
 const drawBackground = function (
-  background: backgroundsInterface,
+  background: BackgroundsInterface,
   context: CanvasRenderingContext2D,
   sprites: SpriteSheet
 ) {
   background.ranges.forEach(([x1, x2, y1, y2]) => {
     for (let i = x1; i < x2; i++) {
       for (let j = y1; j < y2; j++) {
-        sprites.drawTile(background.tile as tileNamesType, context, i, j)
+        sprites.drawTile(background.tile as TileNamesType, context, i, j)
       }
     }
   })
 }
 
 export const createBackgroundLayer = function (
-  backgrounds: backgroundsInterface[],
+  backgrounds: BackgroundsInterface[],
   sprites: SpriteSheet
 ) {
   const buffer = document.createElement("canvas")
@@ -36,4 +37,12 @@ export const createBackgroundLayer = function (
   }
 
   return drawBackgroundLayer
+}
+
+export const createSpriteLayer = function (entity: Entity) {
+  const drawSpriteLayer = function (context: CanvasRenderingContext2D) {
+    entity.draw(context)
+  }
+
+  return drawSpriteLayer
 }

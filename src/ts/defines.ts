@@ -1,8 +1,8 @@
-import { imageTilesType } from "../@types/global"
+import { ImageTilesType } from "../@types/global"
 
 export const TILE_SIZE = 16 as const
 
-export const IMAGE_TILES: imageTilesType = {
+export const IMAGE_TILES: ImageTilesType = {
   sky: {
     X: 3,
     Y: 23,
@@ -17,7 +17,14 @@ export const IMAGE_TILES: imageTilesType = {
   },
 }
 
-export const marioPos = {
+export const MARIO_INIT_POS = {
   X: 64,
-  Y: 64, // 206
+  Y: 206, // 206
 }
+
+export const MARIO_INIT_VEL = {
+  X: 200,
+  Y: -600,
+}
+
+export const GRAVITY = 30

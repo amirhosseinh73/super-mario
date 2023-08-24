@@ -1,4 +1,4 @@
-import { levelsInterface } from "../@types/levels"
+import { LevelsInterface } from "../@types/levels"
 
 export const loadImage = function (url: string): Promise<CanvasImageSource> {
   return new Promise(resolve => {
@@ -10,6 +10,6 @@ export const loadImage = function (url: string): Promise<CanvasImageSource> {
   })
 }
 
-export const loadLevel = async function (name: string): Promise<levelsInterface> {
+export const loadLevel = async function (name: string): Promise<LevelsInterface> {
   return fetch(`/@levels/${name}.json`).then(resp => resp.json())
 }
