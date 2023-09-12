@@ -27,4 +27,10 @@ export const MARIO_INIT_VEL = {
   Y: -600,
 }
 
-export const GRAVITY = 30
+export const GRAVITY = 2000 as const
+
+export const PRESSED = true
+export const RELEASED = false
+export const KEYBOARD_KEY = {
+  SPACE: 32,
+} as const

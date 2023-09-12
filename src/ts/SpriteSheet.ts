@@ -6,14 +6,14 @@ export default class SpriteSheet {
   height: number
   tiles: Map<any, any>
 
-  constructor(image: CanvasImageSource, width: number, height: number) {
+  public constructor(image: CanvasImageSource, width: number, height: number) {
     this.image = image
     this.width = width
     this.height = height
     this.tiles = new Map()
   }
 
-  define(name: TileNamesType, x: number, y: number, width: number, height: number) {
+  public define(name: TileNamesType, x: number, y: number, width: number, height: number) {
     const buffer = document.createElement("canvas")
     buffer.width = width
     buffer.height = height
@@ -23,16 +23,16 @@ export default class SpriteSheet {
     this.tiles.set(name, buffer)
   }
 
-  defineTile(name: TileNamesType, x: number, y: number) {
+  public defineTile(name: TileNamesType, x: number, y: number) {
     this.define(name, x * this.width, y * this.height, this.width, this.height)
   }
 
-  draw(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
+  public draw(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
     const buffer = this.tiles.get(name)
     context.drawImage(buffer, x, y)
   }
 
-  drawTile(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
+  public drawTile(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
     this.draw(name, context, x * this.width, y * this.height)
   }
 }

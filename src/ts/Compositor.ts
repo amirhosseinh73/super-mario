@@ -1,11 +1,11 @@
 export default class Compositor {
   layers: ((context: CanvasRenderingContext2D) => void)[]
 
-  constructor() {
+  public constructor() {
     this.layers = []
   }
 
-  draw(context: CanvasRenderingContext2D) {
+  public draw(context: CanvasRenderingContext2D) {
     this.layers.forEach(layer => {
       layer(context)
     })
