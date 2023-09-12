@@ -1,6 +1,6 @@
 import { loadLevel } from "./loader"
 import { loadBackgroundSprites } from "./sprites"
-import { GRAVITY, KEYBOARD_KEY, MARIO_INIT_POS, MARIO_INIT_VEL } from "./defines"
+import { GRAVITY, KEYBOARD_KEY, MARIO_INIT_POS } from "./defines"
 import Compositor from "./Compositor"
 import { createBackgroundLayer, createSpriteLayer } from "./layers"
 import { createMario } from "./helper"
