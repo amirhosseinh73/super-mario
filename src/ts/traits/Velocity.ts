@@ -1,7 +1,7 @@
 import Entity, { Trait } from "../Entity"
 
 export default class Velocity extends Trait {
-  public constructor() {
+  constructor() {
     super("velocity")
   }
 

@@ -6,7 +6,7 @@ export default class SpriteSheet {
   height: number
   tiles: Map<any, any>
 
-  public constructor(image: CanvasImageSource, width: number, height: number) {
+  constructor(image: CanvasImageSource, width: number, height: number) {
     this.image = image
     this.width = width
     this.height = height

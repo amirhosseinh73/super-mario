@@ -1,7 +1,7 @@
 export default class Compositor {
   layers: ((context: CanvasRenderingContext2D) => void)[]
 
-  public constructor() {
+  constructor() {
     this.layers = []
   }
 

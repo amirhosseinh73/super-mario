@@ -4,7 +4,7 @@ import { Vec2 } from "./Math"
 export class Trait {
   NAME: MarioTraitNames
 
-  public constructor(name: MarioTraitNames) {
+  constructor(name: MarioTraitNames) {
     this.NAME = name
   }
 

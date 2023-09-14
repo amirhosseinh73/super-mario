@@ -39,9 +39,11 @@ export const createBackgroundLayer = function (
   return drawBackgroundLayer
 }
 
-export const createSpriteLayer = function (entity: Entity) {
+export const createSpriteLayer = function (entities: Set<Entity>) {
   const drawSpriteLayer = function (context: CanvasRenderingContext2D) {
-    entity.draw(context)
+    entities.forEach(entity => {
+      entity.draw(context)
+    })
   }
 
   return drawSpriteLayer

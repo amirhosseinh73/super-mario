@@ -1,3 +1,4 @@
+import { LevelsInterface } from "../@types/levels"
 import { EntityWithTraits } from "../@types/traits"
 import Entity from "./Entity"
 import { loadMarioSprite } from "./sprites"
@@ -16,4 +17,8 @@ export const createMario = async function () {
   }
 
   return mario
+}
+
+export const getLevelData = async function (name: string): Promise<LevelsInterface> {
+  return fetch(`/@levels/${name}.json`).then(resp => resp.json())
 }

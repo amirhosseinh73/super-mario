@@ -5,7 +5,7 @@ export default class KeyboardState {
   keyStates!: Map<any, any>
   keyMap!: Map<any, any>
 
-  public constructor() {
+  constructor() {
     this.keyStates = new Map()
 
     this.keyMap = new Map()

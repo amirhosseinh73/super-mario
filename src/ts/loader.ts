@@ -1,4 +1,7 @@
-import { LevelsInterface } from "../@types/levels"
+import Level from "./Level"
+import { getLevelData } from "./helper"
+import { createBackgroundLayer, createSpriteLayer } from "./layers"
+import { loadBackgroundSprites } from "./sprites"
 
 export const loadImage = function (url: string): Promise<CanvasImageSource> {
   return new Promise(resolve => {
@@ -10,6 +13,18 @@ export const loadImage = function (url: string): Promise<CanvasImageSource> {
   })
 }
 
-export const loadLevel = async function (name: string): Promise<LevelsInterface> {
-  return fetch(`/@levels/${name}.json`).then(resp => resp.json())
+export const loadLevel = async function (name: string) {
+  return Promise.all([getLevelData(name), loadBackgroundSprites()]).then(
+    ([levelSpec, backgroundSprites]) => {
+      const level = new Level()
+
+      const backgroundLayer = createBackgroundLayer(levelSpec.backgrounds, backgroundSprites)
+      level.comp.layers.push(backgroundLayer)
+
+      const spriteLayer = createSpriteLayer(level.entities)
+      level.comp.layers.push(spriteLayer)
+
+      return level
+    }
+  )
 }

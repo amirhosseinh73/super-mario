@@ -5,7 +5,7 @@ export default class Jump extends Trait {
   velocity: number
   engageTime: number
 
-  public constructor() {
+  constructor() {
     super("jump")
 
     this.duration = 0.5

@@ -19,7 +19,7 @@ export const IMAGE_TILES: ImageTilesType = {
 
 export const MARIO_INIT_POS = {
   X: 64,
-  Y: 206, // 206
+  Y: 64, // 206
 }
 
 export const MARIO_INIT_VEL = {
