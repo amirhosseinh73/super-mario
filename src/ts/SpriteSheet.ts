@@ -1,4 +1,4 @@
-import { TileNamesType } from "../@types/global"
+import { TileNamesType } from "../@types/levels"
 
 export default class SpriteSheet {
   image: CanvasImageSource

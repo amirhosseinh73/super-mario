@@ -1,4 +1,4 @@
-import { ImageTilesType } from "../@types/global"
+import { ImageTilesType } from "../@types/levels"
 
 export const TILE_SIZE = 16 as const
 
