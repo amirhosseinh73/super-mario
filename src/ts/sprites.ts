@@ -9,7 +9,7 @@ export const loadMarioSprite = async function () {
   const sprites = new SpriteSheet(image, TILE_SIZE, TILE_SIZE)
 
   const mario = IMAGE_TILES["mario"]
-  sprites.define("mario", mario.X, mario.Y, 16, 16)
+  sprites.define("idle", mario.x, mario.y, 16, 16)
 
   return sprites
 }
@@ -20,10 +20,10 @@ export const loadBackgroundSprites = async function () {
   const sprites = new SpriteSheet(image, TILE_SIZE, TILE_SIZE)
 
   const ground = IMAGE_TILES["ground"]
-  sprites.defineTile("ground", ground.X, ground.Y)
+  sprites.defineTile("ground", ground.x, ground.y)
 
   const sky = IMAGE_TILES["sky"]
-  sprites.defineTile("sky", sky.X, sky.Y)
+  sprites.defineTile("sky", sky.x, sky.y)
 
   return sprites
 }

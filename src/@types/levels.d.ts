@@ -1,10 +1,9 @@
-export type TileNamesType = "sky" | "ground" | "mario"
+import { Position } from "./global"
+
+export type TileNamesType = "sky" | "ground" | "idle"
 
 export type ImageTilesType = {
-  [key in tileNamesType]: {
-    X: number
-    Y: number
-  }
+  [key in tileNamesType]: Position
 }
 
 export interface LevelsInterface {

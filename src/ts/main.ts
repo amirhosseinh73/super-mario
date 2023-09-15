@@ -1,35 +1,35 @@
 import { loadLevel } from "./loader"
-import { GRAVITY, KEYBOARD_KEY, MARIO_INIT_POS } from "./defines"
-import { createMario } from "./helper"
+import { MARIO_INIT_POS } from "./defines"
+import { createMario, setupKeyboard } from "./helper"
 import Timer from "./Timer"
-import KeyboardState from "./KeyboardState"
+import { createCollisionLayer } from "./layers"
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement
 const context = canvas.getContext("2d") as CanvasRenderingContext2D
 
 Promise.all([createMario(), loadLevel("1-1")]).then(([mario, level]) => {
-  mario.pos.set(MARIO_INIT_POS.X, MARIO_INIT_POS.Y)
-  // mario.vel.set(MARIO_INIT_VEL.X, MARIO_INIT_VEL.Y)
+  mario.pos.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y)
+
+  level.comp.layers.push(createCollisionLayer(level))
 
   level.entities.add(mario)
 
-  const input = new KeyboardState()
-  input.addMapping(KEYBOARD_KEY.SPACE, (keyState: unknown) => {
-    if (!mario.jump) return
-    if (keyState) mario.jump.start()
-    else mario.jump.start()
-  })
+  const input = setupKeyboard(mario)
   input.listenTo(window)
+  ;(["mousedown", "mousemove"] as ("mousedown" | "mousemove")[]).forEach(eventName => {
+    canvas.addEventListener(eventName, event => {
+      if (event.buttons === 1) {
+        mario.vel.set(0, 0)
+        mario.pos.set(event.offsetX, event.offsetY)
+      }
+    })
+  })
 
   const timer = new Timer()
-
   timer.update = function update(deltaTime: number) {
-    // mario.update(deltaTime)
     level.update(deltaTime)
 
     level.comp.draw(context)
-
-    mario.vel.y += GRAVITY * deltaTime
   }
 
   timer.start()
