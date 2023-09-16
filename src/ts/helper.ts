@@ -1,5 +1,6 @@
-import { LevelsInterface } from "../@types/levels"
+import { LevelsInterface, SpritesInterface } from "../@types/levels"
 import { EntityWithTraits } from "../@types/traits"
+import Camera from "./Camera"
 import Entity from "./Entity"
 import KeyboardState from "./KeyboardState"
 import { KEYBOARD_KEY, MARIO_INIT_SIZE } from "./defines"
@@ -17,14 +18,14 @@ export const createMario = async function () {
   // mario.addTrait(new Velocity())
 
   mario.draw = function drawMario(context) {
-    sprite.draw("idle", context, this.pos.x, this.pos.y)
+    sprite.draw("idle", context, 0, 0)
   }
 
   return mario
 }
 
-export const getLevelData = async function (name: string): Promise<LevelsInterface> {
-  return fetch(`/@levels/${name}.json`).then(resp => {
+export const loadJSON = async function (url: string): Promise<LevelsInterface | SpritesInterface> {
+  return fetch(url).then(resp => {
     return resp.json()
   })
 }
@@ -46,4 +47,30 @@ export const setupKeyboard = function (entity: EntityWithTraits) {
   })
 
   return input
+}
+
+export function setupMouseControlDebug(canvas: HTMLCanvasElement, entity: Entity, camera: Camera) {
+  const eventNames = ["mousedown", "mousemove"] as ("mousedown" | "mousemove")[]
+
+  let lastEvent: MouseEvent | undefined
+
+  eventNames.forEach(eventName => {
+    canvas.addEventListener(eventName, event => {
+      if (event.buttons === 1) {
+        entity.vel.set(0, 0)
+        entity.pos.set(event.offsetX + camera.pos.x, event.offsetY + camera.pos.y)
+      } else if (
+        event.buttons === 2 &&
+        lastEvent &&
+        lastEvent.buttons === 2 &&
+        lastEvent.type === "mousemove"
+      ) {
+        camera.pos.x -= event.offsetX - lastEvent.offsetX
+      }
+
+      lastEvent = event
+    })
+  })
+
+  canvas.addEventListener("contextmenu", e => e.preventDefault())
 }

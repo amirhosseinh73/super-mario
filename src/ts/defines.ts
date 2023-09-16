@@ -3,14 +3,6 @@ import { ImageTilesType } from "../@types/levels"
 export const TILE_SIZE = 16 as const
 
 export const IMAGE_TILES: ImageTilesType = {
-  sky: {
-    x: 3,
-    y: 23,
-  },
-  ground: {
-    x: 0,
-    y: 0,
-  },
   mario: {
     x: 276,
     y: 44,
@@ -42,5 +34,5 @@ export const KEYBOARD_KEY = {
   ARROW_LEFT: "ArrowLeft",
 } as const
 
-export const RENDERED_WIDTH = 640
+export const RENDERED_WIDTH = 256 + 16
 export const RENDERED_HEIGHT = 256

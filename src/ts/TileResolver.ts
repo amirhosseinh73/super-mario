@@ -11,7 +11,7 @@ export default class TileResolver {
     this.tileSize = tileSize
   }
 
-  public _toIndex(pos: number) {
+  public toIndex(pos: number) {
     return ~~(pos / this.tileSize) //Math.floor
   }
 
@@ -21,7 +21,7 @@ export default class TileResolver {
     let pos = pos1
 
     do {
-      range.push(this._toIndex(pos))
+      range.push(this.toIndex(pos))
       pos += this.tileSize
     } while (pos < pMax)
 
@@ -46,7 +46,7 @@ export default class TileResolver {
   }
 
   public searchByPosition(posX: number, posY: number) {
-    return this.getByIndex(this._toIndex(posX), this._toIndex(posY))
+    return this.getByIndex(this.toIndex(posX), this.toIndex(posY))
   }
 
   public searchByRange(x1: number, x2: number, y1: number, y2: number) {

@@ -1,8 +1,13 @@
-import { BackgroundsInterface } from "../@types/levels"
+import {
+  BackgroundsInterface,
+  LevelsInterface,
+  SpritesFileNames,
+  SpritesInterface,
+} from "../@types/levels"
 import Level from "./Level"
-import { getLevelData } from "./helper"
+import SpriteSheet from "./SpriteSheet"
+import { loadJSON } from "./helper"
 import { createBackgroundLayer, createSpriteLayer } from "./layers"
-import { loadBackgroundSprites } from "./sprites"
 
 export const loadImage = function (url: string): Promise<CanvasImageSource> {
   return new Promise(resolve => {
@@ -15,33 +20,70 @@ export const loadImage = function (url: string): Promise<CanvasImageSource> {
 }
 
 const createTiles = function (level: Level, backgrounds: BackgroundsInterface[]) {
+  function applyRange(
+    background: BackgroundsInterface,
+    xStart: number,
+    xLen: number,
+    yStart: number,
+    yLen: number
+  ) {
+    const xEnd = xStart + xLen
+    const yEnd = yStart + yLen
+
+    for (let x = xStart; x < xEnd; ++x) {
+      for (let y = yStart; y < yEnd; ++y) {
+        level.tiles.set(x, y, {
+          name: background.tile,
+          type: background.type,
+        })
+      }
+    }
+  }
+
   backgrounds.forEach(background => {
-    background.ranges.forEach(([x1, x2, y1, y2]) => {
-      for (let x = x1; x < x2; ++x) {
-        for (let y = y1; y < y2; ++y) {
-          level.tiles.set(x, y, {
-            name: background.tile,
-          })
-        }
+    background.ranges.forEach(range => {
+      if (range.length === 4) {
+        const [xStart, xLen, yStart, yLen] = range
+        applyRange(background, xStart, xLen, yStart, yLen)
+      } else if (range.length === 3) {
+        const [xStart, xLen, yStart] = range
+        applyRange(background, xStart, xLen, yStart, 1)
+      } else if (range.length === 2) {
+        const [xStart, yStart] = range
+        applyRange(background, xStart, 1, yStart, 1)
       }
     })
   })
 }
 
+const loadSpriteSheet = async function (name: SpritesFileNames) {
+  const sheetSpec = (await loadJSON(`/@sprites/${name}.json`)) as SpritesInterface
+
+  const image = await loadImage(sheetSpec.imageURL)
+
+  const sprites = new SpriteSheet(image, sheetSpec.tileW, sheetSpec.tileH)
+
+  sheetSpec.tiles.forEach(tile => {
+    sprites.defineTile(tile.name, tile.index[0], tile.index[1])
+  })
+
+  return sprites
+}
+
 export const loadLevel = async function (name: string) {
-  return Promise.all([getLevelData(name), loadBackgroundSprites()]).then(
-    ([levelSpec, backgroundSprites]) => {
-      const level = new Level()
+  const levelSpec = (await loadJSON(`/@levels/${name}.json`)) as LevelsInterface
 
-      createTiles(level, levelSpec.backgrounds)
+  const backgroundSprites = await loadSpriteSheet(levelSpec.spritesheet)
 
-      const backgroundLayer = createBackgroundLayer(level, backgroundSprites)
-      level.comp.layers.push(backgroundLayer)
+  const level = new Level()
 
-      const spriteLayer = createSpriteLayer(level.entities)
-      level.comp.layers.push(spriteLayer)
+  createTiles(level, levelSpec.backgrounds)
 
-      return level
-    }
-  )
+  const backgroundLayer = createBackgroundLayer(level, backgroundSprites)
+  level.comp.layers.push(backgroundLayer)
+
+  const spriteLayer = createSpriteLayer(level.entities)
+  level.comp.layers.push(spriteLayer)
+
+  return level
 }

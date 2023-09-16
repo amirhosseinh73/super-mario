@@ -19,7 +19,7 @@ export default class TileCollider {
     const matches = this.tiles.searchByRange(x, x, entity.pos.y, entity.pos.y + entity.size.y)
 
     matches.forEach(match => {
-      if (match.tile.name !== "ground") return
+      if (match.tile.type !== "ground") return
 
       if (entity.vel.x > 0) {
         if (entity.pos.x + entity.size.x > match.x1) {
@@ -45,7 +45,7 @@ export default class TileCollider {
     const matches = this.tiles.searchByRange(entity.pos.x, entity.pos.x + entity.size.x, y, y)
 
     matches.forEach(match => {
-      if (match.tile.name !== "ground") return
+      if (match.tile.type !== "ground") return
 
       //falling
       if (entity.vel.y > 0) {
