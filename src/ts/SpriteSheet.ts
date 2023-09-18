@@ -1,16 +1,22 @@
-import { TileNamesType } from "../@types/levels"
+import { AnimationFrames, TileNamesType } from "../@types/levels"
 
 export default class SpriteSheet {
   image: CanvasImageSource
   width: number
   height: number
   tiles: Map<TileNamesType, HTMLCanvasElement[]>
+  animation: Map<TileNamesType, (distance: number) => AnimationFrames>
 
   constructor(image: CanvasImageSource, width: number, height: number) {
     this.image = image
     this.width = width
     this.height = height
     this.tiles = new Map()
+    this.animation = new Map()
+  }
+
+  public defineAnim(name: TileNamesType, animation: (distance: number) => AnimationFrames) {
+    this.animation.set(name, animation)
   }
 
   public define(name: TileNamesType, x: number, y: number, width: number, height: number) {
@@ -48,6 +54,18 @@ export default class SpriteSheet {
     const buffer = this.tiles.get(name)
     if (!buffer) return
     context.drawImage(buffer[Number(flip)], x, y)
+  }
+
+  public drawAnim(
+    name: TileNamesType,
+    context: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    distance: number
+  ) {
+    const animation = this.animation.get(name)
+    if (!animation) return
+    this.drawTile(animation(distance), context, x, y)
   }
 
   public drawTile(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {

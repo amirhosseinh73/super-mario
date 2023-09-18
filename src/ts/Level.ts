@@ -10,13 +10,14 @@ export default class Level {
   tiles: Matrix
   tileCollider: TileCollider
 
+  totalTime: number
+
   constructor() {
+    this.totalTime = 0
+
     this.comp = new Compositor()
-
     this.entities = new Set()
-
     this.tiles = new Matrix()
-
     this.tileCollider = new TileCollider(this.tiles)
   }
 
@@ -32,5 +33,7 @@ export default class Level {
 
       entity.vel.y += GRAVITY * deltaTime
     })
+
+    this.totalTime += deltaTime
   }
 }

@@ -1,19 +1,14 @@
-import {
-  LevelsInterface,
-  MarioFrames,
-  SpritesFramesInterface,
-  SpritesInterface,
-} from "../@types/levels"
+import { AnimationFrames, LevelsInterface, MarioFrames, SpritesInterface } from "../@types/levels"
 import { EntityWithTraits } from "../@types/traits"
 import Camera from "./Camera"
 import Entity from "./Entity"
 import KeyboardState from "./KeyboardState"
 import { KEYBOARD_KEY, MARIO_INIT_SIZE } from "./defines"
-import { loadSpriteSheet } from "./loader"
+import { loadSpriteSheet } from "./loaders"
 import Go from "./traits/Go"
 import Jump from "./traits/Jump"
 
-const createAnim = function (frames: SpritesFramesInterface["name"][], frameLen: number) {
+export const createAnim = function (frames: AnimationFrames[], frameLen: number) {
   return function resolveFrame(distance: number) {
     const frameIndex = Math.floor(distance / frameLen) % frames.length
     const frameName = frames[frameIndex]
@@ -34,10 +29,10 @@ export const createMario = async function () {
   const frames: MarioFrames[] = ["run-1", "run-2", "run-3"]
   const runAnim = createAnim(frames, 10)
 
-  function routeFrame(mario: EntityWithTraits): MarioFrames {
+  function routeFrame(mario: EntityWithTraits) {
     if (mario.go.dir === 0) return "idle"
 
-    return runAnim(mario.go.distance)
+    return runAnim(mario.go.distance) as MarioFrames
   }
 
   mario.draw = function drawMario(context) {

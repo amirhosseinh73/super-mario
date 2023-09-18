@@ -17,7 +17,7 @@ export const createBackgroundLayer = function (level: Level, sprites: SpriteShee
 
   let startIndex: number, endIndex: number
   function redraw(drawFrom: number, drawTo: number) {
-    if (drawFrom === startIndex && drawTo === endIndex) return
+    // if (drawFrom === startIndex && drawTo === endIndex) return
 
     startIndex = drawFrom
     endIndex = drawTo
@@ -28,7 +28,9 @@ export const createBackgroundLayer = function (level: Level, sprites: SpriteShee
       const col = tiles.grid[x]
       if (col) {
         col.forEach((tile, y) => {
-          sprites.drawTile(tile.name, context, x - startIndex, y)
+          if (sprites.animation.has(tile.name))
+            sprites.drawAnim(tile.name, context, x - startIndex, y, level.totalTime)
+          else sprites.drawTile(tile.name, context, x - startIndex, y)
         })
       }
     }

@@ -1,4 +1,4 @@
-import { loadLevel } from "./loader"
+import { loadLevel } from "./loaders"
 import { MARIO_INIT_POS } from "./defines"
 import { createMario, setupKeyboard, setupMouseControlDebug } from "./helper"
 import Timer from "./Timer"

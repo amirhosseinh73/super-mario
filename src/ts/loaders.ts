@@ -7,7 +7,7 @@ import {
 import Level from "./Level"
 import SpriteSheet from "./SpriteSheet"
 import { TILE_SIZE } from "./defines"
-import { loadJSON } from "./helper"
+import { createAnim, loadJSON } from "./helper"
 import { createBackgroundLayer, createSpriteLayer } from "./layers"
 
 export const loadImage = function (url: string): Promise<CanvasImageSource> {
@@ -70,6 +70,11 @@ export const loadSpriteSheet = async function (name: SpritesFileNames) {
 
   sheetSpec.frames?.forEach(frameSpec => {
     sprites.define(frameSpec.name, ...frameSpec.rect)
+  })
+
+  sheetSpec.animations?.forEach(animSpec => {
+    const animation = createAnim(animSpec.frames, animSpec.frameLen)
+    sprites.defineAnim(animSpec.name, animation)
   })
 
   return sprites

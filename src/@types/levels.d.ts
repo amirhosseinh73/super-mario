@@ -1,8 +1,9 @@
 import { Position } from "./global"
 
 export type MarioFrames = "idle" | "run-1" | "run-2" | "run-3"
+export type ChanceFrames = "chance" | "chance-1" | "chance-2" | "chance-3"
 
-export type TileNamesType = "sky" | "ground" | MarioFrames | "block" | "brick" | "chance"
+export type TileNamesType = "sky" | "ground" | MarioFrames | "block" | "brick" | ChanceFrames
 
 // export type ImageTilesType = {
 //   [key in tileNamesType]: Position
@@ -32,6 +33,8 @@ export interface SpritesInterface {
   tiles?: SpritesTilesInterface[]
 
   frames?: SpritesFramesInterface[]
+
+  animations?: SpritesAnimationInterface[]
 }
 
 export interface SpritesTilesInterface {
@@ -41,7 +44,15 @@ export interface SpritesTilesInterface {
 
 export type SpritesFileNames = "overworld" | "underworld" | "mario"
 
+export type AnimationFrames = MarioFrames | ChanceFrames
+
 export interface SpritesFramesInterface {
   name: MarioFrames
   rect: [number, number, number, number]
+}
+
+export interface SpritesAnimationInterface {
+  name: TileNamesType
+  frameLen: 1
+  frames: AnimationFrames[]
 }
