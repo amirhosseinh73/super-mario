@@ -1,13 +1,4 @@
-import { ImageTilesType } from "../@types/levels"
-
 export const TILE_SIZE = 16 as const
-
-export const IMAGE_TILES: ImageTilesType = {
-  mario: {
-    x: 276,
-    y: 44,
-  },
-}
 
 export const MARIO_INIT_POS = {
   x: 64,

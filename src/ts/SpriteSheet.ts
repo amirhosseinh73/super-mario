@@ -4,7 +4,7 @@ export default class SpriteSheet {
   image: CanvasImageSource
   width: number
   height: number
-  tiles: Map<any, any>
+  tiles: Map<TileNamesType, HTMLCanvasElement[]>
 
   constructor(image: CanvasImageSource, width: number, height: number) {
     this.image = image
@@ -14,22 +14,40 @@ export default class SpriteSheet {
   }
 
   public define(name: TileNamesType, x: number, y: number, width: number, height: number) {
-    const buffer = document.createElement("canvas")
-    buffer.width = width
-    buffer.height = height
+    const buffers = [false, true].map(flip => {
+      const buffer = document.createElement("canvas")
+      buffer.width = width
+      buffer.height = height
 
-    buffer.getContext("2d")?.drawImage(this.image, x, y, width, height, 0, 0, width, height)
+      const context = buffer.getContext("2d") as CanvasRenderingContext2D
 
-    this.tiles.set(name, buffer)
+      if (flip) {
+        context.scale(-1, 1)
+        context.translate(-width, 0)
+      }
+
+      context.drawImage(this.image, x, y, width, height, 0, 0, width, height)
+
+      return buffer
+    })
+
+    this.tiles.set(name, buffers)
   }
 
   public defineTile(name: TileNamesType, x: number, y: number) {
     this.define(name, x * this.width, y * this.height, this.width, this.height)
   }
 
-  public draw(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
+  public draw(
+    name: TileNamesType,
+    context: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    flip = false
+  ) {
     const buffer = this.tiles.get(name)
-    context.drawImage(buffer, x, y)
+    if (!buffer) return
+    context.drawImage(buffer[Number(flip)], x, y)
   }
 
   public drawTile(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {

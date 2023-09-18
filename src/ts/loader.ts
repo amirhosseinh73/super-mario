@@ -6,6 +6,7 @@ import {
 } from "../@types/levels"
 import Level from "./Level"
 import SpriteSheet from "./SpriteSheet"
+import { TILE_SIZE } from "./defines"
 import { loadJSON } from "./helper"
 import { createBackgroundLayer, createSpriteLayer } from "./layers"
 
@@ -56,15 +57,19 @@ const createTiles = function (level: Level, backgrounds: BackgroundsInterface[])
   })
 }
 
-const loadSpriteSheet = async function (name: SpritesFileNames) {
+export const loadSpriteSheet = async function (name: SpritesFileNames) {
   const sheetSpec = (await loadJSON(`/@sprites/${name}.json`)) as SpritesInterface
 
   const image = await loadImage(sheetSpec.imageURL)
 
-  const sprites = new SpriteSheet(image, sheetSpec.tileW, sheetSpec.tileH)
+  const sprites = new SpriteSheet(image, sheetSpec.tileW || TILE_SIZE, sheetSpec.tileH || TILE_SIZE)
 
-  sheetSpec.tiles.forEach(tile => {
+  sheetSpec.tiles?.forEach(tile => {
     sprites.defineTile(tile.name, tile.index[0], tile.index[1])
+  })
+
+  sheetSpec.frames?.forEach(frameSpec => {
+    sprites.define(frameSpec.name, ...frameSpec.rect)
   })
 
   return sprites

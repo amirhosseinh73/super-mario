@@ -1,10 +1,12 @@
 import { Position } from "./global"
 
-export type TileNamesType = "sky" | "ground" | "idle" | "block" | "brick" | "chance"
+export type MarioFrames = "idle" | "run-1" | "run-2" | "run-3"
 
-export type ImageTilesType = {
-  [key in tileNamesType]: Position
-}
+export type TileNamesType = "sky" | "ground" | MarioFrames | "block" | "brick" | "chance"
+
+// export type ImageTilesType = {
+//   [key in tileNamesType]: Position
+// }
 
 export interface LevelsInterface {
   spritesheet: SpritesFileNames
@@ -24,10 +26,12 @@ export interface MatrixValueInterface {
 
 export interface SpritesInterface {
   imageURL: string
-  tileW: number
-  tileH: number
+  tileW?: number
+  tileH?: number
 
-  tiles: SpritesTilesInterface[]
+  tiles?: SpritesTilesInterface[]
+
+  frames?: SpritesFramesInterface[]
 }
 
 export interface SpritesTilesInterface {
@@ -35,4 +39,9 @@ export interface SpritesTilesInterface {
   index: number[]
 }
 
-export type SpritesFileNames = "overworld" | "underworld"
+export type SpritesFileNames = "overworld" | "underworld" | "mario"
+
+export interface SpritesFramesInterface {
+  name: MarioFrames
+  rect: [number, number, number, number]
+}
