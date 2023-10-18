@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Super Mario Game</title>
-  </head>
-  <body>
-    <canvas id="screen" width="640" height="640"></canvas>
-    <script type="module" src="/src/ts/main.ts"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link type="text/css" rel="stylesheet" href="/assets/css/global.css" />
+        <title>Super Mario Game</title>
+    </head>
+    <body>
+        <article class="hint">
+            Hint For Play
+
+            <section>Use <strong>Arrow keys</strong> to move left and right</section>
+
+            <section>Press <strong>space</strong> to jump</section>
+
+            <section>Press and hold <strong>X</strong> for speed up mario</section>
+        </article>
+        <canvas id="screen" width="640" height="640"></canvas>
+        <script type="module" src="/src/ts/main.ts"></script>
+    </body>
 </html>

@@ -1,39 +1,43 @@
-import Compositor from "./Compositor"
-import Entity from "./Entity"
-import { Matrix } from "./Math"
-import TileCollider from "./TileCollider"
-import { GRAVITY } from "./defines"
+import Compositor from "./Compositor";
+import Entity from "./Entity";
+import { Matrix } from "./Math";
+import TileCollider from "./TileCollider";
+import { GRAVITY } from "./defines";
 
 export default class Level {
-  comp: Compositor
-  entities: Set<Entity>
-  tiles: Matrix
-  tileCollider: TileCollider
+    gravity: number;
 
-  totalTime: number
+    comp: Compositor;
+    entities: Set<Entity>;
+    tiles: Matrix;
+    tileCollider: TileCollider;
 
-  constructor() {
-    this.totalTime = 0
+    totalTime: number;
 
-    this.comp = new Compositor()
-    this.entities = new Set()
-    this.tiles = new Matrix()
-    this.tileCollider = new TileCollider(this.tiles)
-  }
+    constructor() {
+        this.gravity = GRAVITY;
+        this.totalTime = 0;
 
-  public update(deltaTime: number) {
-    this.entities.forEach(entity => {
-      entity.update(deltaTime)
+        this.comp = new Compositor();
+        this.entities = new Set();
+        this.tiles = new Matrix();
 
-      entity.pos.x += entity.vel.x * deltaTime
-      this.tileCollider.checkX(entity)
+        this.tileCollider = new TileCollider(this.tiles);
+    }
 
-      entity.pos.y += entity.vel.y * deltaTime
-      this.tileCollider.checkY(entity)
+    public update(deltaTime: number) {
+        this.entities.forEach(entity => {
+            entity.update(deltaTime);
 
-      entity.vel.y += GRAVITY * deltaTime
-    })
+            entity.pos.x += entity.vel.x * deltaTime;
+            this.tileCollider.checkX(entity);
 
-    this.totalTime += deltaTime
-  }
+            entity.pos.y += entity.vel.y * deltaTime;
+            this.tileCollider.checkY(entity);
+
+            entity.vel.y += this.gravity * deltaTime;
+        });
+
+        this.totalTime += deltaTime;
+    }
 }

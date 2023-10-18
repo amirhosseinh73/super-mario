@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    font-size: 10px;
+}
+body {
+    width: 100vw;
+    height: 100vw;
+    overflow: hidden;
+}
+
+#screen {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.hint {
+    background-color: lightgray;
+    font-size: 1rem;
+    color: #333333;
+    width: auto;
+    display: inline-block;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+}
+
+.hint strong {
+    text-transform: uppercase;
+}

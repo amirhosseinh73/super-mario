@@ -1,31 +1,63 @@
-import Entity, { Trait } from "../Entity"
+import Entity, { Trait } from "../Entity";
+import { Sides } from "../defines";
 
 export default class Jump extends Trait {
-  duration: number
-  velocity: number
-  engageTime: number
+    duration: number;
+    velocity: number;
+    engageTime: number;
+    ready: number;
 
-  constructor() {
-    super("jump")
+    requestTime: number;
+    gracePeriod: number;
 
-    this.duration = 0.5
-    this.engageTime = 0
+    speedBoost: 0.3;
 
-    this.velocity = 200
-  }
+    constructor() {
+        super("jump");
 
-  public start() {
-    this.engageTime = this.duration
-  }
+        this.ready = 0;
+        this.duration = 0.3;
+        this.engageTime = 0;
+        this.requestTime = 0;
+        this.gracePeriod = 0.1;
+        this.speedBoost = 0.3;
 
-  public cancel() {
-    this.engageTime = 0
-  }
-
-  public update(entity: Entity, deltaTime: number): void {
-    if (this.engageTime > 0) {
-      entity.vel.y = -this.velocity
-      this.engageTime -= deltaTime
+        this.velocity = 200;
     }
-  }
+
+    public get falling() {
+        return this.ready < 0;
+    }
+
+    public start() {
+        this.requestTime = this.gracePeriod;
+    }
+
+    public cancel() {
+        this.engageTime = 0;
+        this.requestTime = 0;
+    }
+
+    public obstruct(_entity: Entity, side: Symbol): void {
+        if (side === Sides.BOTTOM) this.ready = 1;
+        else if (side === Sides.TOP) this.cancel();
+    }
+
+    public update(entity: Entity, deltaTime: number): void {
+        if (this.requestTime > 0) {
+            if (this.ready > 0) {
+                this.engageTime = this.duration;
+                this.requestTime = 0;
+            }
+
+            this.requestTime -= deltaTime;
+        }
+
+        if (this.engageTime > 0) {
+            entity.vel.y = -(this.velocity + Math.abs(entity.vel.x) * this.speedBoost);
+            this.engageTime -= deltaTime;
+        }
+
+        this.ready--;
+    }
 }

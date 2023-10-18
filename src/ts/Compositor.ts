@@ -1,15 +1,15 @@
-import Camera from "./Camera"
+import Camera from "./Camera";
 
 export default class Compositor {
-  layers: ((context: CanvasRenderingContext2D, camera: Camera) => void)[]
+    layers: ((context: CanvasRenderingContext2D, camera: Camera) => void)[];
 
-  constructor() {
-    this.layers = []
-  }
+    constructor() {
+        this.layers = [];
+    }
 
-  public draw(context: CanvasRenderingContext2D, camera: Camera) {
-    this.layers.forEach(layer => {
-      layer(context, camera)
-    })
-  }
+    public draw(context: CanvasRenderingContext2D, camera: Camera) {
+        this.layers.forEach(layer => {
+            layer(context, camera);
+        });
+    }
 }
