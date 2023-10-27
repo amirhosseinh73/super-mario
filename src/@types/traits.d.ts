@@ -6,6 +6,5 @@ export type MarioTraitNames = "jump" | "run" | "velocity" | "go";
 
 type EntityWithTraits = Entity & {
     jump: Jump;
-    // velocity: Velocity
     go: Go;
 };

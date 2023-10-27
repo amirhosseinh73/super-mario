@@ -1,7 +1,7 @@
-import { MatrixValueInterface } from "./levels";
+import { MatrixValue } from "./levels";
 
 export type getByIndexReturnType = {
-    tile: MatrixValueInterface;
+    tile: MatrixValue;
 
     x1: number;
     x2: number;

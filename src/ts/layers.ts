@@ -1,13 +1,15 @@
 import { Position } from "../@types/global";
+import { MatrixValueBackground } from "../@types/levels";
 import Camera from "./Camera";
 import Entity from "./Entity";
 import Level from "./Level";
+import { Matrix } from "./Math";
 import SpriteSheet from "./SpriteSheet";
+import TileResolver from "./TileResolver";
 import { RENDERED_HEIGHT, RENDERED_WIDTH, TILE_SIZE } from "./defines";
 
-export const createBackgroundLayer = function (level: Level, sprites: SpriteSheet) {
-    const tiles = level.tiles;
-    const resolver = level.tileCollider.tiles;
+export const createBackgroundLayer = function (level: Level, tiles: Matrix, sprites: SpriteSheet) {
+    const resolver = new TileResolver(tiles);
 
     const buffer = document.createElement("canvas");
     buffer.width = RENDERED_WIDTH;
@@ -15,15 +17,14 @@ export const createBackgroundLayer = function (level: Level, sprites: SpriteShee
 
     const context = buffer.getContext("2d") as CanvasRenderingContext2D;
 
-    let startIndex: number, endIndex: number;
-    function redraw(drawFrom: number, drawTo: number) {
-        startIndex = drawFrom;
-        endIndex = drawTo;
+    function redraw(startIndex: number, endIndex: number) {
+        context.clearRect(0, 0, buffer.width, buffer.height);
 
         for (let x = startIndex; x <= endIndex; ++x) {
             const col = tiles.grid[x];
             if (col) {
-                col.forEach((tile, y) => {
+                col.forEach((tileBackground, y) => {
+                    const tile = tileBackground as MatrixValueBackground;
                     if (sprites.animation.has(tile.name))
                         sprites.drawAnim(tile.name, context, x - startIndex, y, level.totalTime);
                     else {
@@ -68,7 +69,9 @@ export const createSpriteLayer = function (entities: Set<Entity>, width = 64, he
 export function createCollisionLayer(level: Level) {
     const resolvedTiles: Position[] = [];
 
-    const tileResolver = level.tileCollider.tiles;
+    const tileResolver = level.tileCollider?.tiles;
+    if (!tileResolver) return;
+
     const tileSize = tileResolver.tileSize;
 
     const getByIndexOriginal = tileResolver.getByIndex;

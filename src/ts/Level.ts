@@ -9,8 +9,8 @@ export default class Level {
 
     comp: Compositor;
     entities: Set<Entity>;
-    tiles: Matrix;
-    tileCollider: TileCollider;
+    tiles!: Matrix;
+    tileCollider: TileCollider | null;
 
     totalTime: number;
 
@@ -20,13 +20,19 @@ export default class Level {
 
         this.comp = new Compositor();
         this.entities = new Set();
-        this.tiles = new Matrix();
+        // this.tiles = new Matrix();
 
-        this.tileCollider = new TileCollider(this.tiles);
+        this.tileCollider = null;
+    }
+
+    public setCollisionGrid(matrix: Matrix) {
+        this.tileCollider = new TileCollider(matrix);
     }
 
     public update(deltaTime: number) {
         this.entities.forEach(entity => {
+            if (!this.tileCollider) return;
+
             entity.update(deltaTime);
 
             entity.pos.x += entity.vel.x * deltaTime;

@@ -1,1 +1,1 @@
-export type KeyboardHandleEventsType = Array<"keydown" | "keyup">;
+export type KeyboardHandleEvents = Array<"keydown" | "keyup">;

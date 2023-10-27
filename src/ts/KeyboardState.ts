@@ -1,4 +1,4 @@
-import { KeyboardHandleEventsType } from "../@types/keyboard";
+import { KeyboardHandleEvents } from "../@types/keyboard";
 import { PRESSED, RELEASED } from "./defines";
 
 export default class KeyboardState {
@@ -35,7 +35,7 @@ export default class KeyboardState {
     }
 
     public listenTo(window: Window & typeof globalThis) {
-        const eventNames: KeyboardHandleEventsType = ["keydown", "keyup"];
+        const eventNames: KeyboardHandleEvents = ["keydown", "keyup"];
 
         eventNames.forEach(eventName => {
             window.addEventListener(eventName, event => {

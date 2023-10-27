@@ -1,12 +1,12 @@
-import { MatrixValueInterface } from "../@types/levels";
+import { MatrixValue } from "../@types/levels";
 
 export class Matrix {
-    grid: MatrixValueInterface[][];
+    grid: MatrixValue[][];
     constructor() {
         this.grid = [];
     }
 
-    public forEach(callback: (tile: MatrixValueInterface, x: number, y: number) => void) {
+    public forEach(callback: (tile: MatrixValue, x: number, y: number) => void) {
         this.grid.forEach((column, x) => {
             column.forEach((value, y) => {
                 callback(value, x, y);
@@ -22,7 +22,7 @@ export class Matrix {
         return undefined;
     }
 
-    public set(x: number, y: number, value: MatrixValueInterface) {
+    public set(x: number, y: number, value: MatrixValue) {
         if (!this.grid[x]) {
             this.grid[x] = [];
         }

@@ -1,8 +1,8 @@
-import { loadLevel } from "./loaders";
 import { MARIO_INIT_POS } from "./defines";
 import { createMario, setupKeyboard } from "./helper";
 import Timer from "./Timer";
 import Camera from "./Camera";
+import { loadLevel } from "./loaders/level";
 // import { createCameraLayer, createCollisionLayer } from "./layers"
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;

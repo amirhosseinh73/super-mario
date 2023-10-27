@@ -1,11 +1,11 @@
-import { AnimationFrames, TileNamesType } from "../@types/levels";
+import { AnimationFrames, TileNames } from "../@types/levels";
 
 export default class SpriteSheet {
     image: CanvasImageSource;
     width: number;
     height: number;
-    tiles: Map<TileNamesType, HTMLCanvasElement[]>;
-    animation: Map<TileNamesType, (distance: number) => AnimationFrames>;
+    tiles: Map<TileNames, HTMLCanvasElement[]>;
+    animation: Map<TileNames, (distance: number) => AnimationFrames>;
 
     constructor(image: CanvasImageSource, width: number, height: number) {
         this.image = image;
@@ -15,11 +15,11 @@ export default class SpriteSheet {
         this.animation = new Map();
     }
 
-    public defineAnim(name: TileNamesType, animation: (distance: number) => AnimationFrames) {
+    public defineAnim(name: TileNames, animation: (distance: number) => AnimationFrames) {
         this.animation.set(name, animation);
     }
 
-    public define(name: TileNamesType, x: number, y: number, width: number, height: number) {
+    public define(name: TileNames, x: number, y: number, width: number, height: number) {
         const buffers = [false, true].map(flip => {
             const buffer = document.createElement("canvas");
             buffer.width = width;
@@ -40,12 +40,12 @@ export default class SpriteSheet {
         this.tiles.set(name, buffers);
     }
 
-    public defineTile(name: TileNamesType, x: number, y: number) {
+    public defineTile(name: TileNames, x: number, y: number) {
         this.define(name, x * this.width, y * this.height, this.width, this.height);
     }
 
     public draw(
-        name: TileNamesType,
+        name: TileNames,
         context: CanvasRenderingContext2D,
         x: number,
         y: number,
@@ -57,7 +57,7 @@ export default class SpriteSheet {
     }
 
     public drawAnim(
-        name: TileNamesType,
+        name: TileNames,
         context: CanvasRenderingContext2D,
         x: number,
         y: number,
@@ -67,7 +67,7 @@ export default class SpriteSheet {
         this.drawTile(animation(distance), context, x, y);
     }
 
-    public drawTile(name: TileNamesType, context: CanvasRenderingContext2D, x: number, y: number) {
+    public drawTile(name: TileNames, context: CanvasRenderingContext2D, x: number, y: number) {
         this.draw(name, context, x * this.width, y * this.height);
     }
 }
