@@ -27,8 +27,13 @@ export enum KEYBOARD_KEY {
     SPEED_X = "KeyX",
 }
 
-export const RENDERED_WIDTH = 256 + 16;
+export const RENDERED_WIDTH = 256;
 export const RENDERED_HEIGHT = 256;
+
+export enum CREAT_SPRITE_LAYER_DIMENTIONS {
+    width = 64,
+    height = 64,
+}
 
 export const SLOW_DRAG = 0.001;
 export const FAST_DRAG = 0.0002;

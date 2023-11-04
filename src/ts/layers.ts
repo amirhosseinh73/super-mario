@@ -6,7 +6,12 @@ import Level from "./Level";
 import { Matrix } from "./Math";
 import SpriteSheet from "./SpriteSheet";
 import TileResolver from "./TileResolver";
-import { RENDERED_HEIGHT, RENDERED_WIDTH, TILE_SIZE } from "./defines";
+import {
+    CREAT_SPRITE_LAYER_DIMENTIONS,
+    RENDERED_HEIGHT,
+    RENDERED_WIDTH,
+    TILE_SIZE,
+} from "./defines";
 
 export const createBackgroundLayer = function (level: Level, tiles: Matrix, sprites: SpriteSheet) {
     const resolver = new TileResolver(tiles);
@@ -45,7 +50,11 @@ export const createBackgroundLayer = function (level: Level, tiles: Matrix, spri
     };
 };
 
-export const createSpriteLayer = function (entities: Set<Entity>, width = 64, height = 64) {
+export const createSpriteLayer = function (
+    entities: Set<Entity>,
+    width = CREAT_SPRITE_LAYER_DIMENTIONS.width,
+    height = CREAT_SPRITE_LAYER_DIMENTIONS.width
+) {
     const spriteBuffer = document.createElement("canvas");
     spriteBuffer.width = width;
     spriteBuffer.height = height;

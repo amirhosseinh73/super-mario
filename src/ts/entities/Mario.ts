@@ -17,8 +17,8 @@ export const loadMario = async function () {
 };
 
 const createMarioFactory = function (sprite: SpriteSheet) {
-    const frames: MarioFrames[] = ["run-1", "run-2", "run-3"];
-    const runAnim = createAnim(frames, 6);
+    // const frames: MarioFrames[] = ["run-1", "run-2", "run-3"];
+    const runAnim = createAnim(["run-1", "run-2", "run-3"], 6);
 
     function routeFrame(mario: EntityWithTraits): MarioFrames {
         if (mario.jump.falling) return "jump";
@@ -34,11 +34,11 @@ const createMarioFactory = function (sprite: SpriteSheet) {
         return "idle";
     }
 
-    function setTurboState(this: any, turboOn: boolean) {
+    function setTurboState(this: EntityWithTraits, turboOn: boolean) {
         this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
     }
 
-    function drawMario(this: any, context: CanvasRenderingContext2D) {
+    function drawMario(this: EntityWithTraits, context: CanvasRenderingContext2D) {
         sprite.draw(routeFrame(this), context, 0, 0, this.go.heading < 0);
     }
 
