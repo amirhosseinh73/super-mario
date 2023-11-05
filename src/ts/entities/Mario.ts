@@ -1,9 +1,8 @@
-import { MarioFrames } from "../../@types/levels";
+import { AnimationFrames, MarioAnimationFrames, MarioFrames } from "../../@types/statics";
 import { EntityWithTraits } from "../../@types/traits";
 import Entity from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { FAST_DRAG, MARIO_INIT_SIZE, SLOW_DRAG } from "../defines";
-import { createAnim } from "../helper";
 import { loadSpriteSheet } from "../loaders";
 import Go from "../traits/Go";
 import Jump from "../traits/Jump";
@@ -17,8 +16,7 @@ export const loadMario = async function () {
 };
 
 const createMarioFactory = function (sprite: SpriteSheet) {
-    // const frames: MarioFrames[] = ["run-1", "run-2", "run-3"];
-    const runAnim = createAnim(["run-1", "run-2", "run-3"], 6);
+    const runAnim = sprite.animations.get("run") as (distance: number) => AnimationFrames;
 
     function routeFrame(mario: EntityWithTraits): MarioFrames {
         if (mario.jump.falling) return "jump";
@@ -28,7 +26,7 @@ const createMarioFactory = function (sprite: SpriteSheet) {
                 return "break";
             }
 
-            return runAnim(mario.go.distance) as MarioFrames;
+            return runAnim(mario.go.distance) as MarioAnimationFrames;
         }
 
         return "idle";
@@ -47,13 +45,12 @@ const createMarioFactory = function (sprite: SpriteSheet) {
         mario.size.set(MARIO_INIT_SIZE.w, MARIO_INIT_SIZE.h);
 
         mario.addTrait(new Go());
-        mario.go.dragFactor = SLOW_DRAG;
-
         mario.addTrait(new Jump());
 
         mario.turbo = setTurboState;
-
         mario.draw = drawMario;
+
+        mario.turbo(false);
 
         return mario;
     };

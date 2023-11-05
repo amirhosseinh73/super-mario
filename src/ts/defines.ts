@@ -15,6 +15,11 @@ export enum MARIO_INIT_SIZE {
     h = 16,
 }
 
+export enum ENTITY_INIT_SIZE {
+    w = 16,
+    h = 16,
+}
+
 export const GRAVITY = 1500;
 
 export const PRESSED = 1;
@@ -41,4 +46,6 @@ export const FAST_DRAG = 0.0002;
 export const Sides = {
     TOP: Symbol("top"),
     BOTTOM: Symbol("bottom"),
+    RIGHT: Symbol("right"),
+    LEFT: Symbol("left"),
 } as const;

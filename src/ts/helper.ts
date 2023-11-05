@@ -1,4 +1,4 @@
-import { AnimationFrames } from "../@types/levels";
+import { AnimationFrames } from "../@types/statics";
 import { EntityWithTraits } from "../@types/traits";
 import Camera from "./Camera";
 import Entity from "./Entity";
@@ -23,7 +23,7 @@ export const setupKeyboard = function (mario: EntityWithTraits) {
     });
 
     input.addMapping(KEYBOARD_KEY.SPEED_X, (keyState: boolean) => {
-        mario.turbo(keyState);
+        if (mario.turbo) mario.turbo(keyState);
     });
 
     input.addMapping(KEYBOARD_KEY.ARROW_RIGHT, (keyState: boolean) => {

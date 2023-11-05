@@ -1,5 +1,6 @@
 import { Position } from "../@types/global";
 import { MatrixValueBackground } from "../@types/levels";
+import { AnimationNames } from "../@types/statics";
 import Camera from "./Camera";
 import Entity from "./Entity";
 import Level from "./Level";
@@ -30,11 +31,15 @@ export const createBackgroundLayer = function (level: Level, tiles: Matrix, spri
             if (col) {
                 col.forEach((tileBackground, y) => {
                     const tile = tileBackground as MatrixValueBackground;
-                    if (sprites.animation.has(tile.name))
-                        sprites.drawAnim(tile.name, context, x - startIndex, y, level.totalTime);
-                    else {
-                        sprites.drawTile(tile.name, context, x - startIndex, y);
-                    }
+                    if (sprites.animations.has(tile.name as AnimationNames))
+                        sprites.drawAnim(
+                            tile.name as AnimationNames,
+                            context,
+                            x - startIndex,
+                            y,
+                            level.totalTime
+                        );
+                    else sprites.drawTile(tile.name, context, x - startIndex, y);
                 });
             }
         }
@@ -106,8 +111,8 @@ export function createCollisionLayer(level: Level) {
         level.entities.forEach(entity => {
             context.beginPath();
             context.rect(
-                entity.pos.x - camera.pos.x,
-                entity.pos.y - camera.pos.y,
+                entity.bounds.left - camera.pos.x,
+                entity.bounds.top - camera.pos.y,
                 entity.size.x,
                 entity.size.y
             );

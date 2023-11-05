@@ -1,22 +1,26 @@
-import { AnimationFrames, TileNames } from "../@types/levels";
+import { SpritesAnimation } from "../@types/levels";
+import { AnimationFrames, TileNames } from "../@types/statics";
 
 export default class SpriteSheet {
     image: CanvasImageSource;
     width: number;
     height: number;
     tiles: Map<TileNames, HTMLCanvasElement[]>;
-    animation: Map<TileNames, (distance: number) => AnimationFrames>;
+    animations: Map<SpritesAnimation["name"], (distance: number) => AnimationFrames>;
 
     constructor(image: CanvasImageSource, width: number, height: number) {
         this.image = image;
         this.width = width;
         this.height = height;
         this.tiles = new Map();
-        this.animation = new Map();
+        this.animations = new Map();
     }
 
-    public defineAnim(name: TileNames, animation: (distance: number) => AnimationFrames) {
-        this.animation.set(name, animation);
+    public defineAnim(
+        name: SpritesAnimation["name"],
+        animation: (distance: number) => AnimationFrames
+    ) {
+        this.animations.set(name, animation);
     }
 
     public define(name: TileNames, x: number, y: number, width: number, height: number) {
@@ -57,13 +61,14 @@ export default class SpriteSheet {
     }
 
     public drawAnim(
-        name: TileNames,
+        name: SpritesAnimation["name"],
         context: CanvasRenderingContext2D,
         x: number,
         y: number,
         distance: number
     ) {
-        const animation = this.animation.get(name) as (distance: number) => AnimationFrames;
+        const animation = this.animations.get(name) as (distance: number) => AnimationFrames;
+
         this.drawTile(animation(distance), context, x, y);
     }
 

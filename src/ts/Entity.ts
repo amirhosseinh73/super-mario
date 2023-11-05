@@ -1,10 +1,11 @@
-import { MarioTraitNames } from "../@types/traits";
+import { EntityTraitNames } from "../@types/traits";
+import BoundingBox from "./BoundingBox";
 import { Vec2 } from "./Math";
 
 export class Trait {
-    NAME: MarioTraitNames;
+    NAME: EntityTraitNames;
 
-    constructor(name: MarioTraitNames) {
+    constructor(name: EntityTraitNames) {
         this.NAME = name;
     }
 
@@ -21,12 +22,19 @@ export default class Entity {
     pos: Vec2;
     vel: Vec2;
     size: Vec2;
+    offset: Vec2;
+    bounds: BoundingBox;
     traits: Trait[];
+    lifetime: number;
 
     constructor() {
         this.pos = new Vec2(0, 0);
         this.vel = new Vec2(0, 0);
         this.size = new Vec2(0, 0);
+        this.offset = new Vec2(0, 0);
+        this.bounds = new BoundingBox(this.pos, this.size, this.offset);
+
+        this.lifetime = 0;
 
         this.traits = [];
     }
@@ -46,9 +54,11 @@ export default class Entity {
         this.traits.forEach(trait => {
             trait.update(this, deltaTime);
         });
+
+        this.lifetime += deltaTime;
     }
 
     public draw!: (context: CanvasRenderingContext2D) => void;
 
-    public turbo!: (turboOn: boolean) => void;
+    public turbo: ((turboOn: boolean) => void) | undefined;
 }

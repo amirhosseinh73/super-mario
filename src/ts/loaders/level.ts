@@ -3,9 +3,9 @@ import {
     BackgroundsTile,
     LevelsInterface,
     RangeType,
-    levelsFileName,
     patternsData,
 } from "../../@types/levels";
+import { levelsFileName } from "../../@types/statics";
 import Level from "../Level";
 import { Matrix } from "../Math";
 import { createBackgroundLayer, createSpriteLayer } from "../layers";

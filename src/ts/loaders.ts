@@ -1,6 +1,11 @@
-import { LevelsInterface, SpritesFileNames, SpritesInterface } from "../@types/levels";
+import { EntityFactories, LevelsInterface, SpritesInterface } from "../@types/levels";
+import { EntityNames, SpritesFileNames } from "../@types/statics";
+import { EntityWithTraits } from "../@types/traits";
 import SpriteSheet from "./SpriteSheet";
 import { TILE_SIZE } from "./defines";
+import { loadGoomba } from "./entities/Goomba";
+import { loadKoopa } from "./entities/Koopa";
+import { loadMario } from "./entities/Mario";
 import { createAnim } from "./helper";
 
 export const loadImage = function (url: string): Promise<CanvasImageSource> {
@@ -42,4 +47,28 @@ export const loadSpriteSheet = async function (name: SpritesFileNames) {
     });
 
     return sprites;
+};
+
+export const loadEntities = function () {
+    const entityFactories: EntityFactories = {
+        mario: function (): EntityWithTraits {
+            throw new Error("Function not implemented.");
+        },
+        goomba: function (): EntityWithTraits {
+            throw new Error("Function not implemented.");
+        },
+        koopa: function (): EntityWithTraits {
+            throw new Error("Function not implemented.");
+        },
+    };
+
+    const AddAs = function (name: EntityNames) {
+        return (factory: () => EntityWithTraits) => (entityFactories[name] = factory);
+    };
+
+    return Promise.all([
+        loadMario().then(AddAs("mario")),
+        loadGoomba().then(AddAs("goomba")),
+        loadKoopa().then(AddAs("koopa")),
+    ]).then(() => entityFactories);
 };
