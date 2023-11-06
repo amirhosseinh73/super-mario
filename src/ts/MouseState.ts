@@ -43,13 +43,19 @@ export const setupMouseEvents = function (mario: EntityWithTraits) {
         },
     };
 
-    const mouseEvents = ["mousedown", "mouseup", "mouseleave"] as const;
+    const mouseEvents = [
+        "pointerdown",
+        "pointerup",
+        "pointercancel",
+        "pointerout",
+        "pointerleave",
+    ] as const;
 
     mouseEvents.forEach(event => {
         for (const item in buttons) {
             const btn = buttons[item as ButtonActions];
             btn.elem.addEventListener(event, function () {
-                if (event === "mousedown") {
+                if (event === "pointerdown") {
                     btn.handle = true;
                     return btn.fn(true);
                 }
