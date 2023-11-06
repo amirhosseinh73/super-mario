@@ -6,10 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link type="text/css" rel="stylesheet" href="/assets/css/global.css" />
         <title>Super Mario Game</title>
-      <script type="module" crossorigin src="/assets/index-7b6a90bc.js"></script>
+      <script type="module" crossorigin src="/assets/index-40e6c9a5.js"></script>
     </head>
     <body>
-        <article class="hint">
+        <canvas id="screen" width="256" height="256"></canvas>
+
+        <aside class="hint">
             Hint For Play:
 
             <section>Use <strong>Arrow keys</strong> to move left and right</section>
@@ -17,8 +19,16 @@
             <section>Press <strong>space</strong> to jump</section>
 
             <section>Press and hold <strong>X</strong> for speed up mario</section>
-        </article>
-        <canvas id="screen" width="256" height="256"></canvas>
+        </aside>
+
+        <section class="buttons">
+            <button type="button" class="movement" data-action="left">Left</button>
+            <button type="button" class="movement" data-action="right">Right</button>
+
+            <button type="button" class="action" data-action="jump">Jump</button>
+            <button type="button" class="action" data-action="speed">Speed</button>
+        </section>
+
         
     </body>
 </html>

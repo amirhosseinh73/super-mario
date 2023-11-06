@@ -8,7 +8,9 @@
         <title>Super Mario Game</title>
     </head>
     <body>
-        <article class="hint">
+        <canvas id="screen" width="256" height="256"></canvas>
+
+        <aside class="hint">
             Hint For Play:
 
             <section>Use <strong>Arrow keys</strong> to move left and right</section>
@@ -16,8 +18,16 @@
             <section>Press <strong>space</strong> to jump</section>
 
             <section>Press and hold <strong>X</strong> for speed up mario</section>
-        </article>
-        <canvas id="screen" width="256" height="256"></canvas>
+        </aside>
+
+        <section class="buttons">
+            <button type="button" class="movement" data-action="left">Left</button>
+            <button type="button" class="movement" data-action="right">Right</button>
+
+            <button type="button" class="action" data-action="jump">Jump</button>
+            <button type="button" class="action" data-action="speed">Speed</button>
+        </section>
+
         <script type="module" src="/src/ts/main.ts"></script>
     </body>
 </html>

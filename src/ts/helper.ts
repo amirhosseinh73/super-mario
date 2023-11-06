@@ -3,6 +3,7 @@ import { EntityWithTraits } from "../@types/traits";
 import Camera from "./Camera";
 import Entity from "./Entity";
 import KeyboardState from "./KeyboardState";
+import { jumpAction, moveLeftAction, moveRightAction, speedAction } from "./actions";
 import { KEYBOARD_KEY } from "./defines";
 
 export const createAnim = function (frames: AnimationFrames[], frameLen: number) {
@@ -18,20 +19,19 @@ export const setupKeyboard = function (mario: EntityWithTraits) {
     const input = new KeyboardState();
 
     input.addMapping(KEYBOARD_KEY.SPACE, (keyState: boolean) => {
-        if (keyState) mario.jump.start();
-        else mario.jump.cancel();
+        jumpAction(mario, keyState);
     });
 
     input.addMapping(KEYBOARD_KEY.SPEED_X, (keyState: boolean) => {
-        if (mario.turbo) mario.turbo(keyState);
+        speedAction(mario, keyState);
     });
 
     input.addMapping(KEYBOARD_KEY.ARROW_RIGHT, (keyState: boolean) => {
-        mario.go.dir += keyState ? 1 : -1;
+        moveRightAction(mario, keyState);
     });
 
     input.addMapping(KEYBOARD_KEY.ARROW_LEFT, (keyState: boolean) => {
-        mario.go.dir += keyState ? -1 : 1;
+        moveLeftAction(mario, keyState);
     });
 
     return input;

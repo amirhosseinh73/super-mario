@@ -11,23 +11,25 @@ body {
     width: 100vw;
     height: 100vw;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
     margin: 0;
     padding: 1rem;
+    gap: 1rem;
+    display: grid;
+    grid-template-rows: 75vh 1fr;
+    grid-template-columns: 75vh 1fr;
+    align-items: start;
 }
 
 #screen {
     max-width: 100%;
     max-height: 100%;
-    width: var(--rendered-width);
+    width: 100%;
 }
 
 .hint {
-    background-color: lightgray;
+    /* background-color: lightgray; */
     font-size: 1.25rem;
     color: #333333;
-    width: var(--rendered-width);
     display: block;
     line-height: 1.25;
     margin-bottom: 0.5rem;
@@ -36,4 +38,42 @@ body {
 
 .hint strong {
     text-transform: uppercase;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+}
+
+.movement,
+.action {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    background-color: transparent;
+    border: 10px double #ff0012;
+    cursor: pointer;
+    outline: none;
+}
+
+.movement {
+    border-radius: 1.5rem;
+    border-color: #656565;
+}
+
+.movement:hover {
+    background-color: #cacaca;
+}
+
+.movement[data-action="right"] {
+    margin-right: auto;
+    margin-left: 0.5rem;
+}
+
+.action:hover {
+    background-color: #f4b0b3;
+}
+
+.action[data-action="jump"] {
+    margin-right: 2rem;
 }

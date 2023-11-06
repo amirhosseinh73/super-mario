@@ -4,6 +4,7 @@ import Timer from "./Timer";
 import Camera from "./Camera";
 import { loadLevel } from "./loaders/level";
 import { loadEntities } from "./loaders";
+import { setupMouseEvents } from "./MouseState";
 // import { createCameraLayer, createCollisionLayer } from "./layers";
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;
@@ -29,6 +30,8 @@ Promise.all([loadEntities(), loadLevel("1-1")]).then(([entity, level]) => {
 
     const input = setupKeyboard(mario);
     input.listenTo(window);
+
+    setupMouseEvents(mario);
 
     const timer = new Timer();
     timer.update = function update(deltaTime: number) {
