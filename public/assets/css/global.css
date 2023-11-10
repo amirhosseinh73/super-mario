@@ -1,10 +1,9 @@
-* {
-    box-sizing: border-box;
-}
-
 :root {
+    --rendered-width: calc(256px * 2);
+
+    box-sizing: border-box;
     font-size: 16px;
-    --rendered-width: calc(256px * 2)
+    user-select: none;
 }
 
 body {
@@ -27,7 +26,6 @@ body {
 }
 
 .hint {
-    /* background-color: lightgray; */
     font-size: 1.25rem;
     color: #333333;
     display: block;
@@ -42,7 +40,7 @@ body {
 
 .buttons {
     width: 100%;
-    display: flex;
+    display: none;
 }
 
 .movement,
@@ -54,6 +52,7 @@ body {
     border: 10px double #ff0012;
     cursor: pointer;
     outline: none;
+    font-size: 0.7rem;
 }
 
 .movement {
@@ -77,3 +76,47 @@ body {
 .action[data-action="jump"] {
     margin-right: 2rem;
 }
+
+@media (width <= 768px) {
+    :root {
+        font-size: 12px;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 90vw;
+        height: 90vh;
+        margin: auto;
+    }
+
+    .hint {
+        display: none;
+    }
+
+    .buttons {
+        display: flex;
+    }
+
+    .movement,
+    .action {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+}
+/* 
+@media (width <= 768px) and (orientation: landscape) {
+    body {
+        justify-content: flex-start;
+    }
+
+    #screen {
+        width: 65vh;
+        height: 65vh;
+    }
+
+    .buttons {
+        max-width: 90%;
+    }
+} */
