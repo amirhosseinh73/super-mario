@@ -16,7 +16,7 @@ export default class PlayerController extends Trait {
         this.player = entity;
     }
 
-    public update(entity: Entity, deltaTime: number, level: Level): void {
+    public update(_entity: Entity, _deltaTime: number, level: Level): void {
         if (!this.player) return;
 
         if (level.entities.has(this.player)) return;

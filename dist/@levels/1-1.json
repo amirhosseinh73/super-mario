@@ -248,5 +248,53 @@
                 }
             ]
         }
-    }
+    },
+
+    "entities": [
+        {
+            "name": "koopa",
+            "pos": [260, 0]
+        },
+        {
+            "name": "goomba",
+            "pos": [220, 0]
+        },
+        { "name": "goomba", "pos": [240, 0] },
+        { "name": "goomba", "pos": [280, 0] },
+        { "name": "goomba", "pos": [320, 0] },
+        { "name": "goomba", "pos": [420, 0] },
+        { "name": "goomba", "pos": [520, 0] },
+        { "name": "goomba", "pos": [620, 0] },
+        { "name": "goomba", "pos": [720, 0] },
+        { "name": "goomba", "pos": [820, 0] },
+        { "name": "goomba", "pos": [920, 0] },
+        { "name": "goomba", "pos": [860, 0] },
+        { "name": "goomba", "pos": [670, 0] },
+        { "name": "goomba", "pos": [1670, 0] },
+        { "name": "goomba", "pos": [1770, 0] },
+        { "name": "goomba", "pos": [1870, 0] },
+        { "name": "goomba", "pos": [1970, 0] },
+        { "name": "goomba", "pos": [2670, 0] },
+        { "name": "goomba", "pos": [3670, 0] },
+        { "name": "goomba", "pos": [4670, 0] },
+        { "name": "goomba", "pos": [1470, 0] },
+        { "name": "goomba", "pos": [2370, 0] },
+        { "name": "goomba", "pos": [2570, 0] },
+        { "name": "goomba", "pos": [2870, 0] },
+        { "name": "goomba", "pos": [2970, 0] },
+        { "name": "goomba", "pos": [3070, 0] },
+        { "name": "goomba", "pos": [3370, 0] },
+        { "name": "goomba", "pos": [3570, 0] },
+        { "name": "goomba", "pos": [3690, 0] },
+        { "name": "goomba", "pos": [3770, 0] },
+        { "name": "goomba", "pos": [3870, 0] },
+        { "name": "goomba", "pos": [3970, 0] },
+        { "name": "goomba", "pos": [5270, 0] },
+        { "name": "goomba", "pos": [4870, 0] },
+        { "name": "goomba", "pos": [4270, 0] },
+        { "name": "goomba", "pos": [4170, 0] },
+        { "name": "goomba", "pos": [4370, 0] },
+        { "name": "goomba", "pos": [4470, 0] },
+        { "name": "goomba", "pos": [4600, 0] }
+    ]
 }
