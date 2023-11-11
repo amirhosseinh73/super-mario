@@ -1,5 +1,6 @@
 import { EntityTraitNames } from "../@types/traits";
 import BoundingBox from "./BoundingBox";
+import Level from "./Level";
 import { Vec2 } from "./Math";
 
 export class Trait {
@@ -9,12 +10,18 @@ export class Trait {
         this.NAME = name;
     }
 
+    public collides(_us: Entity, _them: Entity) {}
+
     public obstruct(_entity: Entity, _side: Symbol): void {
         // console.log(side)
     }
 
-    public update(_entity: Entity, _deltaTime: number): void {
-        console.warn("Unhandled update call in Trait");
+    public update(
+        _entity: Entity,
+        _deltaTime: number,
+        _level: Level | undefined = undefined
+    ): void {
+        // console.warn("Unhandled update call in Trait");
     }
 }
 
@@ -44,21 +51,27 @@ export default class Entity {
         (this as any)[trait.NAME] = trait;
     }
 
+    public collides(candidate: Entity) {
+        this.traits.forEach(trait => {
+            trait.collides(this, candidate);
+        });
+    }
+
     public obstruct(side: Symbol) {
         this.traits.forEach(trait => {
             trait.obstruct(this, side);
         });
     }
 
-    public update(deltaTime: number) {
+    public update(deltaTime: number, level: Level) {
         this.traits.forEach(trait => {
-            trait.update(this, deltaTime);
+            trait.update(this, deltaTime, level);
         });
 
         this.lifetime += deltaTime;
     }
 
-    public draw!: (context: CanvasRenderingContext2D) => void;
+    public draw(_context: CanvasRenderingContext2D) {}
 
     public turbo: ((turboOn: boolean) => void) | undefined;
 }

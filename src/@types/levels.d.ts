@@ -12,6 +12,7 @@ export interface LevelsInterface {
     spritesheet: SpritesFileNames;
     layers: LayersData[];
     patterns: patternsData;
+    entities: entitiesData[];
 }
 
 export type RangeType =
@@ -47,6 +48,11 @@ export type patternsData = {
 export interface LayersData {
     tiles: BackgroundLayers[];
 }
+
+export type entitiesData = {
+    name: EntityNames;
+    pos: number[];
+};
 
 export interface MatrixValue {
     name?: TileNames;

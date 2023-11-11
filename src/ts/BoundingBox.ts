@@ -11,6 +11,15 @@ export default class BoundingBox {
         this.offset = offset;
     }
 
+    public overlaps(box: BoundingBox) {
+        return (
+            this.bottom > box.top &&
+            this.top < box.bottom &&
+            this.left < box.right &&
+            this.right > box.left
+        );
+    }
+
     public get bottom() {
         return this.pos.y + this.size.y + this.offset.y;
     }

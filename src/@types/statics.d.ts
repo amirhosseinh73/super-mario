@@ -7,7 +7,7 @@ export type MarioFrames = "idle" | "break" | "jump" | MarioAnimationFrames;
 
 export type ChanceAnimationFrames = "chance-1" | "chance-2" | "chance-3";
 
-export type GoombaAnimationFrames = "walk-1" | "walk-2";
+export type GoombaAnimationFrames = "walk-1" | "walk-2" | "flat";
 export type GoombaFrames = GoombaAnimationFrames | "flat";
 
 export type AnimationNames = "chance" | "run" | "walk";

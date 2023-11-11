@@ -6,6 +6,8 @@ import { FAST_DRAG, MARIO_INIT_SIZE, SLOW_DRAG } from "../defines";
 import { loadSpriteSheet } from "../loaders";
 import Go from "../traits/Go";
 import Jump from "../traits/Jump";
+import Killable from "../traits/Killable";
+import Stomper from "../traits/Stomper";
 
 export const loadMario = async function () {
     // const sprite = await loadSpriteSheet("mario");
@@ -46,6 +48,10 @@ const createMarioFactory = function (sprite: SpriteSheet) {
 
         mario.addTrait(new Go());
         mario.addTrait(new Jump());
+        mario.addTrait(new Stomper());
+        mario.addTrait(new Killable());
+
+        mario.killable!.removeAfter = 0;
 
         mario.turbo = setTurboState;
         mario.draw = drawMario;

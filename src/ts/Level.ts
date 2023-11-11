@@ -1,5 +1,6 @@
 import Compositor from "./Compositor";
 import Entity from "./Entity";
+import EntityCollider from "./EntityCollider";
 import { Matrix } from "./Math";
 import TileCollider from "./TileCollider";
 import { GRAVITY } from "./defines";
@@ -12,6 +13,8 @@ export default class Level {
     tiles!: Matrix;
     tileCollider: TileCollider | null;
 
+    entityCollider: EntityCollider;
+
     totalTime: number;
 
     constructor() {
@@ -21,6 +24,8 @@ export default class Level {
         this.comp = new Compositor();
         this.entities = new Set();
         // this.tiles = new Matrix();
+
+        this.entityCollider = new EntityCollider(this.entities);
 
         this.tileCollider = null;
     }
@@ -33,7 +38,7 @@ export default class Level {
         this.entities.forEach(entity => {
             if (!this.tileCollider) return;
 
-            entity.update(deltaTime);
+            entity.update(deltaTime, this);
 
             entity.pos.x += entity.vel.x * deltaTime;
             this.tileCollider.checkX(entity);
@@ -42,6 +47,10 @@ export default class Level {
             this.tileCollider.checkY(entity);
 
             entity.vel.y += this.gravity * deltaTime;
+        });
+
+        this.entities.forEach(entity => {
+            this.entityCollider.check(entity);
         });
 
         this.totalTime += deltaTime;
