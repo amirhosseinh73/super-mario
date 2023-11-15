@@ -1,14 +1,16 @@
 import { EntityWithTraits } from "../../@types/traits";
 import Entity, { Trait } from "../Entity";
 import Level from "../Level";
-import { MARIO_INIT_POS } from "../defines";
+import { Vec2 } from "../Math";
 
 export default class PlayerController extends Trait {
     player: EntityWithTraits | null;
+    checkpoint: Vec2;
 
     constructor() {
         super("playerController");
 
+        this.checkpoint = new Vec2(0, 0);
         this.player = null;
     }
 
@@ -22,7 +24,7 @@ export default class PlayerController extends Trait {
         if (level.entities.has(this.player)) return;
 
         this.player.killable?.revive();
-        this.player.pos.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y);
+        this.player.pos.set(this.checkpoint.x, this.checkpoint.y);
         level.entities.add(this.player);
     }
 }

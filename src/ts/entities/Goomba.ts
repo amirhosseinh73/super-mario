@@ -35,7 +35,7 @@ export class Behavior extends Trait {
 const createGoombaFactory = function (sprite: SpriteSheet) {
     const walkAnim = sprite.animations.get("walk") as (distance: number) => AnimationFrames;
 
-    const routeAnim = function (goomba: EntityWithTraits) {
+    const routeAnim = function (goomba: EntityWithTraits): AnimationFrames {
         if (goomba.killable!.dead) return "flat";
 
         return walkAnim(goomba.lifetime);

@@ -8,10 +8,14 @@ export type MarioFrames = "idle" | "break" | "jump" | MarioAnimationFrames;
 export type ChanceAnimationFrames = "chance-1" | "chance-2" | "chance-3";
 
 export type GoombaAnimationFrames = "walk-1" | "walk-2" | "flat";
-export type GoombaFrames = GoombaAnimationFrames | "flat";
+export type KoopaAnimationFrames = "walk-1" | "walk-2" | "hiding" | "hiding-with-legs";
 
 export type AnimationNames = "chance" | "run" | "walk";
-export type AnimationFrames = MarioAnimationFrames | ChanceAnimationFrames | GoombaAnimationFrames;
+export type AnimationFrames =
+    | MarioAnimationFrames
+    | ChanceAnimationFrames
+    | GoombaAnimationFrames
+    | KoopaAnimationFrames;
 
 export type TileNames =
     | "sky"
@@ -22,7 +26,8 @@ export type TileNames =
     | ChanceAnimationFrames
     | pipePatternTiles
     | cloudPatternTiles
-    | GoombaAnimationFrames;
+    | GoombaAnimationFrames
+    | KoopaAnimationFrames;
 
 export type MarioSide = "bottom" | "top";
 
