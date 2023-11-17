@@ -10,7 +10,7 @@ export type ChanceAnimationFrames = "chance-1" | "chance-2" | "chance-3";
 export type GoombaAnimationFrames = "walk-1" | "walk-2" | "flat";
 export type KoopaAnimationFrames = "walk-1" | "walk-2" | "hiding" | "hiding-with-legs";
 
-export type AnimationNames = "chance" | "run" | "walk";
+export type AnimationNames = "chance" | "run" | "walk" | "wake";
 export type AnimationFrames =
     | MarioAnimationFrames
     | ChanceAnimationFrames

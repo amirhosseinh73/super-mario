@@ -1,24 +1,23 @@
-import Entity, { Trait } from "../Entity";
+import { EntityWithTraits } from "../../@types/traits";
+import { Trait } from "../Entity";
 
 export default class Stomper extends Trait {
-    queueBounce: boolean;
     bounceSpeed: number;
 
     constructor() {
         super("stomper");
 
         this.bounceSpeed = 400;
-        this.queueBounce = false;
     }
 
-    public bounce() {
-        this.queueBounce = true;
+    public bounce(us: EntityWithTraits, them: EntityWithTraits) {
+        us.bounds.bottom = them.bounds.top;
+        us.vel.y = -this.bounceSpeed;
     }
 
-    public update(entity: Entity, _deltaTime: number): void {
-        if (!this.queueBounce) return;
-
-        entity.vel.y = -this.bounceSpeed;
-        this.queueBounce = false;
+    public collides(us: EntityWithTraits, them: EntityWithTraits): void {
+        if (them.killable && us.vel.y > them.vel.y) {
+            this.bounce(us, them);
+        }
     }
 }

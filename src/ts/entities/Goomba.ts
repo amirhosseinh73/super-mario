@@ -5,7 +5,7 @@ import SpriteSheet from "../SpriteSheet";
 import { ENTITY_INIT_SIZE } from "../defines";
 import { loadSpriteSheet } from "../loaders";
 import Killable from "../traits/Killable";
-import PendulumWalk from "../traits/PendulumWalk";
+import PendulumMove from "../traits/PendulumMove";
 
 export const loadGoomba = async function () {
     return loadSpriteSheet("goomba").then(createGoombaFactory);
@@ -26,9 +26,8 @@ export class Behavior extends Trait {
             return;
         }
 
-        them.stomper.bounce();
         us.killable!.kill();
-        us.pendulumWalk.speed = 0;
+        us.pendulumMove.speed = 0;
     }
 }
 
@@ -49,7 +48,7 @@ const createGoombaFactory = function (sprite: SpriteSheet) {
         const goomba = new Entity() as EntityWithTraits;
         goomba.size.set(ENTITY_INIT_SIZE.w, ENTITY_INIT_SIZE.h);
 
-        goomba.addTrait(new PendulumWalk());
+        goomba.addTrait(new PendulumMove());
         goomba.addTrait(new Behavior());
         goomba.addTrait(new Killable());
 
