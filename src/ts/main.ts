@@ -8,7 +8,7 @@ import { setupMouseEvents } from "./MouseState";
 import Entity from "./Entity";
 import PlayerController from "./traits/PlayerController";
 import { EntityWithTraits } from "../@types/traits";
-// import { createCollisionLayer } from "./layers";
+import { createCollisionLayer } from "./layers";
 
 const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     const playerEnv = new Entity();
@@ -35,8 +35,8 @@ const main = async function (canvas: HTMLCanvasElement) {
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
 
-    // const debugLayers = createCollisionLayer(level);
-    // if (debugLayers) level.comp.layers.push(debugLayers);
+    const debugLayers = createCollisionLayer(level);
+    if (debugLayers) level.comp.layers.push(debugLayers);
 
     const input = setupKeyboard(mario);
     input.listenTo(window);

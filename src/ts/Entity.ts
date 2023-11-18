@@ -5,9 +5,21 @@ import { Vec2 } from "./Math";
 
 export class Trait {
     NAME: EntityTraitNames;
+    tasks: Array<Function>;
 
     constructor(name: EntityTraitNames) {
         this.NAME = name;
+
+        this.tasks = [];
+    }
+
+    public finalize() {
+        this.tasks.forEach(task => task());
+        this.tasks.length = 0;
+    }
+
+    public queue(task: () => void) {
+        this.tasks.push(task);
     }
 
     public collides(_us: Entity, _them: Entity) {}
@@ -75,6 +87,12 @@ export default class Entity {
     }
 
     public draw(_context: CanvasRenderingContext2D) {}
+
+    public finalize() {
+        this.traits.forEach(trait => {
+            trait.finalize();
+        });
+    }
 
     public turbo: ((turboOn: boolean) => void) | undefined;
 }

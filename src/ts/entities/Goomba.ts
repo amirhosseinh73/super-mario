@@ -22,7 +22,7 @@ export class Behavior extends Trait {
         if (!them.stomper) return;
 
         if (them.vel.y <= us.vel.y) {
-            them.killable!.kill();
+            them.killable?.kill();
             return;
         }
 

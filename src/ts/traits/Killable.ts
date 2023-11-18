@@ -15,7 +15,7 @@ export default class Killable extends Trait {
     }
 
     public kill() {
-        this.dead = true;
+        this.queue(() => (this.dead = true));
     }
 
     public revive() {
@@ -30,6 +30,8 @@ export default class Killable extends Trait {
 
         if (this.deadTime <= this.removeAfter) return;
 
-        level.entities.delete(entity);
+        this.queue(() => {
+            level.entities.delete(entity);
+        });
     }
 }
