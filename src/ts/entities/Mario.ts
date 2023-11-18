@@ -7,6 +7,8 @@ import { loadSpriteSheet } from "../loaders";
 import Go from "../traits/Go";
 import Jump from "../traits/Jump";
 import Killable from "../traits/Killable";
+import Physics from "../traits/Physics";
+import Solid from "../traits/Solid";
 import Stomper from "../traits/Stomper";
 
 export const loadMario = async function () {
@@ -46,6 +48,8 @@ const createMarioFactory = function (sprite: SpriteSheet) {
         const mario = new Entity() as EntityWithTraits;
         mario.size.set(MARIO_INIT_SIZE.w, MARIO_INIT_SIZE.h);
 
+        mario.addTrait(new Physics());
+        mario.addTrait(new Solid());
         mario.addTrait(new Go());
         mario.addTrait(new Jump());
         mario.addTrait(new Stomper());

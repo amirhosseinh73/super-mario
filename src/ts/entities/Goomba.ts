@@ -6,6 +6,8 @@ import { ENTITY_INIT_SIZE } from "../defines";
 import { loadSpriteSheet } from "../loaders";
 import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
+import Physics from "../traits/Physics";
+import Solid from "../traits/Solid";
 
 export const loadGoomba = async function () {
     return loadSpriteSheet("goomba").then(createGoombaFactory);
@@ -48,6 +50,8 @@ const createGoombaFactory = function (sprite: SpriteSheet) {
         const goomba = new Entity() as EntityWithTraits;
         goomba.size.set(ENTITY_INIT_SIZE.w, ENTITY_INIT_SIZE.h);
 
+        goomba.addTrait(new Physics());
+        goomba.addTrait(new Solid());
         goomba.addTrait(new PendulumMove());
         goomba.addTrait(new Behavior());
         goomba.addTrait(new Killable());

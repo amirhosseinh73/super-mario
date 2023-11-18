@@ -1,3 +1,4 @@
+import { getByIndexReturnType } from "../@types/tileResorver";
 import { EntityTraitNames } from "../@types/traits";
 import BoundingBox from "./BoundingBox";
 import Level from "./Level";
@@ -24,7 +25,11 @@ export class Trait {
 
     public collides(_us: Entity, _them: Entity) {}
 
-    public obstruct(_entity: Entity, _side: Symbol): void {
+    public obstruct(
+        _entity: Entity,
+        _side: Symbol,
+        _match: getByIndexReturnType | undefined = undefined
+    ): void {
         // console.log(side)
     }
 
@@ -72,9 +77,9 @@ export default class Entity {
         });
     }
 
-    public obstruct(side: Symbol) {
+    public obstruct(side: Symbol, match: getByIndexReturnType | undefined = undefined) {
         this.traits.forEach(trait => {
-            trait.obstruct(this, side);
+            trait.obstruct(this, side, match);
         });
     }
 

@@ -18,7 +18,7 @@ export const createBackgroundLayer = function (level: Level, tiles: Matrix, spri
     const resolver = new TileResolver(tiles);
 
     const buffer = document.createElement("canvas");
-    buffer.width = RENDERED_WIDTH;
+    buffer.width = RENDERED_WIDTH + 16;
     buffer.height = RENDERED_HEIGHT;
 
     const context = buffer.getContext("2d") as CanvasRenderingContext2D;
