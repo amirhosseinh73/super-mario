@@ -1,3 +1,4 @@
+import { FontNames } from "./@types/fonts";
 import { SpritesAnimation } from "./@types/levels";
 import { AnimationFrames, TileNames } from "./@types/statics";
 
@@ -5,7 +6,7 @@ export default class SpriteSheet {
     image: CanvasImageSource;
     width: number;
     height: number;
-    tiles: Map<TileNames, HTMLCanvasElement[]>;
+    tiles: Map<TileNames | FontNames, HTMLCanvasElement[]>;
     animations: Map<SpritesAnimation["name"], (distance: number) => AnimationFrames>;
 
     constructor(image: CanvasImageSource, width: number, height: number) {
@@ -23,7 +24,13 @@ export default class SpriteSheet {
         this.animations.set(name, animation);
     }
 
-    public define(name: TileNames, x: number, y: number, width: number, height: number) {
+    public define(
+        name: TileNames | FontNames,
+        x: number,
+        y: number,
+        width: number,
+        height: number
+    ) {
         const buffers = [false, true].map(flip => {
             const buffer = document.createElement("canvas");
             buffer.width = width;
@@ -44,12 +51,12 @@ export default class SpriteSheet {
         this.tiles.set(name, buffers);
     }
 
-    public defineTile(name: TileNames, x: number, y: number) {
+    public defineTile(name: TileNames | FontNames, x: number, y: number) {
         this.define(name, x * this.width, y * this.height, this.width, this.height);
     }
 
     public draw(
-        name: TileNames,
+        name: TileNames | FontNames,
         context: CanvasRenderingContext2D,
         x: number,
         y: number,
@@ -72,7 +79,12 @@ export default class SpriteSheet {
         this.drawTile(animation(distance), context, x, y);
     }
 
-    public drawTile(name: TileNames, context: CanvasRenderingContext2D, x: number, y: number) {
+    public drawTile(
+        name: TileNames | FontNames,
+        context: CanvasRenderingContext2D,
+        x: number,
+        y: number
+    ) {
         this.draw(name, context, x * this.width, y * this.height);
     }
 }

@@ -1,4 +1,5 @@
-export const TILE_SIZE = 16 as const;
+export const TILE_SIZE = 16;
+export const FONT_SIZE = 8;
 
 export enum MARIO_INIT_POS {
     x = 64,

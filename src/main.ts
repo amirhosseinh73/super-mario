@@ -9,6 +9,8 @@ import Entity from "./Entity";
 import PlayerController from "./traits/PlayerController";
 import { EntityWithTraits } from "./@types/traits";
 import { createCollisionLayer } from "./layers/collision";
+import { loadFont } from "./loaders/font";
+import { createDashboardLayer } from "./layers/dashboard";
 
 const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     const playerEnv = new Entity();
@@ -22,21 +24,20 @@ const createPlayerEnv = function (playerEntity: EntityWithTraits) {
 const main = async function (canvas: HTMLCanvasElement) {
     const context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-    const entityFactory = await loadEntities();
+    const [entityFactory, font] = await Promise.all([loadEntities(), loadFont()]);
     const loadLevel = await createLevelLoader(entityFactory);
     const level = await loadLevel("1-1");
 
     const camera = new Camera();
 
     const mario = entityFactory.mario();
-    // mario.pos.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y);
-    // level.entities.add(mario);
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
 
     const debugLayers = createCollisionLayer(level);
     if (debugLayers) level.comp.layers.push(debugLayers);
+    level.comp.layers.push(createDashboardLayer(font));
 
     const input = setupKeyboard(mario);
     input.listenTo(window);
