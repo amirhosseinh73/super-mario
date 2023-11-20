@@ -1,6 +1,6 @@
-import { EntityFactories, LevelsInterface, SpritesInterface } from "../@types/levels";
-import { EntityNames, SpritesFileNames } from "../@types/statics";
-import { EntityWithTraits } from "../@types/traits";
+import { EntityFactories, LevelsInterface, SpritesInterface } from "./@types/levels";
+import { EntityNames, SpritesFileNames } from "./@types/statics";
+import { EntityWithTraits } from "./@types/traits";
 import SpriteSheet from "./SpriteSheet";
 import { TILE_SIZE } from "./defines";
 import { loadGoomba } from "./entities/Goomba";

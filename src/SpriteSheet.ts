@@ -1,5 +1,5 @@
-import { SpritesAnimation } from "../@types/levels";
-import { AnimationFrames, TileNames } from "../@types/statics";
+import { SpritesAnimation } from "./@types/levels";
+import { AnimationFrames, TileNames } from "./@types/statics";
 
 export default class SpriteSheet {
     image: CanvasImageSource;

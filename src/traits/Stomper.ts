@@ -1,4 +1,4 @@
-import { EntityWithTraits } from "../../@types/traits";
+import { EntityWithTraits } from "./../@types/traits";
 import { Trait } from "../Entity";
 
 export default class Stomper extends Trait {

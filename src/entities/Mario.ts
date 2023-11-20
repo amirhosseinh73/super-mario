@@ -1,5 +1,5 @@
-import { AnimationFrames, MarioAnimationFrames, MarioFrames } from "../../@types/statics";
-import { EntityWithTraits } from "../../@types/traits";
+import { AnimationFrames, MarioAnimationFrames, MarioFrames } from "./../@types/statics";
+import { EntityWithTraits } from "./../@types/traits";
 import Entity from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { FAST_DRAG, MARIO_INIT_SIZE, SLOW_DRAG } from "../defines";

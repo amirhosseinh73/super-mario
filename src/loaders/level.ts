@@ -4,13 +4,14 @@ import {
     LevelsInterface,
     RangeType,
     patternsData,
-} from "../../@types/levels";
-import { levelsFileName } from "../../@types/statics";
+} from "./../@types/levels";
+import { levelsFileName } from "./../@types/statics";
 import Level from "../Level";
 import { Matrix } from "../Math";
 import SpriteSheet from "../SpriteSheet";
-import { createBackgroundLayer, createSpriteLayer } from "../layers";
 import { loadJSON, loadSpriteSheet } from "../loaders";
+import { createBackgroundLayer } from "../layers/background";
+import { createSpriteLayer } from "../layers/sprites";
 
 const expandSpan = function* (xStart: number, xLen: number, yStart: number, yLen: number) {
     const xEnd = xStart + xLen;

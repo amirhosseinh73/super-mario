@@ -1,4 +1,4 @@
-import { KeyboardHandleEvents } from "../@types/keyboard";
+import { KeyboardHandleEvents } from "./@types/keyboard";
 import { PRESSED, RELEASED } from "./defines";
 
 export default class KeyboardState {

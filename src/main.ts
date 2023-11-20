@@ -7,8 +7,8 @@ import { loadEntities } from "./loaders";
 import { setupMouseEvents } from "./MouseState";
 import Entity from "./Entity";
 import PlayerController from "./traits/PlayerController";
-import { EntityWithTraits } from "../@types/traits";
-import { createCollisionLayer } from "./layers";
+import { EntityWithTraits } from "./@types/traits";
+import { createCollisionLayer } from "./layers/collision";
 
 const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     const playerEnv = new Entity();

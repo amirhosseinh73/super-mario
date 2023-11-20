@@ -1,5 +1,5 @@
-import { getByIndexReturnType } from "../@types/tileResorver";
-import { EntityTraitNames } from "../@types/traits";
+import { getByIndexReturnType } from "./@types/tileResorver";
+import { EntityTraitNames } from "./@types/traits";
 import BoundingBox from "./BoundingBox";
 import Level from "./Level";
 import { Vec2 } from "./Math";

@@ -1,5 +1,5 @@
-import { AnimationFrames } from "../../@types/statics";
-import { EntityWithTraits } from "../../@types/traits";
+import { AnimationFrames } from "./../@types/statics";
+import { EntityWithTraits } from "./../@types/traits";
 import Entity, { Trait } from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { ENTITY_INIT_SIZE } from "../defines";

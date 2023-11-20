@@ -1,5 +1,5 @@
-import { AnimationFrames } from "../@types/statics";
-import { EntityWithTraits } from "../@types/traits";
+import { AnimationFrames } from "./@types/statics";
+import { EntityWithTraits } from "./@types/traits";
 import Camera from "./Camera";
 import Entity from "./Entity";
 import KeyboardState from "./KeyboardState";

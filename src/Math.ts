@@ -1,4 +1,4 @@
-import { MatrixValue } from "../@types/levels";
+import { MatrixValue } from "./@types/levels";
 
 export class Matrix {
     grid: MatrixValue[][];

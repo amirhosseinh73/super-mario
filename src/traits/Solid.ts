@@ -1,4 +1,4 @@
-import { getByIndexReturnType } from "../../@types/tileResorver";
+import { getByIndexReturnType } from "./../@types/tileResorver";
 import Entity, { Trait } from "../Entity";
 import { Sides } from "../defines";
 

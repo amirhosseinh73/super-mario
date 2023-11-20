@@ -1,5 +1,5 @@
-import { ButtonActions } from "../@types/global";
-import { EntityWithTraits } from "../@types/traits";
+import { ButtonActions } from "./@types/global";
+import { EntityWithTraits } from "./@types/traits";
 import { jumpAction, moveLeftAction, moveRightAction, speedAction } from "./actions";
 
 export const setupMouseEvents = function (mario: EntityWithTraits) {

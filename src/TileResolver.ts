@@ -1,4 +1,4 @@
-import { getByIndexReturnType } from "../@types/tileResorver";
+import { getByIndexReturnType } from "./@types/tileResorver";
 import { Matrix } from "./Math";
 import { TILE_SIZE } from "./defines";
 

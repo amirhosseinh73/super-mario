@@ -1,4 +1,4 @@
-import { EntityWithTraits } from "../@types/traits";
+import { EntityWithTraits } from "./@types/traits";
 
 export const jumpAction = function (mario: EntityWithTraits, keyState: boolean) {
     if (keyState) mario.jump.start();

@@ -1,4 +1,4 @@
-import { EntityWithTraits } from "../../@types/traits";
+import { EntityWithTraits } from "./../@types/traits";
 import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 import { Vec2 } from "../Math";
