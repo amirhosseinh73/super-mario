@@ -1,4 +1,4 @@
-import { FontNames } from "./@types/fonts";
+import { FontCharacters } from "./@types/fonts";
 import { SpritesAnimation } from "./@types/levels";
 import { AnimationFrames, TileNames } from "./@types/statics";
 
@@ -6,7 +6,7 @@ export default class SpriteSheet {
     image: CanvasImageSource;
     width: number;
     height: number;
-    tiles: Map<TileNames | FontNames, HTMLCanvasElement[]>;
+    tiles: Map<TileNames | FontCharacters, HTMLCanvasElement[]>;
     animations: Map<SpritesAnimation["name"], (distance: number) => AnimationFrames>;
 
     constructor(image: CanvasImageSource, width: number, height: number) {
@@ -25,7 +25,7 @@ export default class SpriteSheet {
     }
 
     public define(
-        name: TileNames | FontNames,
+        name: TileNames | FontCharacters,
         x: number,
         y: number,
         width: number,
@@ -51,12 +51,12 @@ export default class SpriteSheet {
         this.tiles.set(name, buffers);
     }
 
-    public defineTile(name: TileNames | FontNames, x: number, y: number) {
+    public defineTile(name: TileNames | FontCharacters, x: number, y: number) {
         this.define(name, x * this.width, y * this.height, this.width, this.height);
     }
 
     public draw(
-        name: TileNames | FontNames,
+        name: TileNames | FontCharacters,
         context: CanvasRenderingContext2D,
         x: number,
         y: number,
@@ -80,7 +80,7 @@ export default class SpriteSheet {
     }
 
     public drawTile(
-        name: TileNames | FontNames,
+        name: TileNames | FontCharacters,
         context: CanvasRenderingContext2D,
         x: number,
         y: number

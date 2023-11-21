@@ -1,60 +1,10 @@
-export type FontNames = FontCharacters | FontDigits;
-export type FontCharacters =
-    | "A"
-    | "B"
-    | "C"
-    | "D"
-    | "E"
-    | "F"
-    | "G"
-    | "H"
-    | "I"
-    | "J"
-    | "K"
-    | "L"
-    | "M"
-    | "N"
-    | "O"
-    | "P"
-    | "Q"
-    | "R"
-    | "S"
-    | "T"
-    | "U"
-    | "V"
-    | "W"
-    | "X"
-    | "Y"
-    | "Z"
-    | "a"
-    | "b"
-    | "c"
-    | "d"
-    | "e"
-    | "f"
-    | "g"
-    | "h"
-    | "i"
-    | "j"
-    | "k"
-    | "l"
-    | "m"
-    | "n"
-    | "o"
-    | "p"
-    | "q"
-    | "r"
-    | "s"
-    | "t"
-    | "u"
-    | "v"
-    | "w"
-    | "x"
-    | "y"
-    | "z";
-export type FontDigits = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+import { FONT_CHARS_ENUM } from "../defines";
 
-// export type FontCharacters = string & {
-//     length: 1;
-//     charCodeAt(index: 0): Uppercase<number> | Lowercase<number>;
-// } & { replace(search: RegExp, replace: string): FontCharacters };
+type StringValues<T> = {
+    [K in keyof T]: T[K] extends string ? T[K] : never;
+}[keyof T];
+type EnumAsUnion<T> = `${StringValues<T>}`;
+
+export type FontCharacters = EnumAsUnion<typeof FONT_CHARS_ENUM>;
+
+// const regex = new RegExp(`^[${FONT_CHARS}]$`);
