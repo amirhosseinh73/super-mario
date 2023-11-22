@@ -1,3 +1,4 @@
+import { GameContext } from "../@types/global";
 import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 
@@ -23,7 +24,7 @@ export default class Killable extends Trait {
         this.deadTime = 0;
     }
 
-    public update(entity: Entity, deltaTime: number, level: Level): void {
+    public update(entity: Entity, { deltaTime }: GameContext, level: Level): void {
         if (!this.dead) return;
 
         this.deadTime += deltaTime;

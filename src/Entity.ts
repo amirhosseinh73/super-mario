@@ -1,9 +1,9 @@
+import { GameContext } from "./@types/global";
 import { getByIndexReturnType } from "./@types/tileResorver";
 import { EntityTraitNames } from "./@types/traits";
 import BoundingBox from "./BoundingBox";
 import Level from "./Level";
 import { Vec2 } from "./Math";
-import { AudioBoard } from "./main";
 
 export class Trait {
     NAME: EntityTraitNames;
@@ -36,9 +36,8 @@ export class Trait {
 
     public update(
         _entity: Entity,
-        _deltaTime: number,
-        _level: Level | undefined = undefined,
-        _audioBoard: AudioBoard
+        _gameContext: GameContext,
+        _level: Level | undefined = undefined
     ): void {
         // console.warn("Unhandled update call in Trait");
     }
@@ -85,12 +84,12 @@ export default class Entity {
         });
     }
 
-    public update(deltaTime: number, level: Level, audioBoard: AudioBoard) {
+    public update(gameContext: GameContext, level: Level) {
         this.traits.forEach(trait => {
-            trait.update(this, deltaTime, level, audioBoard);
+            trait.update(this, gameContext, level);
         });
 
-        this.lifetime += deltaTime;
+        this.lifetime += gameContext.deltaTime;
     }
 
     public draw(_context: CanvasRenderingContext2D) {}

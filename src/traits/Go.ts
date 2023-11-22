@@ -1,6 +1,7 @@
 import { EntityWithTraits } from "./../@types/traits";
 import { Trait } from "../Entity";
 import { SLOW_DRAG } from "../defines";
+import { GameContext } from "../@types/global";
 
 export default class Go extends Trait {
     dir: 0 | 1 | -1;
@@ -24,7 +25,7 @@ export default class Go extends Trait {
         this.heading = 1;
     }
 
-    public update(entity: EntityWithTraits, deltaTime: number): void {
+    public update(entity: EntityWithTraits, { deltaTime }: GameContext): void {
         const absX = Math.abs(entity.vel.x);
 
         if (this.dir !== 0) {

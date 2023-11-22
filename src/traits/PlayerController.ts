@@ -3,6 +3,7 @@ import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 import { Vec2 } from "../Math";
 import { KILLING_SCORE } from "../defines";
+import { GameContext } from "../@types/global";
 
 export default class PlayerController extends Trait {
     player: EntityWithTraits | null;
@@ -29,7 +30,7 @@ export default class PlayerController extends Trait {
             };
     }
 
-    public update(_entity: Entity, deltaTime: number, level: Level): void {
+    public update(_entity: Entity, { deltaTime }: GameContext, level: Level): void {
         if (!this.player) return;
 
         if (!level.entities.has(this.player)) {

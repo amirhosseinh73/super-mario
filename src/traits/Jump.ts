@@ -1,7 +1,6 @@
+import { GameContext } from "../@types/global";
 import Entity, { Trait } from "../Entity";
-import Level from "../Level";
 import { Sides } from "../defines";
-import { AudioBoard } from "../main";
 
 export default class Jump extends Trait {
     duration: number;
@@ -45,7 +44,7 @@ export default class Jump extends Trait {
         else if (side === Sides.TOP) this.cancel();
     }
 
-    public update(entity: Entity, deltaTime: number, _level: Level, audioBoard: AudioBoard): void {
+    public update(entity: Entity, { deltaTime, audioBoard }: GameContext): void {
         if (this.requestTime > 0) {
             if (this.ready > 0) {
                 audioBoard.playAudio("jump");

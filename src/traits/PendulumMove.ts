@@ -15,7 +15,7 @@ export default class PendulumMove extends Trait {
         if (side === Sides.LEFT || side === Sides.RIGHT) this.speed = -this.speed;
     }
 
-    public update(entity: Entity, _deltaTime: number) {
+    public update(entity: Entity) {
         if (this.enabled) entity.vel.x = this.speed;
     }
 }

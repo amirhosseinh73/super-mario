@@ -1,10 +1,10 @@
+import { GameContext } from "./@types/global";
 import Compositor from "./Compositor";
 import Entity from "./Entity";
 import EntityCollider from "./EntityCollider";
 import { Matrix } from "./Math";
 import TileCollider from "./TileCollider";
 import { GRAVITY } from "./defines";
-import { AudioBoard } from "./main";
 
 export default class Level {
     gravity: number;
@@ -35,11 +35,11 @@ export default class Level {
         this.tileCollider = new TileCollider(matrix);
     }
 
-    public update(deltaTime: number, audioBoard: AudioBoard) {
+    public update(gameContext: GameContext) {
         this.entities.forEach(entity => {
             if (!this.tileCollider) return;
 
-            entity.update(deltaTime, this, audioBoard);
+            entity.update(gameContext, this);
         });
 
         this.entities.forEach(entity => {
@@ -50,6 +50,6 @@ export default class Level {
             entity.finalize();
         });
 
-        this.totalTime += deltaTime;
+        this.totalTime += gameContext.deltaTime;
     }
 }

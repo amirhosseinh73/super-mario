@@ -13,6 +13,7 @@ import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
 import { createAudioLoader } from "./loaders/audio";
 import { AudioNames } from "./@types/statics";
+import { GameContext } from "./@types/global";
 
 const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     const playerEnv = new Entity();
@@ -57,6 +58,9 @@ const main = async function (canvas: HTMLCanvasElement) {
     loadAudio(AUDIO_FILES.jump).then(buffer => {
         audioBoard.addAudio("jump", buffer);
     });
+    loadAudio(AUDIO_FILES.stomp).then(buffer => {
+        audioBoard.addAudio("stomp", buffer);
+    });
 
     const camera = new Camera();
 
@@ -74,19 +78,15 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     setupMouseEvents(mario);
 
-    interface GameContext {
-        audioBoard: AudioBoard;
-        deltaTime: null | number;
-    }
     const gameContext: GameContext = {
         audioBoard,
-        deltaTime: null,
+        deltaTime: 0,
     };
 
     const timer = new Timer();
     timer.update = function update(deltaTime: number) {
-        // gameContext.deltaTime = deltaTime
-        level.update(deltaTime, audioBoard);
+        gameContext.deltaTime = deltaTime;
+        level.update(gameContext);
 
         camera.pos.x = Math.max(0, mario.pos.x - 100);
 

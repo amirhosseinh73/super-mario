@@ -1,3 +1,4 @@
+import { GameContext } from "../@types/global";
 import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 
@@ -6,7 +7,7 @@ export default class Physics extends Trait {
         super("physics");
     }
 
-    public update(entity: Entity, deltaTime: number, level: Level): void {
+    public update(entity: Entity, { deltaTime }: GameContext, level: Level): void {
         entity.pos.x += entity.vel.x * deltaTime;
         level.tileCollider!.checkX(entity); //level.tileCollider checked in method before call
 

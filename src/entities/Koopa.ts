@@ -8,6 +8,7 @@ import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Solid from "../traits/Solid";
+import { GameContext } from "../@types/global";
 
 export const loadKoopa = async function () {
     return loadSpriteSheet("koopa").then(createKoopaFactory);
@@ -96,7 +97,7 @@ export class Behavior extends Trait {
         this.state = STATE_PANIC;
     }
 
-    public update(us: EntityWithTraits, deltaTime: number): void {
+    public update(us: EntityWithTraits, { deltaTime }: GameContext): void {
         if (this.state !== STATE_HIDING) return;
 
         this.hideTime += deltaTime;
