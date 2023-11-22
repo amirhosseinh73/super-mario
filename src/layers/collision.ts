@@ -1,4 +1,3 @@
-import { Position } from "../@types/global";
 import Camera from "../Camera";
 import Entity from "../Entity";
 import Level from "../Level";

@@ -1,4 +1,4 @@
-import { GameContext } from "../@types/global";
+import { GameContext } from "../@types/audio";
 import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 

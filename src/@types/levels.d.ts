@@ -8,68 +8,65 @@ import {
 } from "./statics";
 import { EntityWithTraits } from "./traits";
 
-export interface LevelsInterface {
+interface LevelsInterface {
     spritesheet: SpritesFileNames;
     layers: LayersData[];
     patterns: patternsData;
     entities: entitiesData[];
 }
 
-export type RangeType =
-    | [number, number, number, number]
-    | [number, number, number]
-    | [number, number];
+type RangeType = [number, number, number, number] | [number, number, number] | [number, number];
 
-export interface BackgroundsBase {
+interface BackgroundsBase {
     name?: TileNames;
     type?: "ground";
     ranges: RangeType[];
     pattern?: PatternNames;
 }
 
-export interface BackgroundsTile extends BackgroundsBase {
+interface BackgroundsTile extends BackgroundsBase {
     name: TileNames;
     pattern: undefined;
 }
 
-export interface BackgroundsPattern extends BackgroundsBase {
+interface BackgroundsPattern extends BackgroundsBase {
     name: undefined;
     pattern: PatternNames;
 }
 
-export type BackgroundLayers = BackgroundsPattern | BackgroundsTile;
+type BackgroundLayers = BackgroundsPattern | BackgroundsTile;
 
-export type patternsData = {
+type patternsData = {
     [key in PatternNames]: {
         tiles: BackgroundsTile[];
     };
 };
 
-export interface LayersData {
+interface LayersData {
     tiles: BackgroundLayers[];
 }
 
-export type entitiesData = {
+type entitiesData = {
     name: EntityNames;
     pos: number[];
 };
 
-export interface MatrixValue {
+interface MatrixValue {
     name?: TileNames;
     type?: BackgroundLayers["type"];
 }
 
-export interface MatrixValueCollision extends MatrixValue {
+interface MatrixValueCollision extends MatrixValue {
     name: undefined;
     type: BackgroundLayers["type"];
 }
 
-export interface MatrixValueBackground extends MatrixValue {
+interface MatrixValueBackground extends MatrixValue {
     name: TileNames;
     type: undefined;
 }
 
-export interface SpritesInterface {
+interface SpritesInterface {
     imageURL: string;
     tileW?: number;
     tileH?: number;
@@ -81,22 +78,22 @@ export interface SpritesInterface {
     animations?: SpritesAnimation[];
 }
 
-export interface SpritesTiles {
+interface SpritesTiles {
     name: TileNames;
     index: number[];
 }
 
-export interface SpritesFrames {
+interface SpritesFrames {
     name: MarioFrames;
     rect: [number, number, number, number];
 }
 
-export interface SpritesAnimation {
+interface SpritesAnimation {
     name: AnimationNames;
     frameLen: number;
     frames: AnimationFrames[];
 }
 
-export type EntityFactories = {
+type EntityFactories = {
     [key in EntityNames]: () => EntityWithTraits;
 };

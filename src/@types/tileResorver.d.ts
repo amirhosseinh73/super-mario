@@ -1,6 +1,6 @@
 import { MatrixValue } from "./levels";
 
-export type getByIndexReturnType = {
+type getByIndexReturnType = {
     tile: MatrixValue;
 
     x1: number;

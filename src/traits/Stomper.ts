@@ -1,17 +1,14 @@
 import { EntityWithTraits } from "./../@types/traits";
-import Entity, { Trait } from "../Entity";
-import { GameContext } from "../@types/global";
+import { Trait } from "../Entity";
 
 export default class Stomper extends Trait {
     bounceSpeed: number;
     onStomp: () => void;
-    didStomp: boolean;
 
     constructor() {
         super("stomper");
 
         this.bounceSpeed = 400;
-        this.didStomp = false;
 
         this.onStomp = function () {};
     }
@@ -26,15 +23,8 @@ export default class Stomper extends Trait {
 
         if (us.vel.y > them.vel.y) {
             this.bounce(us, them);
-            this.didStomp = true;
+            this.sounds.add("stomp");
             this.onStomp();
-        }
-    }
-
-    public update(_entity: Entity, { audioBoard }: GameContext): void {
-        if (this.didStomp) {
-            audioBoard.playAudio("stomp");
-            this.didStomp = false;
         }
     }
 }

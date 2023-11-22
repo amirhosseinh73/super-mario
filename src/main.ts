@@ -1,4 +1,4 @@
-import { AUDIO_FILES, MARIO_INIT_POS } from "./defines";
+import { MARIO_INIT_POS } from "./defines";
 import { setupKeyboard } from "./helper";
 import Timer from "./Timer";
 import Camera from "./Camera";
@@ -11,9 +11,7 @@ import { EntityWithTraits } from "./@types/traits";
 import { createCollisionLayer } from "./layers/collision";
 import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
-import { createAudioLoader } from "./loaders/audio";
-import { AudioNames } from "./@types/statics";
-import { GameContext } from "./@types/global";
+import { GameContext } from "./@types/audio";
 
 const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     const playerEnv = new Entity();
@@ -24,43 +22,13 @@ const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     return playerEnv as EntityWithTraits;
 };
 
-export class AudioBoard {
-    context: AudioContext;
-    buffers: Map<AudioNames, AudioBuffer>;
-
-    constructor(context: AudioContext) {
-        this.context = context;
-        this.buffers = new Map();
-    }
-
-    public addAudio(name: AudioNames, buffer: AudioBuffer) {
-        this.buffers.set(name, buffer);
-    }
-
-    public playAudio(name: AudioNames) {
-        const source = this.context.createBufferSource();
-        source.connect(this.context.destination);
-        source.buffer = this.buffers.get(name) || null;
-        source.start(0);
-    }
-}
-
 const main = async function (canvas: HTMLCanvasElement) {
     const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const audioContext = new AudioContext();
 
-    const [entityFactory, font] = await Promise.all([loadEntities(), loadFont()]);
+    const [entityFactory, font] = await Promise.all([loadEntities(audioContext), loadFont()]);
     const loadLevel = await createLevelLoader(entityFactory);
     const level = await loadLevel("1-1");
-
-    const audioContext = new AudioContext();
-    const audioBoard = new AudioBoard(audioContext);
-    const loadAudio = createAudioLoader(audioContext);
-    loadAudio(AUDIO_FILES.jump).then(buffer => {
-        audioBoard.addAudio("jump", buffer);
-    });
-    loadAudio(AUDIO_FILES.stomp).then(buffer => {
-        audioBoard.addAudio("stomp", buffer);
-    });
 
     const camera = new Camera();
 
@@ -79,7 +47,7 @@ const main = async function (canvas: HTMLCanvasElement) {
     setupMouseEvents(mario);
 
     const gameContext: GameContext = {
-        audioBoard,
+        audioContext,
         deltaTime: 0,
     };
 
@@ -97,6 +65,13 @@ const main = async function (canvas: HTMLCanvasElement) {
 };
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;
+
+const ctx = canvas.getContext("2d");
+
+ctx!.font = "30px Comic Sans MS";
+ctx!.fillStyle = "white";
+ctx!.textAlign = "center";
+ctx!.fillText("Hit Click To Play", canvas.width / 2, canvas.height / 2);
 
 const start = function () {
     window.removeEventListener("click", start);

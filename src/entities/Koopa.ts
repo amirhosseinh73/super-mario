@@ -8,9 +8,9 @@ import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Solid from "../traits/Solid";
-import { GameContext } from "../@types/global";
+import { GameContext } from "../@types/audio";
 
-export const loadKoopa = async function () {
+export const loadKoopa = async function (_audioContext: AudioContext) {
     return loadSpriteSheet("koopa").then(createKoopaFactory);
 };
 

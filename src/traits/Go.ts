@@ -1,7 +1,7 @@
 import { EntityWithTraits } from "./../@types/traits";
 import { Trait } from "../Entity";
 import { SLOW_DRAG } from "../defines";
-import { GameContext } from "../@types/global";
+import { GameContext } from "../@types/audio";
 
 export default class Go extends Trait {
     dir: 0 | 1 | -1;

@@ -10,16 +10,24 @@ import Killable from "../traits/Killable";
 import Physics from "../traits/Physics";
 import Solid from "../traits/Solid";
 import Stomper from "../traits/Stomper";
+import { loadAudioBoard } from "../loaders/audio";
+import AudioBoard from "../AudioBoard";
 
-export const loadMario = async function () {
-    // const sprite = await loadSpriteSheet("mario");
+export const loadMario = async function (audioContext: AudioContext) {
+    const sprite = await loadSpriteSheet("mario");
+    const audio = await loadAudioBoard("mario", audioContext);
 
-    // return createMarioFactory(sprite);
+    return createMarioFactory(sprite, audio);
 
-    return loadSpriteSheet("mario").then(createMarioFactory);
+    // return Promise.all([
+    //     loadSpriteSheet("mario"),
+    //     loadAudioBoard("mario", audioContext)
+    // ]).then(([sprite, audio]) => {
+    //     return createMarioFactory(sprite)
+    // })
 };
 
-const createMarioFactory = function (sprite: SpriteSheet) {
+const createMarioFactory = function (sprite: SpriteSheet, audio: AudioBoard) {
     const runAnim = sprite.animations.get("run") as (distance: number) => AnimationFrames;
 
     function routeFrame(mario: EntityWithTraits): MarioFrames {
@@ -46,6 +54,8 @@ const createMarioFactory = function (sprite: SpriteSheet) {
 
     return function createMario() {
         const mario = new Entity() as EntityWithTraits;
+        mario.audio = audio;
+
         mario.size.set(MARIO_INIT_SIZE.w, MARIO_INIT_SIZE.h);
 
         mario.addTrait(new Physics());

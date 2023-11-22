@@ -1,3 +1,4 @@
+import { AudioInterface } from "./@types/audio";
 import { EntityFactories, LevelsInterface, SpritesInterface } from "./@types/levels";
 import { EntityNames, SpritesFileNames } from "./@types/statics";
 import { EntityWithTraits } from "./@types/traits";
@@ -18,12 +19,14 @@ export const loadImage = function (url: string): Promise<CanvasImageSource> {
     });
 };
 
-export const loadJSON = async function (url: string): Promise<LevelsInterface | SpritesInterface> {
+export const loadJSON = async function (
+    url: string
+): Promise<LevelsInterface | SpritesInterface | AudioInterface> {
     return fetch(url).then(r => r.json());
 };
 
 export const loadSpriteSheet = async function (name: SpritesFileNames) {
-    const sheetSpec = (await loadJSON(`/@sprites/${name}.json`)) as SpritesInterface;
+    const sheetSpec = (await loadJSON(`/data/sprites/${name}.json`)) as SpritesInterface;
 
     const image = await loadImage(sheetSpec.imageURL);
 
@@ -49,7 +52,7 @@ export const loadSpriteSheet = async function (name: SpritesFileNames) {
     return sprites;
 };
 
-export const loadEntities = function () {
+export const loadEntities = async function (audioContext: AudioContext) {
     const entityFactories: EntityFactories = {
         mario: function (): EntityWithTraits {
             throw new Error("Function not implemented.");
@@ -67,8 +70,8 @@ export const loadEntities = function () {
     };
 
     return Promise.all([
-        loadMario().then(AddAs("mario")),
-        loadGoomba().then(AddAs("goomba")),
-        loadKoopa().then(AddAs("koopa")),
+        loadMario(audioContext).then(AddAs("mario")),
+        loadGoomba(audioContext).then(AddAs("goomba")),
+        loadKoopa(audioContext).then(AddAs("koopa")),
     ]).then(() => entityFactories);
 };

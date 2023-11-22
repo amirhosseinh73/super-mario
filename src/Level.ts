@@ -1,4 +1,4 @@
-import { GameContext } from "./@types/global";
+import { GameContext } from "./@types/audio";
 import Compositor from "./Compositor";
 import Entity from "./Entity";
 import EntityCollider from "./EntityCollider";

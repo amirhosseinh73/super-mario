@@ -9,7 +9,7 @@ import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Solid from "../traits/Solid";
 
-export const loadGoomba = async function () {
+export const loadGoomba = async function (_audioContext: AudioContext) {
     return loadSpriteSheet("goomba").then(createGoombaFactory);
 };
 

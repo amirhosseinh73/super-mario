@@ -1,6 +1,7 @@
-import { GameContext } from "./@types/global";
+import { AudioNames, GameContext } from "./@types/audio";
 import { getByIndexReturnType } from "./@types/tileResorver";
 import { EntityTraitNames } from "./@types/traits";
+import AudioBoard from "./AudioBoard";
 import BoundingBox from "./BoundingBox";
 import Level from "./Level";
 import { Vec2 } from "./Math";
@@ -8,10 +9,12 @@ import { Vec2 } from "./Math";
 export class Trait {
     NAME: EntityTraitNames;
     tasks: Array<Function>;
+    sounds: Set<AudioNames>;
 
     constructor(name: EntityTraitNames) {
         this.NAME = name;
 
+        this.sounds = new Set();
         this.tasks = [];
     }
 
@@ -34,6 +37,14 @@ export class Trait {
         // console.log(side)
     }
 
+    public playSound(audioBoard: AudioBoard, audioContext: AudioContext) {
+        this.sounds.forEach(name => {
+            audioBoard.playAudio(name, audioContext);
+        });
+
+        this.sounds.clear();
+    }
+
     public update(
         _entity: Entity,
         _gameContext: GameContext,
@@ -52,6 +63,7 @@ export default class Entity {
     traits: Trait[];
     lifetime: number;
     canCollide: boolean;
+    audio: AudioBoard;
 
     constructor() {
         this.canCollide = true;
@@ -65,6 +77,8 @@ export default class Entity {
         this.lifetime = 0;
 
         this.traits = [];
+
+        this.audio = new AudioBoard();
     }
 
     public addTrait(trait: Trait) {
@@ -87,6 +101,7 @@ export default class Entity {
     public update(gameContext: GameContext, level: Level) {
         this.traits.forEach(trait => {
             trait.update(this, gameContext, level);
+            trait.playSound(this.audio, gameContext.audioContext);
         });
 
         this.lifetime += gameContext.deltaTime;

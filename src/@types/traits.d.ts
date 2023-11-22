@@ -10,9 +10,9 @@ import PlayerController from "../traits/PlayerController";
 import Solid from "../traits/Solid";
 import Stomper from "../traits/Stomper";
 
-export type EntityTraitNames = keyof Traits;
+type EntityTraitNames = keyof Traits;
 
-export type Traits = {
+type Traits = {
     jump: Jump;
     go: Go;
     pendulumMove: PendulumMove;
@@ -24,4 +24,4 @@ export type Traits = {
     physics?: Physics;
 };
 
-export type EntityWithTraits = Entity & Traits;
+type EntityWithTraits = Entity & Traits;

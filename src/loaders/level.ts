@@ -132,7 +132,7 @@ const setupEntities = function (
 
 export const createLevelLoader = async function (entityFactory: EntityFactories) {
     return async function loadLevel(name: levelsFileName) {
-        const levelSpec = (await loadJSON(`/@levels/${name}.json`)) as LevelsInterface;
+        const levelSpec = (await loadJSON(`/data/levels/${name}.json`)) as LevelsInterface;
 
         const backgroundSprites = await loadSpriteSheet(levelSpec.spritesheet);
 
