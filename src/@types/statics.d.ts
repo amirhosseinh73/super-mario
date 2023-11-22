@@ -52,3 +52,5 @@ export type PatternNames =
     | "pipe-2h"
     | "pipe-3h"
     | "pipe-4h";
+
+export type AudioNames = "jump" | "coin" | "stomp";

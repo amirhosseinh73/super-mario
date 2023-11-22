@@ -4,6 +4,7 @@ import EntityCollider from "./EntityCollider";
 import { Matrix } from "./Math";
 import TileCollider from "./TileCollider";
 import { GRAVITY } from "./defines";
+import { AudioBoard } from "./main";
 
 export default class Level {
     gravity: number;
@@ -34,11 +35,11 @@ export default class Level {
         this.tileCollider = new TileCollider(matrix);
     }
 
-    public update(deltaTime: number) {
+    public update(deltaTime: number, audioBoard: AudioBoard) {
         this.entities.forEach(entity => {
             if (!this.tileCollider) return;
 
-            entity.update(deltaTime, this);
+            entity.update(deltaTime, this, audioBoard);
         });
 
         this.entities.forEach(entity => {

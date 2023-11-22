@@ -3,6 +3,7 @@ import { EntityTraitNames } from "./@types/traits";
 import BoundingBox from "./BoundingBox";
 import Level from "./Level";
 import { Vec2 } from "./Math";
+import { AudioBoard } from "./main";
 
 export class Trait {
     NAME: EntityTraitNames;
@@ -36,7 +37,8 @@ export class Trait {
     public update(
         _entity: Entity,
         _deltaTime: number,
-        _level: Level | undefined = undefined
+        _level: Level | undefined = undefined,
+        _audioBoard: AudioBoard
     ): void {
         // console.warn("Unhandled update call in Trait");
     }
@@ -83,9 +85,9 @@ export default class Entity {
         });
     }
 
-    public update(deltaTime: number, level: Level) {
+    public update(deltaTime: number, level: Level, audioBoard: AudioBoard) {
         this.traits.forEach(trait => {
-            trait.update(this, deltaTime, level);
+            trait.update(this, deltaTime, level, audioBoard);
         });
 
         this.lifetime += deltaTime;

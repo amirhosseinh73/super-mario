@@ -1,4 +1,4 @@
-import { MARIO_INIT_POS } from "./defines";
+import { AUDIO_FILES, MARIO_INIT_POS } from "./defines";
 import { setupKeyboard } from "./helper";
 import Timer from "./Timer";
 import Camera from "./Camera";
@@ -11,6 +11,8 @@ import { EntityWithTraits } from "./@types/traits";
 import { createCollisionLayer } from "./layers/collision";
 import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
+import { createAudioLoader } from "./loaders/audio";
+import { AudioNames } from "./@types/statics";
 
 const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     const playerEnv = new Entity();
@@ -21,12 +23,40 @@ const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     return playerEnv as EntityWithTraits;
 };
 
+export class AudioBoard {
+    context: AudioContext;
+    buffers: Map<AudioNames, AudioBuffer>;
+
+    constructor(context: AudioContext) {
+        this.context = context;
+        this.buffers = new Map();
+    }
+
+    public addAudio(name: AudioNames, buffer: AudioBuffer) {
+        this.buffers.set(name, buffer);
+    }
+
+    public playAudio(name: AudioNames) {
+        const source = this.context.createBufferSource();
+        source.connect(this.context.destination);
+        source.buffer = this.buffers.get(name) || null;
+        source.start(0);
+    }
+}
+
 const main = async function (canvas: HTMLCanvasElement) {
     const context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
     const [entityFactory, font] = await Promise.all([loadEntities(), loadFont()]);
     const loadLevel = await createLevelLoader(entityFactory);
     const level = await loadLevel("1-1");
+
+    const audioContext = new AudioContext();
+    const audioBoard = new AudioBoard(audioContext);
+    const loadAudio = createAudioLoader(audioContext);
+    loadAudio(AUDIO_FILES.jump).then(buffer => {
+        audioBoard.addAudio("jump", buffer);
+    });
 
     const camera = new Camera();
 
@@ -44,9 +74,19 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     setupMouseEvents(mario);
 
+    interface GameContext {
+        audioBoard: AudioBoard;
+        deltaTime: null | number;
+    }
+    const gameContext: GameContext = {
+        audioBoard,
+        deltaTime: null,
+    };
+
     const timer = new Timer();
     timer.update = function update(deltaTime: number) {
-        level.update(deltaTime);
+        // gameContext.deltaTime = deltaTime
+        level.update(deltaTime, audioBoard);
 
         camera.pos.x = Math.max(0, mario.pos.x - 100);
 
@@ -57,4 +97,10 @@ const main = async function (canvas: HTMLCanvasElement) {
 };
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;
-main(canvas);
+
+const start = function () {
+    window.removeEventListener("click", start);
+    main(canvas);
+};
+
+window.addEventListener("click", start);

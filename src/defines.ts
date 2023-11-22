@@ -155,3 +155,9 @@ export enum FONT_CHARS_ENUM {
     RightCurlyBrace = "}",
     Tilde = "~",
 }
+
+export enum AUDIO_FILES {
+    jump = "./assets/audio/jump.ogg",
+    coin = "./assets/audio/coin.ogg",
+    stomp = "./assets/audio/stomp.ogg",
+}
