@@ -51,6 +51,10 @@ export const Sides = {
     LEFT: Symbol("left"),
 } as const;
 
+export const KILLING_SCORE = 100;
+
+export const FONT_FILE_NAME = "./assets/img/font-coin.png";
+
 export const FONT_CHARS =
     " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 

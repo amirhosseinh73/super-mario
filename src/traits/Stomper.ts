@@ -3,11 +3,14 @@ import { Trait } from "../Entity";
 
 export default class Stomper extends Trait {
     bounceSpeed: number;
+    onStomp: () => void;
 
     constructor() {
         super("stomper");
 
         this.bounceSpeed = 400;
+
+        this.onStomp = function () {};
     }
 
     public bounce(us: EntityWithTraits, them: EntityWithTraits) {
@@ -20,6 +23,8 @@ export default class Stomper extends Trait {
 
         if (us.vel.y > them.vel.y) {
             this.bounce(us, them);
+
+            this.onStomp();
         }
     }
 }

@@ -1,6 +1,6 @@
 import { FontCharacters } from "../@types/fonts";
 import SpriteSheet from "../SpriteSheet";
-import { FONT_CHARS, FONT_SIZE } from "../defines";
+import { FONT_CHARS, FONT_FILE_NAME, FONT_SIZE } from "../defines";
 import { loadImage } from "../loaders";
 
 // const regexFont = new RegExp(`^[${FONT_CHARS}]$`);
@@ -25,7 +25,7 @@ export class Font {
 }
 
 export const loadFont = async function () {
-    return loadImage("./assets/img/font.png").then(image => {
+    return loadImage(FONT_FILE_NAME).then(image => {
         const fontSprite = new SpriteSheet(image, FONT_SIZE, FONT_SIZE);
 
         const rowLen = (image as HTMLImageElement).width;

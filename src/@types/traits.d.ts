@@ -1,14 +1,14 @@
-import Entity from "../ts/Entity";
-import { Behavior as GoombaBehavior } from "../ts/entities/Goomba";
-import { Behavior as KoopaBehavior } from "../ts/entities/Koopa";
-import Go from "../ts/traits/Go";
-import Jump from "../ts/traits/Jump";
-import Killable from "../ts/traits/Killable";
-import PendulumMove from "../ts/traits/PendulumMove";
-import Physics from "../ts/traits/Physics";
-import PlayerController from "../ts/traits/PlayerController";
-import Solid from "../ts/traits/Solid";
-import Stomper from "../ts/traits/Stomper";
+import Entity from "../Entity";
+import { Behavior as GoombaBehavior } from "../entities/Goomba";
+import { Behavior as KoopaBehavior } from "../entities/Koopa";
+import Go from "../traits/Go";
+import Jump from "../traits/Jump";
+import Killable from "../traits/Killable";
+import PendulumMove from "../traits/PendulumMove";
+import Physics from "../traits/Physics";
+import PlayerController from "../traits/PlayerController";
+import Solid from "../traits/Solid";
+import Stomper from "../traits/Stomper";
 
 export type EntityTraitNames = keyof Traits;
 

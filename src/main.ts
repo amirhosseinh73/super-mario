@@ -18,7 +18,7 @@ const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     playerControl.checkpoint.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y);
     playerControl.setPlayer(playerEntity);
     playerEnv.addTrait(playerControl);
-    return playerEnv;
+    return playerEnv as EntityWithTraits;
 };
 
 const main = async function (canvas: HTMLCanvasElement) {
@@ -37,7 +37,7 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     const debugLayers = createCollisionLayer(level);
     if (debugLayers) level.comp.layers.push(debugLayers);
-    level.comp.layers.push(createDashboardLayer(font));
+    level.comp.layers.push(createDashboardLayer(font, playerEnv));
 
     const input = setupKeyboard(mario);
     input.listenTo(window);
