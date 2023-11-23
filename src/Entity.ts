@@ -3,6 +3,7 @@ import { getByIndexReturnType } from "./@types/tileResorver";
 import { EntityTraitNames } from "./@types/traits";
 import AudioBoard from "./AudioBoard";
 import BoundingBox from "./BoundingBox";
+import EventEmitter from "./EventEmitter";
 import Level from "./Level";
 import { Vec2 } from "./Math";
 
@@ -10,12 +11,15 @@ export class Trait {
     NAME: EntityTraitNames;
     tasks: Array<Function>;
     sounds: Set<AudioNames>;
+    events: EventEmitter;
 
     constructor(name: EntityTraitNames) {
         this.NAME = name;
 
         this.sounds = new Set();
         this.tasks = [];
+
+        this.events = new EventEmitter();
     }
 
     public finalize() {

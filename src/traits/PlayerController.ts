@@ -25,9 +25,9 @@ export default class PlayerController extends Trait {
         this.player = entity;
 
         if (this.player.stomper)
-            this.player.stomper.onStomp = () => {
+            this.player.stomper.events.listen("stomp", () => {
                 this.score += KILLING_SCORE;
-            };
+            });
     }
 
     public update(_entity: Entity, { deltaTime }: GameContext, level: Level): void {
