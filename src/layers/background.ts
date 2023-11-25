@@ -1,5 +1,3 @@
-import { MatrixValueBackground } from "../@types/levels";
-import { AnimationNames } from "../@types/statics";
 import Camera from "../Camera";
 import Level from "../Level";
 import { Matrix } from "../Math";

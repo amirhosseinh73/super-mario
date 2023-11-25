@@ -1,11 +1,3 @@
-import {
-    BackgroundLayers,
-    EntityFactories,
-    LevelsInterface,
-    RangeType,
-    patternsData,
-} from "./../@types/levels";
-import { levelsFileName } from "./../@types/statics";
 import Level from "../Level";
 import { Matrix } from "../Math";
 import SpriteSheet from "../SpriteSheet";

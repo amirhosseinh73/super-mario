@@ -1,8 +1,6 @@
-import AudioBoard from "../AudioBoard";
+type AudioNames = "jump" | "coin" | "stomp";
 
-export type AudioNames = "jump" | "coin" | "stomp";
-
-export type AudioFileNames = "mario";
+type AudioFileNames = "mario";
 
 interface GameContext {
     audioContext: AudioContext;

@@ -1,5 +1,3 @@
-import { AudioNames } from "./@types/audio";
-
 export default class AudioBoard {
     buffers: Map<AudioNames, AudioBuffer>;
 

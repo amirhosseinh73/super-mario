@@ -1,5 +1,3 @@
-import { MatrixValue } from "./@types/levels";
-
 export class Matrix {
     grid: MatrixValue[][];
     constructor() {

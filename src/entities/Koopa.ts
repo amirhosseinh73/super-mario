@@ -1,14 +1,12 @@
-import { AnimationFrames } from "./../@types/statics";
 import { EntityWithTraits } from "./../@types/traits";
 import Entity, { Trait } from "../Entity";
 import SpriteSheet from "../SpriteSheet";
-import { ENTITY_INIT_SIZE } from "../defines";
+import { ENTITY_INIT_SIZE, JUMP_OUT_POS } from "../defines";
 import { loadSpriteSheet } from "../loaders";
 import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Solid from "../traits/Solid";
-import { GameContext } from "../@types/audio";
 
 export const loadKoopa = async function (_audioContext: AudioContext) {
     return loadSpriteSheet("koopa").then(createKoopaFactory);
@@ -68,7 +66,7 @@ export class Behavior extends Trait {
             this.hide(us);
         } else if (this.state === STATE_HIDING) {
             us.killable!.kill();
-            us.vel.set(100, -200);
+            us.vel.set(JUMP_OUT_POS.x, JUMP_OUT_POS.y);
             us.solid!.obstructs = false;
         } else if (this.state === STATE_PANIC) {
             this.hide(us);

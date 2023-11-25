@@ -1,4 +1,3 @@
-import { AnimationFrames, MarioAnimationFrames, MarioFrames } from "./../@types/statics";
 import { EntityWithTraits } from "./../@types/traits";
 import Entity from "../Entity";
 import SpriteSheet from "../SpriteSheet";

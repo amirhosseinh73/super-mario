@@ -1,9 +1,7 @@
-import { AudioInterface } from "./@types/audio";
-import { EntityFactories, LevelsInterface, SpritesInterface } from "./@types/levels";
-import { EntityNames, SpritesFileNames } from "./@types/statics";
 import { EntityWithTraits } from "./@types/traits";
 import SpriteSheet from "./SpriteSheet";
 import { TILE_SIZE } from "./defines";
+import { loadBullet } from "./entities/Bullet";
 import { loadGoomba } from "./entities/Goomba";
 import { loadKoopa } from "./entities/Koopa";
 import { loadMario } from "./entities/Mario";
@@ -63,6 +61,9 @@ export const loadEntities = async function (audioContext: AudioContext) {
         koopa: function (): EntityWithTraits {
             throw new Error("Function not implemented.");
         },
+        bullet: function (): EntityWithTraits {
+            throw new Error("Function not implemented.");
+        },
     };
 
     const AddAs = function (name: EntityNames) {
@@ -73,5 +74,6 @@ export const loadEntities = async function (audioContext: AudioContext) {
         loadMario(audioContext).then(AddAs("mario")),
         loadGoomba(audioContext).then(AddAs("goomba")),
         loadKoopa(audioContext).then(AddAs("koopa")),
+        loadBullet(audioContext).then(AddAs("bullet")),
     ]).then(() => entityFactories);
 };

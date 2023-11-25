@@ -1,13 +1,3 @@
-import {
-    AnimationFrames,
-    AnimationNames,
-    EntityNames,
-    MarioFrames,
-    PatternNames,
-    TileNames,
-} from "./statics";
-import { EntityWithTraits } from "./traits";
-
 interface LevelsInterface {
     spritesheet: SpritesFileNames;
     layers: LayersData[];

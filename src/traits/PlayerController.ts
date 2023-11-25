@@ -3,7 +3,6 @@ import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 import { Vec2 } from "../Math";
 import { KILLING_SCORE } from "../defines";
-import { GameContext } from "../@types/audio";
 
 export default class PlayerController extends Trait {
     player: EntityWithTraits | null;

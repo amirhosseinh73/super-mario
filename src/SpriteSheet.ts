@@ -1,6 +1,4 @@
 import { FontCharacters } from "./@types/fonts";
-import { SpritesAnimation } from "./@types/levels";
-import { AnimationFrames, TileNames } from "./@types/statics";
 
 export default class SpriteSheet {
     image: CanvasImageSource;

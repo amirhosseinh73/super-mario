@@ -21,6 +21,16 @@ export enum ENTITY_INIT_SIZE {
     h = 16,
 }
 
+export enum BULLET_INIT_SIZE {
+    w = 16,
+    h = 14,
+}
+
+export enum JUMP_OUT_POS {
+    x = 100,
+    y = -200,
+}
+
 export const GRAVITY = 1500;
 
 export const PRESSED = 1;

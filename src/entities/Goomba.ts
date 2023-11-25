@@ -1,4 +1,3 @@
-import { AnimationFrames } from "./../@types/statics";
 import { EntityWithTraits } from "./../@types/traits";
 import Entity, { Trait } from "../Entity";
 import SpriteSheet from "../SpriteSheet";

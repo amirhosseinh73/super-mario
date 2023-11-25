@@ -2,6 +2,7 @@ import Entity from "../Entity";
 import { Behavior as GoombaBehavior } from "../entities/Goomba";
 import { Behavior as KoopaBehavior } from "../entities/Koopa";
 import Go from "../traits/Go";
+import Gravity from "../traits/Gravity";
 import Jump from "../traits/Jump";
 import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
@@ -9,6 +10,7 @@ import Physics from "../traits/Physics";
 import PlayerController from "../traits/PlayerController";
 import Solid from "../traits/Solid";
 import Stomper from "../traits/Stomper";
+import Velocity from "../traits/Velocity";
 
 type EntityTraitNames = keyof Traits;
 
@@ -22,6 +24,8 @@ type Traits = {
     playerController?: PlayerController;
     solid?: Solid;
     physics?: Physics;
+    velocity?: Velocity;
+    gravity?: Gravity;
 };
 
 type EntityWithTraits = Entity & Traits;

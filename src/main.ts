@@ -11,7 +11,6 @@ import { EntityWithTraits } from "./@types/traits";
 import { createCollisionLayer } from "./layers/collision";
 import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
-import { GameContext } from "./@types/audio";
 
 const createPlayerEnv = function (playerEntity: EntityWithTraits) {
     const playerEnv = new Entity();
