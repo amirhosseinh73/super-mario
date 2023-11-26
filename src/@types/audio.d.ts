@@ -1,6 +1,6 @@
-type AudioNames = "jump" | "coin" | "stomp";
+type AudioNames = "jump" | "coin" | "stomp" | "shoot";
 
-type AudioFileNames = "mario";
+type AudioFileNames = "mario" | "cannon";
 
 interface GameContext {
     audioContext: AudioContext;

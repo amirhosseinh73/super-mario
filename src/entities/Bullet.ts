@@ -51,7 +51,7 @@ const createBulletFactory = function (sprite: SpriteSheet) {
     return function createBullet() {
         const bullet = new Entity() as EntityWithTraits;
         bullet.size.set(BULLET_INIT_SIZE.w, BULLET_INIT_SIZE.h);
-        bullet.vel.set(40, 0);
+        bullet.vel.set(80, 0);
 
         bullet.addTrait(new Velocity());
         bullet.addTrait(new Behavior());

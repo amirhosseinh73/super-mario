@@ -26,6 +26,7 @@ type Traits = {
     physics?: Physics;
     velocity?: Velocity;
     gravity?: Gravity;
+    emitter?: Emitter;
 };
 
 type EntityWithTraits = Entity & Traits;

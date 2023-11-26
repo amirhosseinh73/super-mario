@@ -2,6 +2,7 @@ import { EntityWithTraits } from "./@types/traits";
 import SpriteSheet from "./SpriteSheet";
 import { TILE_SIZE } from "./defines";
 import { loadBullet } from "./entities/Bullet";
+import { loadCannon } from "./entities/Cannon";
 import { loadGoomba } from "./entities/Goomba";
 import { loadKoopa } from "./entities/Koopa";
 import { loadMario } from "./entities/Mario";
@@ -64,6 +65,9 @@ export const loadEntities = async function (audioContext: AudioContext) {
         bullet: function (): EntityWithTraits {
             throw new Error("Function not implemented.");
         },
+        cannon: function (): EntityWithTraits {
+            throw new Error("Function not implemented.");
+        },
     };
 
     const AddAs = function (name: EntityNames) {
@@ -75,5 +79,6 @@ export const loadEntities = async function (audioContext: AudioContext) {
         loadGoomba(audioContext).then(AddAs("goomba")),
         loadKoopa(audioContext).then(AddAs("koopa")),
         loadBullet(audioContext).then(AddAs("bullet")),
+        loadCannon(audioContext, entityFactories).then(AddAs("cannon")),
     ]).then(() => entityFactories);
 };

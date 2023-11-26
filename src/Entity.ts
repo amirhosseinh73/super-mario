@@ -9,13 +9,11 @@ import { Vec2 } from "./Math";
 export class Trait {
     NAME: EntityTraitNames;
     tasks: Array<Function>;
-    sounds: Set<AudioNames>;
     events: EventEmitter;
 
     constructor(name: EntityTraitNames) {
         this.NAME = name;
 
-        this.sounds = new Set();
         this.tasks = [];
 
         this.events = new EventEmitter();
@@ -40,14 +38,6 @@ export class Trait {
         // console.log(side)
     }
 
-    public playSound(audioBoard: AudioBoard, audioContext: AudioContext) {
-        this.sounds.forEach(name => {
-            audioBoard.playAudio(name, audioContext);
-        });
-
-        this.sounds.clear();
-    }
-
     public update(
         _entity: Entity,
         _gameContext: GameContext,
@@ -67,6 +57,7 @@ export default class Entity {
     lifetime: number;
     canCollide: boolean;
     audio: AudioBoard;
+    sounds: Set<AudioNames>;
 
     constructor() {
         this.canCollide = true;
@@ -82,6 +73,7 @@ export default class Entity {
         this.traits = [];
 
         this.audio = new AudioBoard();
+        this.sounds = new Set();
     }
 
     public addTrait(trait: Trait) {
@@ -101,11 +93,20 @@ export default class Entity {
         });
     }
 
+    public playSound(audioBoard: AudioBoard, audioContext: AudioContext) {
+        this.sounds.forEach(name => {
+            audioBoard.playAudio(name, audioContext);
+        });
+
+        this.sounds.clear();
+    }
+
     public update(gameContext: GameContext, level: Level) {
         this.traits.forEach(trait => {
             trait.update(this, gameContext, level);
-            trait.playSound(this.audio, gameContext.audioContext);
         });
+
+        this.playSound(this.audio, gameContext.audioContext);
 
         this.lifetime += gameContext.deltaTime;
     }

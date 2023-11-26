@@ -37,6 +37,11 @@ export class Vec2 {
         this.set(x, y);
     }
 
+    public copy(vec2: Vec2) {
+        this.x = vec2.x;
+        this.y = vec2.y;
+    }
+
     public set(x: number, y: number) {
         this.x = x;
         this.y = y;

@@ -1,5 +1,5 @@
 type levelsFileName = "1-1";
-type EntityNames = "mario" | "goomba" | "koopa" | "bullet";
+type EntityNames = "mario" | "goomba" | "koopa" | "bullet" | "cannon";
 type SpritesFileNames = "overworld" | "underworld" | EntityNames;
 
 type MarioAnimationFrames = "run-1" | "run-2" | "run-3";

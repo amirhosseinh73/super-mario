@@ -1,10 +1,10 @@
 {
     "fx": {
         "jump": {
-            "url": "jump.ogg"
+            "url": "fx/jump.ogg"
         },
         "stomp": {
-            "url": "stomp.ogg"
+            "url": "fx/stomp.ogg"
         }
     }
 }

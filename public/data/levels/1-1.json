@@ -283,8 +283,8 @@
             "pos": [220, 0]
         },
         {
-            "name": "bullet",
-            "pos": [100, 161]
+            "name": "cannon",
+            "pos": [192, 160]
         },
         { "name": "goomba", "pos": [620, 0] },
         { "name": "goomba", "pos": [860, 0] },
