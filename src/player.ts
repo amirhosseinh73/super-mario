@@ -22,6 +22,6 @@ export const createPlayer = function (entity: EntityWithTraits) {
 
 export const findPlayers = function* (level: Level) {
     for (const entity of level.entities) {
-        if (entity.playerController) yield entity;
+        if (entity.player) yield entity;
     }
 };

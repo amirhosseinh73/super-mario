@@ -25,14 +25,9 @@ const createCannonFactory = function (audio: AudioBoard, entityFactories: Entity
                 player.pos.x > cannon.pos.x - HOLD_FIRE_THRESHOLD &&
                 player.pos.x < cannon.pos.x + HOLD_FIRE_THRESHOLD;
 
-            // console.log(CLOSE_TO_CANNON);
-
             if (CLOSE_TO_CANNON) return;
 
-            dir = 1;
             if (player.pos.x < cannon.pos.x) dir = -1;
-
-            console.log(cannon.pos.x, player.pos.x);
         }
 
         const bullet = entityFactories.bullet();

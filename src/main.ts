@@ -20,7 +20,6 @@ const main = async function (canvas: HTMLCanvasElement) {
     const camera = new Camera();
 
     const mario = createPlayer(entityFactory.mario());
-    console.log(mario);
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
