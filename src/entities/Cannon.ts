@@ -4,6 +4,8 @@ import { loadAudioBoard } from "../loaders/audio";
 import AudioBoard from "../AudioBoard";
 import Emitter from "../traits/Emitter";
 import Level from "../Level";
+import { findPlayers } from "../player";
+import { HOLD_FIRE_THRESHOLD } from "../defines";
 
 export const loadCannon = async function (
     audioContext: AudioContext,
@@ -16,10 +18,29 @@ export const loadCannon = async function (
 
 const createCannonFactory = function (audio: AudioBoard, entityFactories: EntityFactories) {
     const emitBullet = function (cannon: Entity, level: Level) {
+        let dir = 1;
+
+        for (const player of findPlayers(level)) {
+            const CLOSE_TO_CANNON =
+                player.pos.x > cannon.pos.x - HOLD_FIRE_THRESHOLD &&
+                player.pos.x < cannon.pos.x + HOLD_FIRE_THRESHOLD;
+
+            // console.log(CLOSE_TO_CANNON);
+
+            if (CLOSE_TO_CANNON) return;
+
+            dir = 1;
+            if (player.pos.x < cannon.pos.x) dir = -1;
+
+            console.log(cannon.pos.x, player.pos.x);
+        }
+
         const bullet = entityFactories.bullet();
 
         bullet.pos.copy(cannon.pos);
+        bullet.vel.set(80 * dir, 0);
 
+        cannon.sounds.add("shoot");
         level.entities.add(bullet);
     };
 
@@ -28,6 +49,7 @@ const createCannonFactory = function (audio: AudioBoard, entityFactories: Entity
         cannon.audio = audio;
 
         const emitter = new Emitter();
+        emitter.interval = 0.2;
         emitter.emitters.push(emitBullet);
         cannon.addTrait(emitter);
 

@@ -1,25 +1,13 @@
-import { MARIO_INIT_POS } from "./defines";
 import { setupKeyboard } from "./helper";
 import Timer from "./Timer";
 import Camera from "./Camera";
 import { createLevelLoader } from "./loaders/level";
 import { loadEntities } from "./loaders";
 import { setupMouseEvents } from "./MouseState";
-import Entity from "./Entity";
-import PlayerController from "./traits/PlayerController";
-import { EntityWithTraits } from "./@types/traits";
 import { createCollisionLayer } from "./layers/collision";
 import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
-
-const createPlayerEnv = function (playerEntity: EntityWithTraits) {
-    const playerEnv = new Entity();
-    const playerControl = new PlayerController();
-    playerControl.checkpoint.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y);
-    playerControl.setPlayer(playerEntity);
-    playerEnv.addTrait(playerControl);
-    return playerEnv as EntityWithTraits;
-};
+import { createPlayer, createPlayerEnv } from "./player";
 
 const main = async function (canvas: HTMLCanvasElement) {
     const context = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -31,7 +19,8 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     const camera = new Camera();
 
-    const mario = entityFactory.mario();
+    const mario = createPlayer(entityFactory.mario());
+    console.log(mario);
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);

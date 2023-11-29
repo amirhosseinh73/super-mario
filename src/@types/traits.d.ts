@@ -7,6 +7,7 @@ import Jump from "../traits/Jump";
 import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
+import Player from "../traits/Player";
 import PlayerController from "../traits/PlayerController";
 import Solid from "../traits/Solid";
 import Stomper from "../traits/Stomper";
@@ -27,6 +28,7 @@ type Traits = {
     velocity?: Velocity;
     gravity?: Gravity;
     emitter?: Emitter;
+    player?: Player;
 };
 
 type EntityWithTraits = Entity & Traits;

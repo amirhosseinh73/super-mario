@@ -165,3 +165,5 @@ export enum FONT_CHARS_ENUM {
     RightCurlyBrace = "}",
     Tilde = "~",
 }
+
+export const HOLD_FIRE_THRESHOLD = 30;

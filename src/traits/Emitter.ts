@@ -10,7 +10,7 @@ export default class Emitter extends Trait {
     constructor() {
         super("emitter");
 
-        this.interval = 2;
+        this.interval = 4;
         this.coolDown = this.interval;
 
         this.emitters = [];

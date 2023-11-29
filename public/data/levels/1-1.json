@@ -284,7 +284,7 @@
         },
         {
             "name": "cannon",
-            "pos": [192, 160]
+            "pos": [176, 160]
         },
         { "name": "goomba", "pos": [620, 0] },
         { "name": "goomba", "pos": [860, 0] },

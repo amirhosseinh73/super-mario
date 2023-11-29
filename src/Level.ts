@@ -1,5 +1,5 @@
+import { EntityWithTraits } from "./@types/traits";
 import Compositor from "./Compositor";
-import Entity from "./Entity";
 import EntityCollider from "./EntityCollider";
 import { Matrix } from "./Math";
 import TileCollider from "./TileCollider";
@@ -9,7 +9,7 @@ export default class Level {
     gravity: number;
 
     comp: Compositor;
-    entities: Set<Entity>;
+    entities: Set<EntityWithTraits>;
     tiles!: Matrix;
     tileCollider: TileCollider | null;
 
