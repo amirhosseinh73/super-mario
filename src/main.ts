@@ -8,6 +8,7 @@ import { createCollisionLayer } from "./layers/collision";
 import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
 import { createPlayer, createPlayerEnv } from "./player";
+import { GameContext } from "./@types/traits";
 
 const main = async function (canvas: HTMLCanvasElement) {
     const context = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -35,6 +36,7 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     const gameContext: GameContext = {
         audioContext,
+        entityFactory,
         deltaTime: 0,
     };
 

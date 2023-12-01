@@ -1,4 +1,4 @@
-import { EntityWithTraits } from "./@types/traits";
+import { EntityWithTraits, GameContext } from "./@types/traits";
 import Compositor from "./Compositor";
 import EntityCollider from "./EntityCollider";
 import { Matrix } from "./Math";

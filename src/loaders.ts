@@ -1,4 +1,4 @@
-import { EntityWithTraits } from "./@types/traits";
+import { EntityFactories, EntityWithTraits } from "./@types/traits";
 import SpriteSheet from "./SpriteSheet";
 import { TILE_SIZE } from "./defines";
 import { loadBullet } from "./entities/Bullet";

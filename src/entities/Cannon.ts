@@ -1,4 +1,4 @@
-import { EntityWithTraits } from "./../@types/traits";
+import { EntityFactories, EntityWithTraits } from "./../@types/traits";
 import Entity from "../Entity";
 import { loadAudioBoard } from "../loaders/audio";
 import AudioBoard from "../AudioBoard";

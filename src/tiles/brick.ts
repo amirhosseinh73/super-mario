@@ -1,8 +1,7 @@
-import Entity from "../Entity";
-import TileResolver from "../TileResolver";
+import { tileCollisionContextType } from "../TileCollider";
 import { Sides } from "../defines";
 
-function handleX(entity: Entity, match: MatchTiles) {
+function handleX({ entity, match }: tileCollisionContextType) {
     if (entity.vel.x > 0) {
         if (entity.bounds.right > match.x1) {
             entity.obstruct(Sides.RIGHT, match);
@@ -14,16 +13,21 @@ function handleX(entity: Entity, match: MatchTiles) {
     }
 }
 
-function handleY(entity: Entity, match: MatchTiles, resolver: TileResolver | undefined) {
+function handleY({ entity, match, resolver, gameContext, level }: tileCollisionContextType) {
     if (entity.vel.y > 0) {
         if (entity.bounds.bottom > match.y1) {
             entity.obstruct(Sides.BOTTOM, match);
         }
     } else if (entity.vel.y < 0) {
-        const grid = resolver?.matrix;
-        if (grid) grid.delete(match.indexX, match.indexY);
+        if (entity.player) {
+            const grid = resolver.matrix;
+            grid.delete(match.indexX, match.indexY);
 
-        console.log("Collide from the bottom", match);
+            const goomba = gameContext.entityFactory.goomba();
+            goomba.vel.set(50, -400);
+            goomba.pos.set(entity.pos.x, match.y1);
+            level.entities.add(goomba);
+        }
 
         if (entity.bounds.top < match.y2) {
             entity.obstruct(Sides.TOP, match);

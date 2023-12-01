@@ -1,3 +1,4 @@
+import { GameContext } from "../@types/traits";
 import Entity, { Trait } from "../Entity";
 
 export default class Velocity extends Trait {

@@ -1,7 +1,7 @@
-import Entity from "../Entity";
+import { tileCollisionContextType } from "../TileCollider";
 import { Sides } from "../defines";
 
-function handleX(entity: Entity, match: MatchTiles) {
+function handleX({ entity, match }: tileCollisionContextType) {
     if (entity.vel.x > 0) {
         if (entity.bounds.right > match.x1) {
             entity.obstruct(Sides.RIGHT, match);
@@ -13,7 +13,7 @@ function handleX(entity: Entity, match: MatchTiles) {
     }
 }
 
-function handleY(entity: Entity, match: MatchTiles) {
+function handleY({ entity, match }: tileCollisionContextType) {
     if (entity.vel.y > 0) {
         if (entity.bounds.bottom > match.y1) {
             entity.obstruct(Sides.BOTTOM, match);

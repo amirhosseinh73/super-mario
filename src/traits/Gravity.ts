@@ -1,3 +1,4 @@
+import { GameContext } from "../@types/traits";
 import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 

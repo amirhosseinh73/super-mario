@@ -1,4 +1,4 @@
-import { EntityWithTraits } from "./../@types/traits";
+import { EntityWithTraits, GameContext } from "./../@types/traits";
 import Entity, { Trait } from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { BULLET_INIT_SIZE, JUMP_OUT_POS } from "../defines";

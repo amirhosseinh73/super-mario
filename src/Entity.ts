@@ -1,4 +1,4 @@
-import { EntityTraitNames } from "./@types/traits";
+import { EntityTraitNames, GameContext } from "./@types/traits";
 import AudioBoard from "./AudioBoard";
 import BoundingBox from "./BoundingBox";
 import EventEmitter from "./EventEmitter";

@@ -84,7 +84,3 @@ interface SpritesAnimation {
     frameLen: number;
     frames: AnimationFrames[];
 }
-
-type EntityFactories = {
-    [key in EntityNames]: () => EntityWithTraits;
-};

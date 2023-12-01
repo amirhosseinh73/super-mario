@@ -4,6 +4,7 @@ import SpriteSheet from "../SpriteSheet";
 import { loadJSON, loadSpriteSheet } from "../loaders";
 import { createBackgroundLayer } from "../layers/background";
 import { createSpriteLayer } from "../layers/sprites";
+import { EntityFactories } from "../@types/traits";
 
 const expandSpan = function* (xStart: number, xLen: number, yStart: number, yLen: number) {
     const xEnd = xStart + xLen;

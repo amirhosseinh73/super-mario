@@ -32,3 +32,13 @@ type Traits = {
 };
 
 type EntityWithTraits = Entity & Traits;
+
+type EntityFactories = {
+    [key in EntityNames]: () => EntityWithTraits;
+};
+
+interface GameContext {
+    audioContext: AudioContext;
+    entityFactory: EntityFactories;
+    deltaTime: number;
+}
