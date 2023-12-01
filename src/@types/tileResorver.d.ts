@@ -1,5 +1,3 @@
-import { MatrixValue } from "./levels";
-
 type getByIndexReturnType = {
     tile: MatrixValue;
 

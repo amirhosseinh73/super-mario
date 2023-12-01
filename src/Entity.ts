@@ -1,4 +1,3 @@
-import { getByIndexReturnType } from "./@types/tileResorver";
 import { EntityTraitNames } from "./@types/traits";
 import AudioBoard from "./AudioBoard";
 import BoundingBox from "./BoundingBox";

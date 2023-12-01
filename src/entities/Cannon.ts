@@ -44,7 +44,6 @@ const createCannonFactory = function (audio: AudioBoard, entityFactories: Entity
         cannon.audio = audio;
 
         const emitter = new Emitter();
-        emitter.interval = 0.2;
         emitter.emitters.push(emitBullet);
         cannon.addTrait(emitter);
 

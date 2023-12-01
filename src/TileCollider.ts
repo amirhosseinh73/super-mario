@@ -1,7 +1,11 @@
 import Entity from "./Entity";
 import { Matrix } from "./Math";
 import TileResolver from "./TileResolver";
-import { Sides } from "./defines";
+import ground from "./tiles/ground";
+
+const handlers = {
+    ground,
+};
 
 export default class TileCollider {
     tiles: TileResolver;
@@ -20,17 +24,7 @@ export default class TileCollider {
         const matches = this.tiles.searchByRange(x, x, entity.bounds.top, entity.bounds.bottom);
 
         matches.forEach(match => {
-            if (match.tile.type !== "ground") return;
-
-            if (entity.vel.x > 0) {
-                if (entity.bounds.right > match.x1) {
-                    entity.obstruct(Sides.RIGHT, match);
-                }
-            } else if (entity.vel.x < 0) {
-                if (entity.bounds.left < match.x2) {
-                    entity.obstruct(Sides.LEFT, match);
-                }
-            }
+            this._handle(0, entity, match);
         });
     }
 
@@ -44,18 +38,14 @@ export default class TileCollider {
         const matches = this.tiles.searchByRange(entity.bounds.left, entity.bounds.right, y, y);
 
         matches.forEach(match => {
-            if (match.tile.type !== "ground") return;
-
             //falling
-            if (entity.vel.y > 0) {
-                if (entity.bounds.bottom > match.y1) {
-                    entity.obstruct(Sides.BOTTOM, match);
-                }
-            } else if (entity.vel.y < 0) {
-                if (entity.bounds.top < match.y2) {
-                    entity.obstruct(Sides.TOP, match);
-                }
-            }
+            this._handle(1, entity, match);
         });
+    }
+
+    private _handle(index: number, entity: Entity, match: getByIndexReturnType) {
+        if (!match.tile.type) return;
+        const handler = handlers[match.tile.type][index];
+        if (handler) handler(entity, match);
     }
 }
