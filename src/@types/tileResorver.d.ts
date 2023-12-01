@@ -1,5 +1,7 @@
-type getByIndexReturnType = {
+type MatchTiles = {
     tile: MatrixValue;
+    indexX: number;
+    indexY: number;
 
     x1: number;
     x2: number;

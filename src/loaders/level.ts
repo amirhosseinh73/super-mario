@@ -65,44 +65,26 @@ const expandTiles = function* (tiles: BackgroundLayers[], patterns: patternsData
     yield* walkTiles(tiles, 0, 0);
 };
 
-const createCollisionGrid = function (tiles: BackgroundLayers[], patterns: patternsData) {
+const createGrid = function (tiles: BackgroundLayers[], patterns: patternsData) {
     const grid = new Matrix();
 
     for (const { tile, x, y } of expandTiles(tiles, patterns)) {
-        grid.set(x, y, { type: tile.type });
+        grid.set(x, y, tile);
     }
 
     return grid;
 };
 
-const createBackgroundGrid = function (tiles: BackgroundLayers[], patterns: patternsData) {
-    const grid = new Matrix();
-
-    for (const { tile, x, y } of expandTiles(tiles, patterns)) {
-        grid.set(x, y, { name: tile.name });
-    }
-
-    return grid;
-};
-
-const setupCollision = function (levelSpec: LevelsInterface, level: Level) {
-    const mergedTiles = levelSpec.layers.reduce((mergedTiles: BackgroundLayers[], layerSpec) => {
-        return mergedTiles.concat(layerSpec.tiles);
-    }, []);
-
-    const collisionGrid = createCollisionGrid(mergedTiles, levelSpec.patterns);
-    level.setCollisionGrid(collisionGrid);
-};
-
-const setupBackground = function (
+const setupBackgrounds = function (
     levelSpec: LevelsInterface,
     level: Level,
     backgroundSprites: SpriteSheet
 ) {
     levelSpec.layers.forEach(layer => {
-        const backgroundGrid = createBackgroundGrid(layer.tiles, levelSpec.patterns);
-        const backgroundLayer = createBackgroundLayer(level, backgroundGrid, backgroundSprites);
+        const grid = createGrid(layer.tiles, levelSpec.patterns);
+        const backgroundLayer = createBackgroundLayer(level, grid, backgroundSprites);
         level.comp.layers.push(backgroundLayer);
+        level.tileCollider.addGrid(grid);
     });
 };
 
@@ -130,8 +112,8 @@ export const createLevelLoader = async function (entityFactory: EntityFactories)
 
         const level = new Level();
 
-        setupCollision(levelSpec, level);
-        setupBackground(levelSpec, level, backgroundSprites);
+        // setupCollision(levelSpec, level);
+        setupBackgrounds(levelSpec, level, backgroundSprites);
         setupEntities(levelSpec, level, entityFactory);
 
         return level;

@@ -31,6 +31,8 @@ type TileNames =
     | CannonPatternTiles
     | BulletTiles;
 
+type TileTypes = "ground" | "brick";
+
 type MarioSide = "bottom" | "top";
 
 type PipePatternTiles =

@@ -9,7 +9,7 @@ type RangeType = [number, number, number, number] | [number, number, number] | [
 
 interface BackgroundsBase {
     name?: TileNames;
-    type?: "ground";
+    type?: TileTypes;
     ranges: RangeType[];
     pattern?: PatternNames;
 }
@@ -44,6 +44,7 @@ type entitiesData = {
 interface MatrixValue {
     name?: TileNames;
     type?: BackgroundLayers["type"];
+    ranges?: RangeType[];
 }
 
 interface MatrixValueCollision extends MatrixValue {

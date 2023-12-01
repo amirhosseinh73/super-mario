@@ -12,12 +12,16 @@ export class Matrix {
         });
     }
 
+    public delete(x: number, y: number) {
+        const col = this.grid[x];
+
+        if (col) delete col[y];
+    }
+
     public get(x: number, y: number) {
         const col = this.grid[x];
 
         if (col) return col[y];
-
-        return undefined;
     }
 
     public set(x: number, y: number, value: MatrixValue) {

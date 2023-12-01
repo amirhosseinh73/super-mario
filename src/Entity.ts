@@ -32,7 +32,7 @@ export class Trait {
     public obstruct(
         _entity: Entity,
         _side: Symbol,
-        _match: getByIndexReturnType | undefined = undefined
+        _match: MatchTiles | undefined = undefined
     ): void {
         // console.log(side)
     }
@@ -86,7 +86,7 @@ export default class Entity {
         });
     }
 
-    public obstruct(side: Symbol, match: getByIndexReturnType | undefined = undefined) {
+    public obstruct(side: Symbol, match: MatchTiles | undefined = undefined) {
         this.traits.forEach(trait => {
             trait.obstruct(this, side, match);
         });

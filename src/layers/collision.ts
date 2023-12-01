@@ -1,7 +1,7 @@
 import Camera from "../Camera";
 import Entity from "../Entity";
 import Level from "../Level";
-import TileCollider from "../TileCollider";
+import TileResolver from "../TileResolver";
 
 const createEntityLayer = function (entities: Set<Entity>) {
     return function drawBoundingBox(context: CanvasRenderingContext2D, camera: Camera) {
@@ -19,10 +19,8 @@ const createEntityLayer = function (entities: Set<Entity>) {
     };
 };
 
-const createTileCandidateLayer = function (tileCollider: TileCollider) {
+const createTileCandidateLayer = function (tileResolver: TileResolver) {
     const resolvedTiles: Position[] = [];
-
-    const tileResolver = tileCollider.tiles;
 
     const tileSize = tileResolver.tileSize;
 
@@ -51,12 +49,12 @@ const createTileCandidateLayer = function (tileCollider: TileCollider) {
 
 export function createCollisionLayer(level: Level) {
     if (!level.tileCollider) return;
-    const drawTileCandidates = createTileCandidateLayer(level.tileCollider);
+    const drawTileCandidates = level.tileCollider.resolvers.map(createTileCandidateLayer);
 
     const drawBoundingBoxes = createEntityLayer(level.entities);
 
     return function drawCollision(context: CanvasRenderingContext2D, camera: Camera) {
-        drawTileCandidates(context, camera);
+        drawTileCandidates.forEach(draw => draw(context, camera));
         drawBoundingBoxes(context, camera);
     };
 }

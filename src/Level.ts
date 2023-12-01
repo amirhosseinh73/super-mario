@@ -11,7 +11,7 @@ export default class Level {
     comp: Compositor;
     entities: Set<EntityWithTraits>;
     tiles!: Matrix;
-    tileCollider: TileCollider | null;
+    tileCollider: TileCollider;
 
     entityCollider: EntityCollider;
 
@@ -27,11 +27,7 @@ export default class Level {
 
         this.entityCollider = new EntityCollider(this.entities);
 
-        this.tileCollider = null;
-    }
-
-    public setCollisionGrid(matrix: Matrix) {
-        this.tileCollider = new TileCollider(matrix);
+        this.tileCollider = new TileCollider();
     }
 
     public update(gameContext: GameContext) {

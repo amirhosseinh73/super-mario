@@ -39,7 +39,7 @@
             "tiles": [
                 {
                     "name": "brick",
-                    "type": "ground",
+                    "type": "brick",
                     "ranges": [
                         [27, 5, 10],
                         [83, 3, 10],

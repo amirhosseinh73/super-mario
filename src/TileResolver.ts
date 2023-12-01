@@ -27,21 +27,23 @@ export default class TileResolver {
         return range;
     }
 
-    public getByIndex(indexX: number, indexY: number) {
+    public getByIndex(indexX: number, indexY: number): MatchTiles | undefined {
         const tile = this.matrix.get(indexX, indexY);
-        if (tile) {
-            const x1 = indexX * this.tileSize;
-            const x2 = x1 + this.tileSize;
-            const y1 = indexY * this.tileSize;
-            const y2 = y1 + this.tileSize;
-            return {
-                tile,
-                x1,
-                x2,
-                y1,
-                y2,
-            };
-        }
+        if (!tile) return;
+
+        const x1 = indexX * this.tileSize;
+        const x2 = x1 + this.tileSize;
+        const y1 = indexY * this.tileSize;
+        const y2 = y1 + this.tileSize;
+        return {
+            tile,
+            indexX,
+            indexY,
+            x1,
+            x2,
+            y1,
+            y2,
+        };
     }
 
     public searchByPosition(posX: number, posY: number) {
@@ -49,7 +51,7 @@ export default class TileResolver {
     }
 
     public searchByRange(x1: number, x2: number, y1: number, y2: number) {
-        const matches: getByIndexReturnType[] = []; //ReturnType<TileResolver["getByIndex"]>[]
+        const matches: MatchTiles[] = []; //ReturnType<TileResolver["getByIndex"]>[]
 
         this.toIndexRange(x1, x2).forEach(indexX => {
             this.toIndexRange(y1, y2).forEach(indexY => {

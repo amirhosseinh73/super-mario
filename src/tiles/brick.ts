@@ -1,4 +1,5 @@
 import Entity from "../Entity";
+import TileResolver from "../TileResolver";
 import { Sides } from "../defines";
 
 function handleX(entity: Entity, match: MatchTiles) {
@@ -13,18 +14,23 @@ function handleX(entity: Entity, match: MatchTiles) {
     }
 }
 
-function handleY(entity: Entity, match: MatchTiles) {
+function handleY(entity: Entity, match: MatchTiles, resolver: TileResolver | undefined) {
     if (entity.vel.y > 0) {
         if (entity.bounds.bottom > match.y1) {
             entity.obstruct(Sides.BOTTOM, match);
         }
     } else if (entity.vel.y < 0) {
+        const grid = resolver?.matrix;
+        if (grid) grid.delete(match.indexX, match.indexY);
+
+        console.log("Collide from the bottom", match);
+
         if (entity.bounds.top < match.y2) {
             entity.obstruct(Sides.TOP, match);
         }
     }
 }
 
-const ground = [handleX, handleY];
+const brick = [handleX, handleY];
 
-export default ground;
+export default brick;
