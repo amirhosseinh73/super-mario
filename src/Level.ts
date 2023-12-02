@@ -2,6 +2,7 @@ import { EntityWithTraits, GameContext } from "./@types/traits";
 import Compositor from "./Compositor";
 import EntityCollider from "./EntityCollider";
 import { Matrix } from "./Math";
+import MusicController from "./MusicController";
 import TileCollider from "./TileCollider";
 import { GRAVITY } from "./defines";
 
@@ -16,14 +17,16 @@ export default class Level {
     entityCollider: EntityCollider;
 
     totalTime: number;
+    music: MusicController;
 
     constructor() {
         this.gravity = GRAVITY;
         this.totalTime = 0;
 
+        this.music = new MusicController();
+
         this.comp = new Compositor();
         this.entities = new Set();
-        // this.tiles = new Matrix();
 
         this.entityCollider = new EntityCollider(this.entities);
 

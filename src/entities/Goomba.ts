@@ -2,11 +2,11 @@ import { EntityWithTraits } from "./../@types/traits";
 import Entity, { Trait } from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { ENTITY_INIT_SIZE } from "../defines";
-import { loadSpriteSheet } from "../loaders";
 import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Solid from "../traits/Solid";
+import { loadSpriteSheet } from "../loaders/sprite";
 
 export const loadGoomba = async function (_audioContext: AudioContext) {
     return loadSpriteSheet("goomba").then(createGoombaFactory);

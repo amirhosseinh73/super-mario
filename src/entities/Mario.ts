@@ -2,7 +2,7 @@ import { EntityWithTraits } from "./../@types/traits";
 import Entity from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { FAST_DRAG, MARIO_INIT_SIZE, SLOW_DRAG } from "../defines";
-import { loadSpriteSheet } from "../loaders";
+import { loadSpriteSheet } from "../loaders/sprite";
 import Go from "../traits/Go";
 import Jump from "../traits/Jump";
 import Killable from "../traits/Killable";

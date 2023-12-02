@@ -4,7 +4,7 @@ import { loadJSON } from "../loaders";
 export async function loadAudioBoard(name: AudioFileNames, audioContext: AudioContext) {
     const loadAudio = createAudioLoader(audioContext);
 
-    const audioSheet = (await loadJSON(`/data/sounds/${name}.json`)) as AudioInterface;
+    const audioSheet = (await loadJSON(`/data/sounds/${name}.json`)) as AudioType;
 
     const audioBoard = new AudioBoard();
     const fx = audioSheet.fx;
@@ -15,7 +15,7 @@ export async function loadAudioBoard(name: AudioFileNames, audioContext: AudioCo
     audioNames.forEach(name => {
         const { url } = fx[name];
 
-        const job = loadAudio(`/assets/audio/${url}`).then(buffer => {
+        const job = loadAudio(url).then(buffer => {
             audioBoard.addAudio(name, buffer);
         });
 

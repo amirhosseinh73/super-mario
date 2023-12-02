@@ -1,5 +1,6 @@
 interface LevelsInterface {
-    spritesheet: SpritesFileNames;
+    spriteSheet: SpritesFileNames;
+    musicSheet: MusicFileNames;
     layers: LayersData[];
     patterns: patternsData;
     entities: entitiesData[];

@@ -1,10 +1,12 @@
 import Level from "../Level";
 import { Matrix } from "../Math";
 import SpriteSheet from "../SpriteSheet";
-import { loadJSON, loadSpriteSheet } from "../loaders";
+import { loadJSON } from "../loaders";
+import { loadSpriteSheet } from "./sprite";
 import { createBackgroundLayer } from "../layers/background";
 import { createSpriteLayer } from "../layers/sprites";
 import { EntityFactories } from "../@types/traits";
+import { loadMusicSheet } from "./music";
 
 const expandSpan = function* (xStart: number, xLen: number, yStart: number, yLen: number) {
     const xEnd = xStart + xLen;
@@ -109,9 +111,12 @@ export const createLevelLoader = async function (entityFactory: EntityFactories)
     return async function loadLevel(name: levelsFileName) {
         const levelSpec = (await loadJSON(`/data/levels/${name}.json`)) as LevelsInterface;
 
-        const backgroundSprites = await loadSpriteSheet(levelSpec.spritesheet);
+        const backgroundSprites = await loadSpriteSheet(levelSpec.spriteSheet);
+        const musicPlayer = await loadMusicSheet(levelSpec.musicSheet);
 
         const level = new Level();
+
+        level.music.setPlayer(musicPlayer);
 
         // setupCollision(levelSpec, level);
         setupBackgrounds(levelSpec, level, backgroundSprites);

@@ -1,11 +1,17 @@
+type AudioFileNames = "mario" | "cannon";
 type AudioNames = "jump" | "coin" | "stomp" | "shoot";
 
-type AudioFileNames = "mario" | "cannon";
+type AudioType = {
+    fx: SoundsFormatType<AudioNames>;
+};
 
-interface AudioInterface {
-    fx: {
-        [key in AudioNames]: {
-            url: string;
-        };
+type MusicFileNames = "overworld";
+type MusicNames = "main";
+
+type MusicType = SoundsFormatType<MusicNames>;
+
+type SoundsFormatType<T> = {
+    [key in T]: {
+        url: string;
     };
-}
+};

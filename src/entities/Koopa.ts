@@ -2,7 +2,7 @@ import { EntityWithTraits, GameContext } from "./../@types/traits";
 import Entity, { Trait } from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { ENTITY_INIT_SIZE, JUMP_OUT_POS } from "../defines";
-import { loadSpriteSheet } from "../loaders";
+import { loadSpriteSheet } from "../loaders/sprite";
 import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
