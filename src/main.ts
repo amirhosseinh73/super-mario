@@ -4,7 +4,7 @@ import Camera from "./Camera";
 import { createLevelLoader } from "./loaders/level";
 import { loadEntities } from "./loaders";
 import { setupMouseEvents } from "./MouseState";
-import { createCollisionLayer } from "./layers/collision";
+// import { createCollisionLayer } from "./layers/collision";
 import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
 import { createPlayer, createPlayerEnv } from "./player";
@@ -25,8 +25,8 @@ const main = async function (canvas: HTMLCanvasElement) {
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
 
-    const debugLayers = createCollisionLayer(level);
-    if (debugLayers) level.comp.layers.push(debugLayers);
+    // const debugLayers = createCollisionLayer(level);
+    // if (debugLayers) level.comp.layers.push(debugLayers);
     level.comp.layers.push(createDashboardLayer(font, playerEnv));
 
     const input = setupKeyboard(mario);
