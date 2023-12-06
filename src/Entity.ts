@@ -1,30 +1,42 @@
 import { EntityTraitNames, GameContext } from "./@types/traits";
 import AudioBoard from "./AudioBoard";
 import BoundingBox from "./BoundingBox";
-import EventEmitter from "./EventEmitter";
+import EventBuffer from "./EventBuffer";
 import Level from "./Level";
 import { Vec2 } from "./Math";
 
 export class Trait {
+    static EVENT_TASK = Symbol("task");
+
     NAME: EntityTraitNames;
-    tasks: Array<Function>;
-    events: EventEmitter;
+
+    listeners: {
+        name: Symbol;
+        callback: (...args: unknown[]) => void;
+        count: number;
+    }[];
 
     constructor(name: EntityTraitNames) {
         this.NAME = name;
 
-        this.tasks = [];
-
-        this.events = new EventEmitter();
+        this.listeners = [];
     }
 
-    public finalize() {
-        this.tasks.forEach(task => task());
-        this.tasks.length = 0;
+    public listen(name: Symbol, callback: (...args: unknown[]) => void, count = Infinity) {
+        const listener = { name, callback, count };
+
+        this.listeners.push(listener);
+    }
+
+    public finalize(entity: Entity) {
+        this.listeners = this.listeners.filter(listener => {
+            entity.events.process(listener.name, listener.callback);
+            return --listener.count;
+        });
     }
 
     public queue(task: () => void) {
-        this.tasks.push(task);
+        this.listen(Trait.EVENT_TASK, task, 1);
     }
 
     public collides(_us: Entity, _them: Entity) {}
@@ -57,6 +69,7 @@ export default class Entity {
     canCollide: boolean;
     audio: AudioBoard;
     sounds: Set<AudioNames>;
+    events: EventBuffer;
 
     constructor() {
         this.canCollide = true;
@@ -73,6 +86,8 @@ export default class Entity {
 
         this.audio = new AudioBoard();
         this.sounds = new Set();
+
+        this.events = new EventBuffer();
     }
 
     public addTrait(trait: Trait) {
@@ -113,9 +128,13 @@ export default class Entity {
     public draw(_context: CanvasRenderingContext2D) {}
 
     public finalize() {
+        this.events.emit(Trait.EVENT_TASK);
+
         this.traits.forEach(trait => {
-            trait.finalize();
+            trait.finalize(this);
         });
+
+        this.events.clear();
     }
 
     public turbo: ((turboOn: boolean) => void) | undefined;

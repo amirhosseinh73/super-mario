@@ -3,6 +3,7 @@ import Entity, { Trait } from "../Entity";
 import Level from "../Level";
 import { Vec2 } from "../Math";
 import { KILLING_SCORE } from "../defines";
+import Stomper from "./Stomper";
 
 export default class PlayerController extends Trait {
     player: EntityWithTraits | null;
@@ -18,15 +19,14 @@ export default class PlayerController extends Trait {
 
         this.time = 300;
         this.score = 0;
+
+        this.listen(Stomper.EVENT_STOMP, () => {
+            this.score += KILLING_SCORE;
+        });
     }
 
     public setPlayer(entity: EntityWithTraits) {
         this.player = entity;
-
-        if (this.player.stomper)
-            this.player.stomper.events.listen("stomp", () => {
-                this.score += KILLING_SCORE;
-            });
     }
 
     public update(_entity: Entity, { deltaTime }: GameContext, level: Level): void {

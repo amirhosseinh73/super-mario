@@ -17,13 +17,6 @@ export const loadMario = async function (audioContext: AudioContext) {
     const audio = await loadAudioBoard("mario", audioContext);
 
     return createMarioFactory(sprite, audio);
-
-    // return Promise.all([
-    //     loadSpriteSheet("mario"),
-    //     loadAudioBoard("mario", audioContext)
-    // ]).then(([sprite, audio]) => {
-    //     return createMarioFactory(sprite)
-    // })
 };
 
 const createMarioFactory = function (sprite: SpriteSheet, audio: AudioBoard) {

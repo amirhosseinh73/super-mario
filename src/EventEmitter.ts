@@ -1,6 +1,6 @@
 export default class EventEmitter {
     listeners: {
-        name: string;
+        name: Symbol;
         callback: (...args: unknown[]) => void;
     }[];
 
@@ -8,13 +8,13 @@ export default class EventEmitter {
         this.listeners = [];
     }
 
-    public listen(name: string, callback: (...args: unknown[]) => void) {
+    public listen(name: Symbol, callback: (...args: unknown[]) => void) {
         const listener = { name, callback };
 
         this.listeners.push(listener);
     }
 
-    public emit(name: string, ...args: unknown[]) {
+    public emit(name: Symbol, ...args: unknown[]) {
         this.listeners.forEach(listener => {
             if (listener.name !== name) return;
 
