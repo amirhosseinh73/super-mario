@@ -1,16 +1,29 @@
-import { EntityWithTraits } from "../@types/traits";
+import Level from "../Level";
 import { Font } from "../loaders/font";
+import { findPlayers } from "../player";
 
-export const createDashboardLayer = function (font: Font, playerEnv: EntityWithTraits) {
+const getPlayerTrait = function (level: Level) {
+    for (const entity of findPlayers(level)) return entity.player;
+};
+
+const getTimerTrait = function (level: Level) {
+    for (const entity of level.entities) {
+        if (entity.levelTimer) return entity.levelTimer;
+    }
+};
+
+export const createDashboardLayer = function (font: Font, level: Level) {
     const LINE_1 = font.size;
     const LINE_2 = font.size * 2;
 
-    const coins = 16;
-
     return function drawDashboard(context: CanvasRenderingContext2D) {
-        const { time, score } = playerEnv.playerController!;
+        const playerTrait = getPlayerTrait(level);
+        const timerTrait = getTimerTrait(level);
+        if (!playerTrait || !timerTrait) return;
 
-        font.print("MARIO", context, 16, LINE_1);
+        const { score, coins, name } = playerTrait;
+
+        font.print(name, context, 16, LINE_1);
         font.print(score.toString().padStart(6, "0"), context, 16, LINE_2);
 
         font.print(`@x${coins.toString().padStart(2, "0")}`, context, 96, LINE_2);
@@ -19,6 +32,11 @@ export const createDashboardLayer = function (font: Font, playerEnv: EntityWithT
         font.print("1-1", context, 160, LINE_2);
 
         font.print("TIME", context, 208, LINE_1);
-        font.print(time.toFixed().toString().padStart(3, "0"), context, 216, LINE_2);
+        font.print(
+            timerTrait.currentTime.toFixed().toString().padStart(3, "0"),
+            context,
+            216,
+            LINE_2
+        );
     };
 };

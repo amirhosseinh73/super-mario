@@ -9,6 +9,7 @@ import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
 import { createPlayer, createPlayerEnv } from "./player";
 import { GameContext } from "./@types/traits";
+import { createCollisionLayer } from "./layers/collision";
 
 const main = async function (canvas: HTMLCanvasElement) {
     const context = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -21,13 +22,16 @@ const main = async function (canvas: HTMLCanvasElement) {
     const camera = new Camera();
 
     const mario = createPlayer(entityFactory.mario());
+    mario.player!.name = "MARIO";
+    level.entities.add(mario);
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
 
-    // const debugLayers = createCollisionLayer(level);
-    // if (debugLayers) level.comp.layers.push(debugLayers);
-    level.comp.layers.push(createDashboardLayer(font, playerEnv));
+    const debugLayers = createCollisionLayer(level);
+    if (debugLayers) level.comp.layers.push(debugLayers);
+
+    level.comp.layers.push(createDashboardLayer(font, level));
 
     const input = setupKeyboard(mario);
     input.listenTo(window);
@@ -51,7 +55,6 @@ const main = async function (canvas: HTMLCanvasElement) {
     };
 
     timer.start();
-    level.music.player?.playTrack("main");
 };
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;

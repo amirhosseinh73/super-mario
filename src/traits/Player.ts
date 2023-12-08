@@ -7,8 +7,12 @@ export default class Player extends Trait {
     score: number;
     coins: number;
 
+    name: string;
+
     constructor() {
         super("player");
+
+        this.name = "UNNAMED";
 
         this.lives = 3;
         this.score = 0;

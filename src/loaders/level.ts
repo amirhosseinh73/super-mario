@@ -5,8 +5,28 @@ import { loadJSON } from "../loaders";
 import { loadSpriteSheet } from "./sprite";
 import { createBackgroundLayer } from "../layers/background";
 import { createSpriteLayer } from "../layers/sprites";
-import { EntityFactories } from "../@types/traits";
+import { EntityFactories, EntityWithTraits } from "../@types/traits";
 import { loadMusicSheet } from "./music";
+import Entity from "../Entity";
+import LevelTimer from "../traits/LevelTimer";
+
+const createTimer = function () {
+    const timer = new Entity() as EntityWithTraits;
+    timer.addTrait(new LevelTimer());
+    return timer;
+};
+
+const setupBehavior = function (level: Level) {
+    const timer = createTimer();
+    level.entities.add(timer);
+
+    level.events.listen(LevelTimer.EVENT_TIMER_OK, () => {
+        level.music.playTheme();
+    });
+    level.events.listen(LevelTimer.EVENT_TIMER_HURRY, () => {
+        level.music.playHurryTheme();
+    });
+};
 
 const expandSpan = function* (xStart: number, xLen: number, yStart: number, yLen: number) {
     const xEnd = xStart + xLen;
@@ -121,6 +141,7 @@ export const createLevelLoader = async function (entityFactory: EntityFactories)
         // setupCollision(levelSpec, level);
         setupBackgrounds(levelSpec, level, backgroundSprites);
         setupEntities(levelSpec, level, entityFactory);
+        setupBehavior(level);
 
         return level;
     };

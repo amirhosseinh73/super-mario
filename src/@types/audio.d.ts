@@ -6,7 +6,7 @@ type AudioType = {
 };
 
 type MusicFileNames = "overworld";
-type MusicNames = "main";
+type MusicNames = "main" | "hurry";
 
 type MusicType = SoundsFormatType<MusicNames>;
 

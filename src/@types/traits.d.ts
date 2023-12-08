@@ -5,6 +5,7 @@ import Go from "../traits/Go";
 import Gravity from "../traits/Gravity";
 import Jump from "../traits/Jump";
 import Killable from "../traits/Killable";
+import LevelTimer from "../traits/LevelTimer";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Player from "../traits/Player";
@@ -29,6 +30,7 @@ type Traits = {
     gravity?: Gravity;
     emitter?: Emitter;
     player?: Player;
+    levelTimer?: LevelTimer;
 };
 
 type EntityWithTraits = Entity & Traits;
