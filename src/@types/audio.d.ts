@@ -1,5 +1,5 @@
 type AudioFileNames = "mario" | "cannon";
-type AudioNames = "jump" | "coin" | "stomp" | "shoot";
+type AudioNames = "jump" | "coin" | "stomp" | "shoot" | "1up";
 
 type AudioType = {
     fx: SoundsFormatType<AudioNames>;

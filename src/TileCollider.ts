@@ -4,10 +4,12 @@ import ground from "./tiles/ground";
 import brick from "./tiles/brick";
 import Level from "./Level";
 import { EntityWithTraits, GameContext } from "./@types/traits";
+import coin from "./tiles/coin";
 
 const handlers = {
     ground,
     brick,
+    coin,
 };
 
 export default class TileCollider {

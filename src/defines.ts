@@ -62,6 +62,7 @@ export const Sides = {
 } as const;
 
 export const KILLING_SCORE = 100;
+export const COIN_SCORE = 20;
 
 export const FONT_FILE_NAME = "./assets/img/font-coin.png";
 
@@ -167,3 +168,5 @@ export enum FONT_CHARS_ENUM {
 }
 
 export const HOLD_FIRE_THRESHOLD = 30;
+
+export const COIN_LIFE_THRESHOLD = 100;

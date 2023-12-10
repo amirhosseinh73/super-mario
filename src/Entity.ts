@@ -35,7 +35,7 @@ export class Trait {
         });
     }
 
-    public queue(task: () => void) {
+    public queue(task: (...args: any[]) => void) {
         this.listen(Trait.EVENT_TASK, task, 1);
     }
 
@@ -128,7 +128,7 @@ export default class Entity {
     public draw(_context: CanvasRenderingContext2D) {}
 
     public finalize() {
-        this.events.emit(Trait.EVENT_TASK);
+        this.events.emit(Trait.EVENT_TASK, this);
 
         this.traits.forEach(trait => {
             trait.finalize(this);

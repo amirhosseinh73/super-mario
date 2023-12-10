@@ -7,15 +7,18 @@ type MarioFrames = "idle" | "break" | "jump" | MarioAnimationFrames;
 
 type ChanceAnimationFrames = "chance-1" | "chance-2" | "chance-3";
 
+type CoinAnimationFrames = "coin-1" | "coin-2" | "coin-3";
+
 type GoombaAnimationFrames = "walk-1" | "walk-2" | "flat";
 type KoopaAnimationFrames = "walk-1" | "walk-2" | "hiding" | "hiding-with-legs";
 
-type AnimationNames = "chance" | "run" | "walk" | "wake";
+type AnimationNames = "chance" | "run" | "walk" | "wake" | "coin";
 type AnimationFrames =
     | MarioAnimationFrames
     | ChanceAnimationFrames
     | GoombaAnimationFrames
-    | KoopaAnimationFrames;
+    | KoopaAnimationFrames
+    | CoinAnimationFrames;
 
 type TileNames =
     | "sky"
@@ -29,7 +32,8 @@ type TileNames =
     | GoombaAnimationFrames
     | KoopaAnimationFrames
     | CannonPatternTiles
-    | BulletTiles;
+    | BulletTiles
+    | CoinAnimationFrames;
 
 type TileTypes = "ground" | "brick";
 

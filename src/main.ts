@@ -23,7 +23,7 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     const mario = createPlayer(entityFactory.mario());
     mario.player!.name = "MARIO";
-    level.entities.add(mario);
+    // level.entities.add(mario);
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
