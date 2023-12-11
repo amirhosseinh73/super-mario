@@ -1,18 +1,20 @@
-import { EntityWithTraits } from "./@types/traits";
+import InputRouter from "./InputRouter";
 import { jumpAction, moveLeftAction, moveRightAction, speedAction } from "./actions";
 
-export const setupMouseEvents = function (mario: EntityWithTraits) {
+export const setupMouseEvents = function () {
     const left = document.querySelector("[data-action='left']") as HTMLButtonElement;
     const right = document.querySelector("[data-action='right']") as HTMLButtonElement;
 
     const jump = document.querySelector("[data-action='jump']") as HTMLButtonElement;
     const speed = document.querySelector("[data-action='speed']") as HTMLButtonElement;
 
+    const router = new InputRouter();
+
     const buttons = {
         left: {
             elem: left,
             fn: function (move: boolean) {
-                moveLeftAction(mario, move);
+                moveLeftAction(move, router);
             },
             handle: false,
         },
@@ -20,7 +22,7 @@ export const setupMouseEvents = function (mario: EntityWithTraits) {
         right: {
             elem: right,
             fn: function (move: boolean) {
-                moveRightAction(mario, move);
+                moveRightAction(move, router);
             },
             handle: false,
         },
@@ -28,7 +30,7 @@ export const setupMouseEvents = function (mario: EntityWithTraits) {
         jump: {
             elem: jump,
             fn: function (move: boolean) {
-                jumpAction(mario, move);
+                jumpAction(move, router);
             },
             handle: false,
         },
@@ -36,7 +38,7 @@ export const setupMouseEvents = function (mario: EntityWithTraits) {
         speed: {
             elem: speed,
             fn: function (move: boolean) {
-                speedAction(mario, move);
+                speedAction(move, router);
             },
             handle: false,
         },
@@ -65,4 +67,6 @@ export const setupMouseEvents = function (mario: EntityWithTraits) {
             });
         }
     });
+
+    return router;
 };

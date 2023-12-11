@@ -1,18 +1,19 @@
 import { EntityWithTraits } from "./@types/traits";
+import InputRouter from "./InputRouter";
 
-export const jumpAction = function (mario: EntityWithTraits, keyState: boolean) {
-    if (keyState) mario.jump.start();
-    else mario.jump.cancel();
+export const jumpAction = function (keyState: boolean, router: InputRouter) {
+    if (keyState) router.route((entity: EntityWithTraits) => entity.jump.start());
+    else router.route((entity: EntityWithTraits) => entity.jump.cancel());
 };
 
-export const speedAction = function (mario: EntityWithTraits, keyState: boolean) {
-    if (mario.turbo) mario.turbo(keyState);
+export const speedAction = function (keyState: boolean, router: InputRouter) {
+    router.route((entity: EntityWithTraits) => entity.turbo && entity.turbo(keyState));
 };
 
-export const moveRightAction = function (mario: EntityWithTraits, keyState: boolean) {
-    mario.go.dir += keyState ? 1 : -1;
+export const moveRightAction = function (keyState: boolean, router: InputRouter) {
+    router.route((entity: EntityWithTraits) => (entity.go.dir += keyState ? 1 : -1));
 };
 
-export const moveLeftAction = function (mario: EntityWithTraits, keyState: boolean) {
-    mario.go.dir += keyState ? -1 : 1;
+export const moveLeftAction = function (keyState: boolean, router: InputRouter) {
+    router.route((entity: EntityWithTraits) => (entity.go.dir += keyState ? -1 : 1));
 };

@@ -1,6 +1,6 @@
-import { EntityWithTraits } from "./@types/traits";
 import Camera from "./Camera";
 import Entity from "./Entity";
+import InputRouter from "./InputRouter";
 import KeyboardState from "./KeyboardState";
 import { jumpAction, moveLeftAction, moveRightAction, speedAction } from "./actions";
 import { KEYBOARD_KEY } from "./defines";
@@ -14,26 +14,29 @@ export const createAnim = function (frames: AnimationFrames[], frameLen: number)
     };
 };
 
-export const setupKeyboard = function (mario: EntityWithTraits) {
+export const setupKeyboard = function (window: Window & typeof globalThis) {
     const input = new KeyboardState();
+    const router = new InputRouter();
+
+    input.listenTo(window);
 
     input.addMapping(KEYBOARD_KEY.SPACE, (keyState: boolean) => {
-        jumpAction(mario, keyState);
+        jumpAction(keyState, router);
     });
 
     input.addMapping(KEYBOARD_KEY.SPEED_X, (keyState: boolean) => {
-        speedAction(mario, keyState);
+        speedAction(keyState, router);
     });
 
     input.addMapping(KEYBOARD_KEY.ARROW_RIGHT, (keyState: boolean) => {
-        moveRightAction(mario, keyState);
+        moveRightAction(keyState, router);
     });
 
     input.addMapping(KEYBOARD_KEY.ARROW_LEFT, (keyState: boolean) => {
-        moveLeftAction(mario, keyState);
+        moveLeftAction(keyState, router);
     });
 
-    return input;
+    return router;
 };
 
 export function setupMouseControlDebug(canvas: HTMLCanvasElement, entity: Entity, camera: Camera) {

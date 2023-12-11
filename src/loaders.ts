@@ -17,7 +17,7 @@ export const loadImage = function (url: string): Promise<CanvasImageSource> {
 
 export const loadJSON = async function (
     url: string
-): Promise<LevelsInterface | SpritesInterface | AudioType | MusicType> {
+): Promise<LevelsInterface | SpritesInterface | AudioType | MusicType | patternsData> {
     return fetch(url).then(r => r.json());
 };
 
@@ -49,6 +49,6 @@ export const loadEntities = async function (audioContext: AudioContext) {
         loadGoomba(audioContext).then(AddAs("goomba")),
         loadKoopa(audioContext).then(AddAs("koopa")),
         loadBullet(audioContext).then(AddAs("bullet")),
-        loadCannon(audioContext, entityFactories).then(AddAs("cannon")),
+        loadCannon(audioContext).then(AddAs("cannon")),
     ]).then(() => entityFactories);
 };

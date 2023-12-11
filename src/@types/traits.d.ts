@@ -41,6 +41,7 @@ type EntityFactories = {
 
 interface GameContext {
     audioContext: AudioContext;
+    videoContext: CanvasRenderingContext2D;
     entityFactory: EntityFactories;
     deltaTime: number;
 }

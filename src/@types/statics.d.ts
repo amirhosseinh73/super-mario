@@ -1,4 +1,5 @@
-type levelsFileName = "1-1";
+type LevelsFileName = "1-1" | "1-2";
+type PatternsFileName = "overworld";
 type EntityNames = "mario" | "goomba" | "koopa" | "bullet" | "cannon";
 type SpritesFileNames = "overworld" | "underworld" | EntityNames;
 

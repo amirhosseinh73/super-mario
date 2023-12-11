@@ -1,4 +1,4 @@
-import { EntityFactories, EntityWithTraits } from "./../@types/traits";
+import { EntityWithTraits, GameContext } from "./../@types/traits";
 import Entity from "../Entity";
 import { loadAudioBoard } from "../loaders/audio";
 import AudioBoard from "../AudioBoard";
@@ -7,17 +7,14 @@ import Level from "../Level";
 import { findPlayers } from "../player";
 import { HOLD_FIRE_THRESHOLD } from "../defines";
 
-export const loadCannon = async function (
-    audioContext: AudioContext,
-    entityFactories: EntityFactories
-) {
+export const loadCannon = async function (audioContext: AudioContext) {
     const audio = await loadAudioBoard("cannon", audioContext);
 
-    return createCannonFactory(audio, entityFactories);
+    return createCannonFactory(audio);
 };
 
-const createCannonFactory = function (audio: AudioBoard, entityFactories: EntityFactories) {
-    const emitBullet = function (cannon: Entity, level: Level) {
+const createCannonFactory = function (audio: AudioBoard) {
+    const emitBullet = function (cannon: Entity, { entityFactory }: GameContext, level: Level) {
         let dir = 1;
 
         for (const player of findPlayers(level)) {
@@ -30,7 +27,7 @@ const createCannonFactory = function (audio: AudioBoard, entityFactories: Entity
             if (player.pos.x < cannon.pos.x) dir = -1;
         }
 
-        const bullet = entityFactories.bullet();
+        const bullet = entityFactory.bullet();
 
         bullet.pos.copy(cannon.pos);
         bullet.vel.set(80 * dir, 0);

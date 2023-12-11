@@ -101,10 +101,11 @@ const createGrid = function (tiles: BackgroundLayers[], patterns: patternsData) 
 const setupBackgrounds = function (
     levelSpec: LevelsInterface,
     level: Level,
-    backgroundSprites: SpriteSheet
+    backgroundSprites: SpriteSheet,
+    patternSpec: patternsData
 ) {
     levelSpec.layers.forEach(layer => {
-        const grid = createGrid(layer.tiles, levelSpec.patterns);
+        const grid = createGrid(layer.tiles, patternSpec);
         const backgroundLayer = createBackgroundLayer(level, grid, backgroundSprites);
         level.comp.layers.push(backgroundLayer);
         level.tileCollider.addGrid(grid);
@@ -127,19 +128,26 @@ const setupEntities = function (
     level.comp.layers.push(spriteLayer);
 };
 
+export const loadPattern = async function (name: PatternsFileName) {
+    const patternSpec = (await loadJSON(`/data/patterns/${name}.json`)) as patternsData;
+
+    return patternSpec;
+};
+
 export const createLevelLoader = async function (entityFactory: EntityFactories) {
-    return async function loadLevel(name: levelsFileName) {
+    return async function loadLevel(name: LevelsFileName) {
         const levelSpec = (await loadJSON(`/data/levels/${name}.json`)) as LevelsInterface;
 
         const backgroundSprites = await loadSpriteSheet(levelSpec.spriteSheet);
         const musicPlayer = await loadMusicSheet(levelSpec.musicSheet);
+        const patternSpec = await loadPattern(levelSpec.patternSheet);
 
         const level = new Level();
-
+        level.name = name;
         level.music.setPlayer(musicPlayer);
 
         // setupCollision(levelSpec, level);
-        setupBackgrounds(levelSpec, level, backgroundSprites);
+        setupBackgrounds(levelSpec, level, backgroundSprites, patternSpec);
         setupEntities(levelSpec, level, entityFactory);
         setupBehavior(level);
 

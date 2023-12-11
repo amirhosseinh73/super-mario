@@ -1,32 +1,34 @@
 export default class Timer {
-  constructor(deltaTime = 1 / 60) {
-    let accumulatedTime = 0
-    let lastTime = 0
+    constructor(deltaTime = 1 / 60) {
+        let accumulatedTime = 0;
+        let lastTime: number | null = null;
 
-    this.updateProxy = (time: number) => {
-      accumulatedTime += (time - lastTime) / 1000 //convert ms to s
+        this.updateProxy = (time: number) => {
+            if (lastTime) {
+                accumulatedTime += (time - lastTime) / 1000; //convert ms to s
 
-      if (accumulatedTime > 1) accumulatedTime = 1
+                if (accumulatedTime > 1) accumulatedTime = 1;
 
-      while (accumulatedTime > deltaTime) {
-        this.update(deltaTime)
-        accumulatedTime -= deltaTime
-      }
+                while (accumulatedTime > deltaTime) {
+                    this.update(deltaTime);
+                    accumulatedTime -= deltaTime;
+                }
+            }
 
-      lastTime = time
+            lastTime = time;
 
-      this.enqueue()
+            this.enqueue();
+        };
     }
-  }
 
-  public enqueue() {
-    requestAnimationFrame(this.updateProxy)
-  }
+    public enqueue() {
+        requestAnimationFrame(this.updateProxy);
+    }
 
-  public start() {
-    this.enqueue()
-  }
+    public start() {
+        this.enqueue();
+    }
 
-  public update!: (deltaTime: number) => void
-  public updateProxy!: (time: number) => void
+    public update!: (deltaTime: number) => void;
+    public updateProxy!: (time: number) => void;
 }

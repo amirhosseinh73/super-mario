@@ -5,7 +5,7 @@ type AudioType = {
     fx: SoundsFormatType<AudioNames>;
 };
 
-type MusicFileNames = "overworld";
+type MusicFileNames = "overworld" | "underworld";
 type MusicNames = "main" | "hurry";
 
 type MusicType = SoundsFormatType<MusicNames>;

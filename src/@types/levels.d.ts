@@ -1,8 +1,9 @@
 interface LevelsInterface {
     spriteSheet: SpritesFileNames;
     musicSheet: MusicFileNames;
+    patternSheet: PatternsFileName;
     layers: LayersData[];
-    patterns: patternsData;
+    // patterns: patternsData;
     entities: entitiesData[];
 }
 
