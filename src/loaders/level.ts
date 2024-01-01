@@ -9,6 +9,7 @@ import { EntityFactories, EntityWithTraits } from "../@types/traits";
 import { loadMusicSheet } from "./music";
 import Entity from "../Entity";
 import LevelTimer from "../traits/LevelTimer";
+import Trigger from "../traits/Trigger";
 
 const createTimer = function () {
     const timer = new Entity() as EntityWithTraits;
@@ -134,6 +135,37 @@ export const loadPattern = async function (name: PatternsFileName) {
     return patternSpec;
 };
 
+const createTrigger = function () {
+    const entity = new Entity() as EntityWithTraits;
+    entity.addTrait(new Trigger());
+    return entity;
+};
+
+const setupTriggers = function (levelSpec: LevelsInterface, level: Level) {
+    if (!levelSpec.triggers) return;
+
+    for (const triggerSpec of levelSpec.triggers) {
+        const entity = createTrigger();
+
+        // if (triggerSpec.type === "goto") {
+        entity.trigger?.conditions.push(
+            (
+                entity: EntityWithTraits["trigger"],
+                touches: EntityWithTraits[],
+                _gc: unknown,
+                level: Level
+            ) => {
+                level.events.emit(Level.EVENT_TRIGGER, triggerSpec, entity, touches);
+            }
+        );
+
+        entity.size.set(96, 192);
+        entity.pos.set(triggerSpec.pos[0], triggerSpec.pos[1]);
+        level.entities.add(entity);
+        // }
+    }
+};
+
 export const createLevelLoader = async function (entityFactory: EntityFactories) {
     return async function loadLevel(name: LevelsFileName) {
         const levelSpec = (await loadJSON(`/data/levels/${name}.json`)) as LevelsInterface;
@@ -149,6 +181,7 @@ export const createLevelLoader = async function (entityFactory: EntityFactories)
         // setupCollision(levelSpec, level);
         setupBackgrounds(levelSpec, level, backgroundSprites, patternSpec);
         setupEntities(levelSpec, level, entityFactory);
+        setupTriggers(levelSpec, level);
         setupBehavior(level);
 
         return level;

@@ -13,13 +13,15 @@ export default class MusicPlayer {
     }
 
     public playTrack(name: MusicNames) {
+        this.pauseAll();
+        const audio = this.tracks.get(name) as HTMLAudioElement;
+        audio.play();
+        return audio;
+    }
+
+    public pauseAll() {
         for (const audio of this.tracks.values()) {
             audio.pause();
         }
-
-        const audio = this.tracks.get(name) as HTMLAudioElement;
-        audio.play();
-
-        return audio;
     }
 }

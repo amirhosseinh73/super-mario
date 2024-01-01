@@ -15,6 +15,8 @@ const focusPlayer = function (level: Level) {
 };
 
 export default class Level extends Scene {
+    static EVENT_TRIGGER = Symbol("trigger");
+
     gravity: number;
     name: LevelsFileName | "";
     entities: Set<EntityWithTraits>;
@@ -59,6 +61,10 @@ export default class Level extends Scene {
 
         focusPlayer(this);
 
-        this.totalTime += gameContext.deltaTime;
+        if (gameContext.deltaTime) this.totalTime += gameContext.deltaTime;
+    }
+
+    public pause(): void {
+        this.music.pause();
     }
 }

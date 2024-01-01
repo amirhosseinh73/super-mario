@@ -27,4 +27,8 @@ export default class MusicController {
             { once: true }
         );
     }
+
+    public pause() {
+        this.player?.pauseAll();
+    }
 }

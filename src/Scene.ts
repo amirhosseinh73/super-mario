@@ -1,4 +1,5 @@
 import { GameContext } from "./@types/traits";
+import Camera from "./Camera";
 import Compositor from "./Compositor";
 import EventEmitter from "./EventEmitter";
 
@@ -14,8 +15,13 @@ export default class Scene {
     }
 
     public draw({ videoContext }: GameContext) {
-        this.comp.draw(videoContext);
+        this.comp.draw(videoContext, new Camera());
     }
 
     public update(_gameContext: GameContext) {}
+
+    public pause() {
+        // this.comp.layers.length = 0;
+        console.log("Pause", this);
+    }
 }

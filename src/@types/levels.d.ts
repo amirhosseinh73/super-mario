@@ -5,6 +5,7 @@ interface LevelsInterface {
     layers: LayersData[];
     // patterns: patternsData;
     entities: entitiesData[];
+    triggers?: triggersData[];
 }
 
 type RangeType = [number, number, number, number] | [number, number, number] | [number, number];
@@ -40,6 +41,12 @@ interface LayersData {
 
 type entitiesData = {
     name: EntityNames;
+    pos: number[];
+};
+
+type triggersData = {
+    type: "goto" | "something else";
+    name: LevelsFileName;
     pos: number[];
 };
 

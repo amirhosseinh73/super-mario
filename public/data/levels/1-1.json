@@ -187,5 +187,13 @@
         { "name": "goomba", "pos": [620, 0] },
         { "name": "goomba", "pos": [860, 0] },
         { "name": "goomba", "pos": [2770, 0] }
+    ],
+
+    "triggers": [
+        {
+            "type": "goto",
+            "name": "1-2",
+            "pos": [3296, 32]
+        }
     ]
 }

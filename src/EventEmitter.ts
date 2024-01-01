@@ -8,7 +8,7 @@ export default class EventEmitter {
         this.listeners = [];
     }
 
-    public listen(name: Symbol, callback: (...args: unknown[]) => void) {
+    public listen(name: Symbol, callback: (...args: any[]) => void) {
         const listener = { name, callback };
 
         this.listeners.push(listener);

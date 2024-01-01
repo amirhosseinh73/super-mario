@@ -12,6 +12,7 @@ import Player from "../traits/Player";
 import PlayerController from "../traits/PlayerController";
 import Solid from "../traits/Solid";
 import Stomper from "../traits/Stomper";
+import Trigger from "../traits/Trigger";
 import Velocity from "../traits/Velocity";
 
 type EntityTraitNames = keyof Traits;
@@ -31,6 +32,7 @@ type Traits = {
     emitter?: Emitter;
     player?: Player;
     levelTimer?: LevelTimer;
+    trigger?: Trigger;
 };
 
 type EntityWithTraits = Entity & Traits;
