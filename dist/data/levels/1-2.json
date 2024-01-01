@@ -1,0 +1,43 @@
+{
+    "spriteSheet": "underworld",
+    "musicSheet": "underworld",
+    "patternSheet": "overworld",
+
+    "layers": [
+        {
+            "tiles": [
+                {
+                    "name": "sky",
+                    "ranges": [[0, 212, 0, 16]]
+                },
+                {
+                    "name": "ground",
+                    "type": "ground",
+                    "ranges": [[0, 212, 14, 2]]
+                }
+            ]
+        }
+    ],
+
+    "entities": [
+        {
+            "name": "koopa",
+            "pos": [260, 0]
+        },
+        {
+            "name": "goomba",
+            "pos": [220, 0]
+        },
+        { "name": "goomba", "pos": [620, 0] },
+        { "name": "goomba", "pos": [860, 0] },
+        { "name": "goomba", "pos": [2770, 0] }
+    ],
+
+    "triggers": [
+        {
+            "type": "goto",
+            "name": "1-1",
+            "pos": [428, 184]
+        }
+    ]
+}
