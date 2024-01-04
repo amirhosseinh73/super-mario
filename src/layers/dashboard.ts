@@ -23,12 +23,12 @@ export const createDashboardLayer = function (font: Font, level: Level) {
         const playerTrait = getPlayerTrait(level.entities);
         if (!playerTrait || !timerTrait) return;
 
-        const { score, coins, name, lives } = playerTrait;
+        const { score, coins, name } = playerTrait;
 
         font.print(name, context, 16, LINE_1);
         font.print(score.toString().padStart(6, "0"), context, 16, LINE_2);
 
-        font.print(`livesx${lives.toString().padStart(2, "0")}`, context, 80, LINE_1);
+        // font.print(`livesx${lives.toString().padStart(2, "0")}`, context, 80, LINE_1);
         font.print(`@x${coins.toString().padStart(2, "0")}`, context, 96, LINE_2);
 
         font.print("WORLD", context, 152, LINE_1);

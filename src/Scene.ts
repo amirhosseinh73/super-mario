@@ -22,6 +22,6 @@ export default class Scene {
 
     public pause() {
         // this.comp.layers.length = 0;
-        console.log("Pause", this);
+        // console.log("Pause", this);
     }
 }

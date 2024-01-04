@@ -1,9 +1,0 @@
-{
-    "main": {
-        "url": "/assets/audio/music/overworld.ogg"
-    },
-
-    "hurry": {
-        "url": "/assets/audio/music/hurry.ogg"
-    }
-}

@@ -42,7 +42,6 @@ export default class Entity {
         // console.log(trait.constructor);
 
         this.traits.set(trait.NAME, trait);
-        // (this as any)[trait.NAME] = trait;
     }
 
     public getTrait<T extends keyof TraitMap>(traitName: T): TraitMap[T] {

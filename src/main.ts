@@ -18,12 +18,6 @@ import Scene from "./Scene";
 import { createTextLayer } from "./layers/text";
 import Entity from "./Entity";
 
-declare global {
-    interface Window {
-        mario: any;
-    }
-}
-
 const main = async function (canvas: HTMLCanvasElement) {
     const videoContext = canvas.getContext("2d") as CanvasRenderingContext2D;
     const audioContext = new AudioContext();
@@ -33,8 +27,6 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     const mario = entityFactory.mario();
     createPlayer(mario, "MARIO");
-    window["mario"] = mario;
-
     mario.pos.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y);
     const inputRouter = setupKeyboard(window);
     inputRouter.addReceiver(mario);
