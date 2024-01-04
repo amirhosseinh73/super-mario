@@ -1,5 +1,6 @@
-import { EntityWithTraits, GameContext } from "./@types/traits";
+import { GameContext } from "./@types/traits";
 import Camera from "./Camera";
+import Entity from "./Entity";
 import EntityCollider from "./EntityCollider";
 import { Matrix } from "./Math";
 import MusicController from "./MusicController";
@@ -9,7 +10,7 @@ import { GRAVITY } from "./defines";
 import { findPlayers } from "./player";
 
 const focusPlayer = function (level: Level) {
-    for (const player of findPlayers(level)) {
+    for (const player of findPlayers(level.entities)) {
         level.camera.pos.x = Math.max(0, player.pos.x - 100);
     }
 };
@@ -19,7 +20,7 @@ export default class Level extends Scene {
 
     gravity: number;
     name: LevelsFileName | "";
-    entities: Set<EntityWithTraits>;
+    entities: Set<Entity>;
     tiles!: Matrix;
     tileCollider: TileCollider;
     entityCollider: EntityCollider;

@@ -1,10 +1,11 @@
+import Entity from "../Entity";
 import Level from "../Level";
 import { CREAT_SPRITE_LAYER_DIMENTIONS } from "../defines";
 import { Font } from "../loaders/font";
 import { findPlayers } from "../player";
 
-const getPlayer = function (level: Level) {
-    for (const entity of findPlayers(level)) return entity;
+const getPlayer = function (entities: Set<Entity>) {
+    for (const entity of findPlayers(entities)) return entity;
 };
 
 export const createPlayerProgressLayer = function (font: Font, level: Level) {
@@ -16,7 +17,7 @@ export const createPlayerProgressLayer = function (font: Font, level: Level) {
     const spriteBufferContext = spriteBuffer.getContext("2d") as CanvasRenderingContext2D;
 
     return function drawPlayerProgress(context: CanvasRenderingContext2D) {
-        const entity = getPlayer(level);
+        const entity = getPlayer(level.entities);
         if (!entity) return;
         font.print(`WORLD ${level.name}`, context, size * 12, size * 12);
 
@@ -25,7 +26,7 @@ export const createPlayerProgressLayer = function (font: Font, level: Level) {
         context.drawImage(spriteBuffer, size * 12, size * 15);
 
         font.print(
-            `x ${entity.player?.lives.toString().padStart(3, " ")}`,
+            `x ${entity.getTrait("player")?.lives.toString().padStart(3, " ")}`,
             context,
             size * 16,
             size * 16

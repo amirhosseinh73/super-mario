@@ -1,6 +1,7 @@
-import { EntityWithTraits, GameContext } from "./../@types/traits";
-import { Trait } from "../Entity";
+import { GameContext } from "./../@types/traits";
+import Trait from "../Trait";
 import { SLOW_DRAG } from "../defines";
+import Entity from "../Entity";
 
 export default class Go extends Trait {
     dir: 0 | 1 | -1;
@@ -24,14 +25,14 @@ export default class Go extends Trait {
         this.heading = 1;
     }
 
-    public update(entity: EntityWithTraits, { deltaTime }: GameContext): void {
+    public update(entity: Entity, { deltaTime }: GameContext): void {
         const absX = Math.abs(entity.vel.x);
 
         if (this.dir !== 0) {
             entity.vel.x += this.acceleration * deltaTime * this.dir;
 
-            if (entity.jump) {
-                if (entity.jump.falling === false) {
+            if (entity.traits.has("jump")) {
+                if (entity.getTrait("jump").falling === false) {
                     this.heading = this.dir;
                 }
             } else {

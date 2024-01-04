@@ -1,62 +1,10 @@
-import { EntityTraitNames, GameContext } from "./@types/traits";
+import { GameContext, TraitMap } from "./@types/traits";
 import AudioBoard from "./AudioBoard";
 import BoundingBox from "./BoundingBox";
 import EventBuffer from "./EventBuffer";
 import Level from "./Level";
 import { Vec2 } from "./Math";
-
-export class Trait {
-    static EVENT_TASK = Symbol("task");
-
-    NAME: EntityTraitNames;
-
-    listeners: {
-        name: Symbol;
-        callback: (...args: unknown[]) => void;
-        count: number;
-    }[];
-
-    constructor(name: EntityTraitNames) {
-        this.NAME = name;
-
-        this.listeners = [];
-    }
-
-    public listen(name: Symbol, callback: (...args: unknown[]) => void, count = Infinity) {
-        const listener = { name, callback, count };
-
-        this.listeners.push(listener);
-    }
-
-    public finalize(entity: Entity) {
-        this.listeners = this.listeners.filter(listener => {
-            entity.events.process(listener.name, listener.callback);
-            return --listener.count;
-        });
-    }
-
-    public queue(task: (...args: any[]) => void) {
-        this.listen(Trait.EVENT_TASK, task, 1);
-    }
-
-    public collides(_us: Entity, _them: Entity) {}
-
-    public obstruct(
-        _entity: Entity,
-        _side: Symbol,
-        _match: MatchTiles | undefined = undefined
-    ): void {
-        // console.log(side)
-    }
-
-    public update(
-        _entity: Entity,
-        _gameContext: GameContext,
-        _level: Level | undefined = undefined
-    ): void {
-        // console.warn("Unhandled update call in Trait");
-    }
-}
+import Trait from "./Trait";
 
 export default class Entity {
     pos: Vec2;
@@ -64,7 +12,7 @@ export default class Entity {
     size: Vec2;
     offset: Vec2;
     bounds: BoundingBox;
-    traits: Trait[];
+    traits: Map<keyof TraitMap, Trait>;
     lifetime: number;
     canCollide: boolean;
     audio: AudioBoard;
@@ -82,7 +30,7 @@ export default class Entity {
 
         this.lifetime = 0;
 
-        this.traits = [];
+        this.traits = new Map();
 
         this.audio = new AudioBoard();
         this.sounds = new Set();
@@ -91,8 +39,14 @@ export default class Entity {
     }
 
     public addTrait(trait: Trait) {
-        this.traits.push(trait);
-        (this as any)[trait.NAME] = trait;
+        // console.log(trait.constructor);
+
+        this.traits.set(trait.NAME, trait);
+        // (this as any)[trait.NAME] = trait;
+    }
+
+    public getTrait<T extends keyof TraitMap>(traitName: T): TraitMap[T] {
+        return this.traits.get(traitName);
     }
 
     public collides(candidate: Entity) {

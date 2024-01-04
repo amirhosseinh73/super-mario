@@ -1,14 +1,15 @@
+import Entity from "../Entity";
 import Level from "../Level";
 import { Font } from "../loaders/font";
 import { findPlayers } from "../player";
 
-const getPlayerTrait = function (level: Level) {
-    for (const entity of findPlayers(level)) return entity.player;
+const getPlayerTrait = function (entities: Set<Entity>) {
+    for (const entity of findPlayers(entities)) return entity.getTrait("player");
 };
 
-const getTimerTrait = function (level: Level) {
-    for (const entity of level.entities) {
-        if (entity.levelTimer) return entity.levelTimer;
+const getTimerTrait = function (entities: Set<Entity>) {
+    for (const entity of entities) {
+        if (entity.traits.has("levelTimer")) return entity.getTrait("levelTimer");
     }
 };
 
@@ -16,10 +17,10 @@ export const createDashboardLayer = function (font: Font, level: Level) {
     const LINE_1 = font.size;
     const LINE_2 = font.size * 2;
 
-    const timerTrait = getTimerTrait(level);
+    const timerTrait = getTimerTrait(level.entities);
 
     return function drawDashboard(context: CanvasRenderingContext2D) {
-        const playerTrait = getPlayerTrait(level);
+        const playerTrait = getPlayerTrait(level.entities);
         if (!playerTrait || !timerTrait) return;
 
         const { score, coins, name, lives } = playerTrait;

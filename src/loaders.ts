@@ -1,4 +1,5 @@
-import { EntityFactories, EntityWithTraits } from "./@types/traits";
+import { EntityFactories } from "./@types/traits";
+import Entity from "./Entity";
 import { loadBullet } from "./entities/Bullet";
 import { loadCannon } from "./entities/Cannon";
 import { loadGoomba } from "./entities/Goomba";
@@ -23,25 +24,25 @@ export const loadJSON = async function (
 
 export const loadEntities = async function (audioContext: AudioContext) {
     const entityFactories: EntityFactories = {
-        mario: function (): EntityWithTraits {
+        mario: function (): Entity {
             throw new Error("Function not implemented.");
         },
-        goomba: function (): EntityWithTraits {
+        goomba: function (): Entity {
             throw new Error("Function not implemented.");
         },
-        koopa: function (): EntityWithTraits {
+        koopa: function (): Entity {
             throw new Error("Function not implemented.");
         },
-        bullet: function (): EntityWithTraits {
+        bullet: function (): Entity {
             throw new Error("Function not implemented.");
         },
-        cannon: function (): EntityWithTraits {
+        cannon: function (): Entity {
             throw new Error("Function not implemented.");
         },
     };
 
     const AddAs = function (name: EntityNames) {
-        return (factory: () => EntityWithTraits) => (entityFactories[name] = factory);
+        return (factory: () => Entity) => (entityFactories[name] = factory);
     };
 
     return Promise.all([

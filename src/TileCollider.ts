@@ -3,8 +3,9 @@ import TileResolver from "./TileResolver";
 import ground from "./tiles/ground";
 import brick from "./tiles/brick";
 import Level from "./Level";
-import { EntityWithTraits, GameContext } from "./@types/traits";
+import { GameContext } from "./@types/traits";
 import coin from "./tiles/coin";
+import Entity from "./Entity";
 
 const handlers = {
     ground,
@@ -23,7 +24,7 @@ export default class TileCollider {
         this.resolvers.push(new TileResolver(tileMatrix));
     }
 
-    public checkX(entity: EntityWithTraits, gameContext: GameContext, level: Level) {
+    public checkX(entity: Entity, gameContext: GameContext, level: Level) {
         let x: number | undefined;
 
         if (entity.vel.x > 0) x = entity.bounds.right;
@@ -39,7 +40,7 @@ export default class TileCollider {
         }
     }
 
-    public checkY(entity: EntityWithTraits, gameContext: GameContext, level: Level) {
+    public checkY(entity: Entity, gameContext: GameContext, level: Level) {
         let y: number | undefined;
 
         if (entity.vel.y > 0) y = entity.bounds.bottom;
@@ -58,7 +59,7 @@ export default class TileCollider {
 
     private _handle(
         index: number,
-        entity: EntityWithTraits,
+        entity: Entity,
         match: MatchTiles,
         resolver: TileResolver,
         gameContext: GameContext,
@@ -80,7 +81,7 @@ export default class TileCollider {
 }
 
 export type tileCollisionContextType = {
-    entity: EntityWithTraits;
+    entity: Entity;
     match: MatchTiles;
     resolver: TileResolver;
     gameContext: GameContext;

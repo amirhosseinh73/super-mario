@@ -19,7 +19,7 @@ function handleY({ entity, match, resolver, gameContext, level }: tileCollisionC
             entity.obstruct(Sides.BOTTOM, match);
         }
     } else if (entity.vel.y < 0) {
-        if (entity.player) {
+        if (entity.traits.has("player")) {
             const grid = resolver.matrix;
             grid.delete(match.indexX, match.indexY);
 

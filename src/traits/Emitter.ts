@@ -1,6 +1,7 @@
 import { GameContext } from "../@types/traits";
-import Entity, { Trait } from "../Entity";
+import Entity from "../Entity";
 import Level from "../Level";
+import Trait from "../Trait";
 
 export default class Emitter extends Trait {
     interval: number;

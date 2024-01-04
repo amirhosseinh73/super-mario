@@ -1,4 +1,3 @@
-import { EntityWithTraits } from "./../@types/traits";
 import Entity from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { FAST_DRAG, MARIO_INIT_SIZE, SLOW_DRAG } from "../defines";
@@ -22,30 +21,31 @@ export const loadMario = async function (audioContext: AudioContext) {
 const createMarioFactory = function (sprite: SpriteSheet, audio: AudioBoard) {
     const runAnim = sprite.animations.get("run") as (distance: number) => AnimationFrames;
 
-    function routeFrame(mario: EntityWithTraits): MarioFrames {
-        if (mario.jump.falling) return "jump";
+    function routeFrame(mario: Entity): MarioFrames {
+        const go = mario.getTrait("go");
+        if (mario.getTrait("jump").falling) return "jump";
 
-        if (mario.go.distance > 0) {
-            if ((mario.vel.x > 0 && mario.go.dir < 0) || (mario.vel.x < 0 && mario.go.dir > 0)) {
+        if (go.distance > 0) {
+            if ((mario.vel.x > 0 && go.dir < 0) || (mario.vel.x < 0 && go.dir > 0)) {
                 return "break";
             }
 
-            return runAnim(mario.go.distance) as MarioAnimationFrames;
+            return runAnim(go.distance) as MarioAnimationFrames;
         }
 
         return "idle";
     }
 
-    function setTurboState(this: EntityWithTraits, turboOn: boolean) {
-        this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
+    function setTurboState(this: Entity, turboOn: boolean) {
+        this.getTrait("go").dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
     }
 
-    function drawMario(this: EntityWithTraits, context: CanvasRenderingContext2D) {
-        sprite.draw(routeFrame(this), context, 0, 0, this.go.heading < 0);
+    function drawMario(this: Entity, context: CanvasRenderingContext2D) {
+        sprite.draw(routeFrame(this), context, 0, 0, this.getTrait("go").heading < 0);
     }
 
     return function createMario() {
-        const mario = new Entity() as EntityWithTraits;
+        const mario = new Entity();
         mario.audio = audio;
 
         mario.size.set(MARIO_INIT_SIZE.w, MARIO_INIT_SIZE.h);
@@ -57,7 +57,7 @@ const createMarioFactory = function (sprite: SpriteSheet, audio: AudioBoard) {
         mario.addTrait(new Stomper());
         mario.addTrait(new Killable());
 
-        mario.killable!.removeAfter = 0;
+        mario.getTrait("killable")!.removeAfter = 0;
 
         mario.turbo = setTurboState;
         mario.draw = drawMario;

@@ -1,5 +1,5 @@
-import { EntityWithTraits, GameContext } from "./../@types/traits";
-import Entity, { Trait } from "../Entity";
+import { GameContext } from "./../@types/traits";
+import Entity from "../Entity";
 import SpriteSheet from "../SpriteSheet";
 import { ENTITY_INIT_SIZE, JUMP_OUT_POS } from "../defines";
 import { loadSpriteSheet } from "../loaders/sprite";
@@ -7,6 +7,7 @@ import Killable from "../traits/Killable";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Solid from "../traits/Solid";
+import Trait from "../Trait";
 
 export const loadKoopa = async function (_audioContext: AudioContext) {
     return loadSpriteSheet("koopa").then(createKoopaFactory);
@@ -34,10 +35,10 @@ export class Behavior extends Trait {
         this.state = STATE_WALKING;
     }
 
-    public collides(us: EntityWithTraits, them: EntityWithTraits): void {
-        if (us.killable!.dead) return;
+    public collides(us: Entity, them: Entity): void {
+        if (us.getTrait("killable")!.dead) return;
 
-        if (!them.stomper) return;
+        if (!them.traits.has("stomper")) return;
 
         if (them.vel.y <= us.vel.y) {
             this.handleNudge(us, them);
@@ -47,55 +48,59 @@ export class Behavior extends Trait {
         this.handleStomp(us, them);
     }
 
-    public handleNudge(us: EntityWithTraits, them: EntityWithTraits) {
+    public handleNudge(us: Entity, them: Entity) {
+        const killable = them.getTrait("killable");
         if (this.state === STATE_WALKING) {
-            them.killable?.kill();
+            killable?.kill();
         } else if (this.state === STATE_HIDING) {
             this.panic(us, them);
         } else if (this.state === STATE_PANIC) {
             const travelDir = Math.sign(us.vel.x);
             const impactDir = Math.sign(us.pos.x - them.pos.x);
             if (travelDir !== 0 && travelDir !== impactDir) {
-                them.killable?.kill();
+                killable?.kill();
             }
         }
     }
 
-    public handleStomp(us: EntityWithTraits, _them: EntityWithTraits) {
+    public handleStomp(us: Entity, _them: Entity) {
         if (this.state === STATE_WALKING) {
             this.hide(us);
         } else if (this.state === STATE_HIDING) {
-            us.killable!.kill();
+            us.getTrait("killable")!.kill();
             us.vel.set(JUMP_OUT_POS.x, JUMP_OUT_POS.y);
-            us.solid!.obstructs = false;
+            us.getTrait("solid")!.obstructs = false;
         } else if (this.state === STATE_PANIC) {
             this.hide(us);
         }
     }
 
-    public hide(us: EntityWithTraits) {
+    public hide(us: Entity) {
+        const pendulumMove = us.getTrait("pendulumMove");
         us.vel.x = 0;
-        us.pendulumMove.enabled = false;
+        pendulumMove.enabled = false;
         if (this.walkSpeed === null) {
-            this.walkSpeed = us.pendulumMove.speed;
+            this.walkSpeed = pendulumMove.speed;
         }
         this.hideTime = 0;
         this.state = STATE_HIDING;
     }
 
-    public unhide(us: EntityWithTraits) {
-        us.pendulumMove.enabled = true;
-        if (this.walkSpeed) us.pendulumMove.speed = this.walkSpeed;
+    public unhide(us: Entity) {
+        const pendulumMove = us.getTrait("pendulumMove");
+        pendulumMove.enabled = true;
+        if (this.walkSpeed) pendulumMove.speed = this.walkSpeed;
         this.state = STATE_WALKING;
     }
 
-    public panic(us: EntityWithTraits, them: EntityWithTraits) {
-        us.pendulumMove.enabled = true;
-        us.pendulumMove.speed = this.panicSpeed * Math.sign(them.vel.x);
+    public panic(us: Entity, them: Entity) {
+        const pendulumMove = us.getTrait("pendulumMove");
+        pendulumMove.enabled = true;
+        pendulumMove.speed = this.panicSpeed * Math.sign(them.vel.x);
         this.state = STATE_PANIC;
     }
 
-    public update(us: EntityWithTraits, { deltaTime }: GameContext): void {
+    public update(us: Entity, { deltaTime }: GameContext): void {
         if (this.state !== STATE_HIDING) return;
 
         this.hideTime += deltaTime;
@@ -108,8 +113,8 @@ const createKoopaFactory = function (sprite: SpriteSheet) {
     const walkAnim = sprite.animations.get("walk") as (distance: number) => AnimationFrames;
     const wakeAnim = sprite.animations.get("wake") as (distance: number) => AnimationFrames;
 
-    const routeAnim = function (koopa: EntityWithTraits): AnimationFrames {
-        const koobaBehavior = koopa.behavior as Behavior;
+    const routeAnim = function (koopa: Entity): AnimationFrames {
+        const koobaBehavior = koopa.getTrait("behavior") as Behavior;
         if (koobaBehavior.state === STATE_HIDING) {
             if (koobaBehavior.hideTime > 3) {
                 return wakeAnim(koobaBehavior.hideTime);
@@ -124,12 +129,12 @@ const createKoopaFactory = function (sprite: SpriteSheet) {
         return walkAnim(koopa.lifetime);
     };
 
-    const drawKoopa = function (this: EntityWithTraits, context: CanvasRenderingContext2D) {
+    const drawKoopa = function (this: Entity, context: CanvasRenderingContext2D) {
         sprite.draw(routeAnim(this), context, 0, 0, this.vel.x < 0);
     };
 
     return function createKoopa() {
-        const koopa = new Entity() as EntityWithTraits;
+        const koopa = new Entity();
         koopa.size.set(ENTITY_INIT_SIZE.w, ENTITY_INIT_SIZE.h);
         koopa.offset.y = 8;
 

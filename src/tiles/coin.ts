@@ -1,9 +1,9 @@
 import { tileCollisionContextType } from "../TileCollider";
 
 function handle({ entity, match, resolver }: tileCollisionContextType) {
-    if (!entity.player) return;
+    if (!entity.traits.has("player")) return;
 
-    entity.player.addCoins(1);
+    entity.getTrait("player")!.addCoins(1);
     const grid = resolver.matrix;
     grid.delete(match.indexX, match.indexY);
 }

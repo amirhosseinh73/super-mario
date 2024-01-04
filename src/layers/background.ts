@@ -42,6 +42,6 @@ export const createBackgroundLayer = function (level: Level, tiles: Matrix, spri
         const drawTo = drawFrom + drawWidth;
         redraw(drawFrom, drawTo);
 
-        context.drawImage(buffer, -camera.pos.x % TILE_SIZE, -camera.pos.y);
+        context.drawImage(buffer, Math.floor(-camera.pos.x % TILE_SIZE), Math.floor(-camera.pos.y));
     };
 };

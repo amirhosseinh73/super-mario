@@ -1,6 +1,7 @@
 import { GameContext } from "../@types/traits";
-import Entity, { Trait } from "../Entity";
+import Entity from "../Entity";
 import { Sides } from "../defines";
+import Trait from "../Trait";
 
 export default class Jump extends Trait {
     duration: number;

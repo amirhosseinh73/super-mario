@@ -1,4 +1,4 @@
-import { EntityWithTraits, GameContext } from "./../@types/traits";
+import { GameContext } from "./../@types/traits";
 import Entity from "../Entity";
 import { loadAudioBoard } from "../loaders/audio";
 import AudioBoard from "../AudioBoard";
@@ -17,7 +17,7 @@ const createCannonFactory = function (audio: AudioBoard) {
     const emitBullet = function (cannon: Entity, { entityFactory }: GameContext, level: Level) {
         let dir = 1;
 
-        for (const player of findPlayers(level)) {
+        for (const player of findPlayers(level.entities)) {
             const CLOSE_TO_CANNON =
                 player.pos.x > cannon.pos.x - HOLD_FIRE_THRESHOLD &&
                 player.pos.x < cannon.pos.x + HOLD_FIRE_THRESHOLD;
@@ -37,7 +37,7 @@ const createCannonFactory = function (audio: AudioBoard) {
     };
 
     return function createCannon() {
-        const cannon = new Entity() as EntityWithTraits;
+        const cannon = new Entity();
         cannon.audio = audio;
 
         const emitter = new Emitter();

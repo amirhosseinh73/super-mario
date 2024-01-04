@@ -1,10 +1,11 @@
-import { EntityWithTraits, GameContext } from "./../@types/traits";
-import Entity, { Trait } from "../Entity";
+import { GameContext } from "./../@types/traits";
+import Entity from "../Entity";
+import Trait from "../Trait";
 import Level from "../Level";
 import { Vec2 } from "../Math";
 
 export default class PlayerController extends Trait {
-    player: EntityWithTraits | null;
+    player: Entity | null;
     checkpoint: Vec2;
 
     constructor() {
@@ -14,7 +15,7 @@ export default class PlayerController extends Trait {
         this.player = null;
     }
 
-    public setPlayer(entity: EntityWithTraits) {
+    public setPlayer(entity: Entity) {
         this.player = entity;
     }
 
@@ -22,7 +23,7 @@ export default class PlayerController extends Trait {
         if (!this.player) return;
 
         if (!level.entities.has(this.player)) {
-            this.player.killable?.revive();
+            this.player.getTrait("killable")?.revive();
             this.player.pos.set(this.checkpoint.x, this.checkpoint.y);
             level.entities.add(this.player);
             return;

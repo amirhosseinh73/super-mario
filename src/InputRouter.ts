@@ -1,21 +1,21 @@
-import { EntityWithTraits } from "./@types/traits";
+import Entity from "./Entity";
 
 export default class InputRouter {
-    receivers: Set<EntityWithTraits>;
+    receivers: Set<Entity>;
 
     constructor() {
         this.receivers = new Set();
     }
 
-    public addReceiver(receiver: EntityWithTraits) {
+    public addReceiver(receiver: Entity) {
         this.receivers.add(receiver);
     }
 
-    public dropReceiver(receiver: EntityWithTraits) {
+    public dropReceiver(receiver: Entity) {
         this.receivers.delete(receiver);
     }
 
-    public route(routeInput: (entity: EntityWithTraits) => void) {
+    public route(routeInput: (entity: Entity) => void) {
         for (const receiver of this.receivers) {
             routeInput(receiver);
         }

@@ -1,7 +1,7 @@
 import { GameContext } from "./@types/traits";
 import Scene from "./Scene";
 
-export default class CompositionScene extends Scene {
+export default class TimedScene extends Scene {
     countDown: number;
 
     constructor() {

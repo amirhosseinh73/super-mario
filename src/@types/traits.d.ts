@@ -15,9 +15,7 @@ import Stomper from "../traits/Stomper";
 import Trigger from "../traits/Trigger";
 import Velocity from "../traits/Velocity";
 
-type EntityTraitNames = keyof Traits;
-
-type Traits = {
+type TraitMap = {
     jump: Jump;
     go: Go;
     pendulumMove: PendulumMove;
@@ -35,10 +33,10 @@ type Traits = {
     trigger?: Trigger;
 };
 
-type EntityWithTraits = Entity & Traits;
+// type EntityWithTraits = Entity & TraitMap;
 
 type EntityFactories = {
-    [key in EntityNames]: () => EntityWithTraits;
+    [key in EntityNames]: () => Entity;
 };
 
 interface GameContext {
