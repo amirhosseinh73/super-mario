@@ -19,19 +19,19 @@ export default class SceneRunner {
     }
 
     public runNext() {
-        // const currentScene = this.scenes[this.sceneIndex];
-        // if (currentScene) currentScene.pause();
+        const currentScene = this.scenes[this.sceneIndex];
+        if (currentScene) currentScene.pause();
 
         this.sceneIndex++;
     }
 
-    public reset() {
-        for (const currentScene of this.scenes) {
-            currentScene.pause();
-        }
-        this.scenes.length = 0;
-        this.sceneIndex = -1;
-    }
+    // public reset() {
+    //     for (const currentScene of this.scenes) {
+    //         currentScene.pause();
+    //     }
+    //     this.scenes.length = 0;
+    //     this.sceneIndex = -1;
+    // }
 
     public update(gameContext: GameContext) {
         const currentScene = this.scenes[this.sceneIndex];

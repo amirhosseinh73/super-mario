@@ -16,6 +16,8 @@ import TimedScene from "./TimedScene";
 import Entity from "./Entity";
 import Scene from "./Scene";
 import { createTextLayer } from "./layers/text";
+// import Scene from "./Scene";
+// import { createTextLayer } from "./layers/text";
 
 const main = async function (canvas: HTMLCanvasElement) {
     const videoContext = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -37,7 +39,7 @@ const main = async function (canvas: HTMLCanvasElement) {
         // sceneRunner.reset();
 
         const loadScreen = new Scene();
-        loadScreen.comp.layers.push(createColorLayer("#000"));
+        // loadScreen.comp.layers.push(createColorLayer("#000"));
         loadScreen.comp.layers.push(createTextLayer(font, `load level ${name}...`));
         sceneRunner.addScene(loadScreen);
         sceneRunner.runNext();
@@ -48,11 +50,11 @@ const main = async function (canvas: HTMLCanvasElement) {
 
         level.events.listen(
             Level.EVENT_TRIGGER,
-            (spec: triggersData, _trigger, touches: Set<Entity>) => {
+            async (spec: triggersData, _trigger, touches: Set<Entity>) => {
                 if (spec.type !== "goto") return;
                 for (const _entity of findPlayers(touches)) {
                     // if (entity.traits.has("player")) {
-                    runLevel(spec.name);
+                    await runLevel(spec.name);
                     return;
                     // }
                 }
