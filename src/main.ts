@@ -10,13 +10,12 @@ import { GameContext } from "./@types/traits";
 import { MARIO_INIT_POS } from "./defines";
 import SceneRunner from "./SceneRunner";
 import { createPlayerProgressLayer } from "./layers/player-progress";
-import { createCollisionLayer } from "./layers/collision";
 import { createColorLayer } from "./layers/color";
 import Level from "./Level";
 import TimedScene from "./TimedScene";
+import Entity from "./Entity";
 import Scene from "./Scene";
 import { createTextLayer } from "./layers/text";
-import Entity from "./Entity";
 
 const main = async function (canvas: HTMLCanvasElement) {
     const videoContext = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -72,12 +71,9 @@ const main = async function (canvas: HTMLCanvasElement) {
         const waitScreen = new TimedScene();
         waitScreen.countDown = 2;
         waitScreen.comp.layers.push(createColorLayer("#000"));
-        // waitScreen.comp.layers.push(dashboardLayer);
         waitScreen.comp.layers.push(playerProgressLayer);
         sceneRunner.addScene(waitScreen);
 
-        const debugLayers = createCollisionLayer(level);
-        if (debugLayers) level.comp.layers.push(debugLayers);
         level.comp.layers.push(dashboardLayer);
         sceneRunner.addScene(level);
 
@@ -92,7 +88,6 @@ const main = async function (canvas: HTMLCanvasElement) {
     };
 
     const sceneRunner = new SceneRunner();
-    // videoContext.clearRect(0, 0, canvas.width, canvas.height);
 
     const timer = new Timer();
     timer.update = function update(deltaTime: number) {

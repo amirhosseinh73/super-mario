@@ -19,8 +19,8 @@ export default class SceneRunner {
     }
 
     public runNext() {
-        const currentScene = this.scenes[this.sceneIndex];
-        if (currentScene) currentScene.pause();
+        // const currentScene = this.scenes[this.sceneIndex];
+        // if (currentScene) currentScene.pause();
 
         this.sceneIndex++;
     }
