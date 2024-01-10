@@ -34,7 +34,8 @@ type TileNames =
     | KoopaAnimationFrames
     | CannonPatternTiles
     | BulletTiles
-    | CoinAnimationFrames;
+    | CoinAnimationFrames
+    | CastlePatternTiles;
 
 type TileTypes = "ground" | "brick";
 
@@ -61,7 +62,17 @@ type PatternNames =
     | "pipe-2h"
     | "pipe-3h"
     | "pipe-4h"
-    | "cannon-2h";
+    | "cannon-2h"
+    | "castle";
 
 type CannonPatternTiles = "cannon-1" | "cannon-2" | "cannon-3";
 type BulletTiles = "bullet";
+
+type CastlePatternTiles =
+    | "castle-crown-sky"
+    | "castle-window-left"
+    | "castle-window-right"
+    | "castle-crown-wall"
+    | "castle-wall"
+    | "castle-entrance-top"
+    | "castle-entrance-bottom";

@@ -73,7 +73,7 @@ const expandTiles = function* (tiles: BackgroundLayers[], patterns: patternsData
 
                 if (tile.pattern) {
                     const tilesOfPattern = patterns[tile.pattern];
-                    yield* walkTiles(tilesOfPattern.tiles, derivedX, derivedY);
+                    yield* walkTiles(tilesOfPattern, derivedX, derivedY);
                     continue;
                 }
 

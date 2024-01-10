@@ -30,9 +30,7 @@ interface BackgroundsPattern extends BackgroundsBase {
 type BackgroundLayers = BackgroundsPattern | BackgroundsTile;
 
 type patternsData = {
-    [key in PatternNames]: {
-        tiles: BackgroundsTile[];
-    };
+    [key in PatternNames]: BackgroundsTile[];
 };
 
 interface LayersData {

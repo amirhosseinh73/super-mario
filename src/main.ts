@@ -16,8 +16,7 @@ import TimedScene from "./TimedScene";
 import Entity from "./Entity";
 import Scene from "./Scene";
 import { createTextLayer } from "./layers/text";
-// import Scene from "./Scene";
-// import { createTextLayer } from "./layers/text";
+// import { createCollisionLayer } from "./layers/collision";
 
 const main = async function (canvas: HTMLCanvasElement) {
     const videoContext = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -76,6 +75,9 @@ const main = async function (canvas: HTMLCanvasElement) {
         waitScreen.comp.layers.push(playerProgressLayer);
         sceneRunner.addScene(waitScreen);
 
+        // const debugLayers = createCollisionLayer(level);
+        // if (debugLayers) level.comp.layers.push(debugLayers);
+
         level.comp.layers.push(dashboardLayer);
         sceneRunner.addScene(level);
 
@@ -97,10 +99,11 @@ const main = async function (canvas: HTMLCanvasElement) {
         sceneRunner.update(gameContext);
     };
 
+    videoContext.imageSmoothingEnabled = false;
+    videoContext.clearRect(0, 0, videoContext.canvas.width, videoContext.canvas.height);
+
     timer.start();
     runLevel("1-1");
-
-    videoContext.imageSmoothingEnabled = false;
 };
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;

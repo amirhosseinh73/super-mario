@@ -6,11 +6,15 @@ import Level from "./Level";
 import { GameContext } from "./@types/traits";
 import coin from "./tiles/coin";
 import Entity from "./Entity";
+import trigger from "./tiles/trigger";
+import flag from "./tiles/flag";
 
 const handlers = {
     ground,
     brick,
     coin,
+    trigger,
+    flag,
 };
 
 export default class TileCollider {

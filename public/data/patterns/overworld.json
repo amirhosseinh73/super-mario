@@ -1,114 +1,272 @@
 {
-    "cloud-single": {
-        "tiles": [
-            {
-                "name": "cloud-1-1",
-                "ranges": [[0, 0]]
-            },
-            {
-                "name": "cloud-1-2",
-                "ranges": [[1, 0]]
-            },
-            {
-                "name": "cloud-1-3",
-                "ranges": [[2, 0]]
-            },
-            {
-                "name": "cloud-2-1",
-                "ranges": [[0, 1]]
-            },
-            {
-                "name": "cloud-2-2",
-                "ranges": [[1, 1]]
-            },
-            {
-                "name": "cloud-2-3",
-                "ranges": [[2, 1]]
-            }
-        ]
-    },
+    "cloud-single": [
+        {
+            "name": "cloud-1-1",
+            "ranges": [[0, 0]]
+        },
+        {
+            "name": "cloud-1-2",
+            "ranges": [[1, 0]]
+        },
+        {
+            "name": "cloud-1-3",
+            "ranges": [[2, 0]]
+        },
+        {
+            "name": "cloud-2-1",
+            "ranges": [[0, 1]]
+        },
+        {
+            "name": "cloud-2-2",
+            "ranges": [[1, 1]]
+        },
+        {
+            "name": "cloud-2-3",
+            "ranges": [[2, 1]]
+        }
+    ],
+    "pipe-section-vert": [
+        {
+            "name": "pipe-vert-left",
+            "type": "ground",
+            "ranges": [[0, 0]]
+        },
+        {
+            "name": "pipe-vert-right",
+            "type": "ground",
+            "ranges": [[1, 0]]
+        }
+    ],
+    "pipe-cap-vert": [
+        {
+            "name": "pipe-insert-vert-left",
+            "type": "ground",
+            "ranges": [[0, 0]]
+        },
+        {
+            "name": "pipe-insert-vert-right",
+            "type": "ground",
+            "ranges": [[1, 0]]
+        }
+    ],
+    "pipe-2h": [
+        {
+            "pattern": "pipe-cap-vert",
+            "ranges": [[0, 0]]
+        },
+        {
+            "pattern": "pipe-section-vert",
+            "ranges": [[0, 1, 1, 1]]
+        }
+    ],
+    "pipe-3h": [
+        {
+            "pattern": "pipe-cap-vert",
+            "ranges": [[0, 0]]
+        },
+        {
+            "pattern": "pipe-section-vert",
+            "ranges": [[0, 1, 1, 2]]
+        }
+    ],
+    "pipe-4h": [
+        {
+            "pattern": "pipe-cap-vert",
+            "ranges": [[0, 0]]
+        },
+        {
+            "pattern": "pipe-section-vert",
+            "ranges": [[0, 1, 1, 3]]
+        }
+    ],
+    "cannon-2h": [
+        {
+            "name": "cannon-1",
+            "type": "ground",
+            "ranges": [[0, 0]]
+        },
+        {
+            "name": "cannon-3",
+            "type": "ground",
+            "ranges": [[0, 1]]
+        }
+    ],
 
-    "pipe-section-vert": {
-        "tiles": [
-            {
-                "name": "pipe-vert-left",
-                "type": "ground",
-                "ranges": [[0, 0]]
-            },
-            {
-                "name": "pipe-vert-right",
-                "type": "ground",
-                "ranges": [[1, 0]]
-            }
-        ]
-    },
+    "castle": [
+        {
+            "name": "castle-crown-sky",
+            "type": "trigger",
+            "ranges": [[1, 0]]
+        },
+        {
+            "name": "castle-crown-sky",
+            "type": "trigger",
+            "ranges": [[2, 0]]
+        },
+        {
+            "name": "castle-crown-sky",
+            "type": "trigger",
+            "ranges": [[3, 0]]
+        },
 
-    "pipe-cap-vert": {
-        "tiles": [
-            {
-                "name": "pipe-insert-vert-left",
-                "type": "ground",
-                "ranges": [[0, 0]]
-            },
-            {
-                "name": "pipe-insert-vert-right",
-                "type": "ground",
-                "ranges": [[1, 0]]
-            }
-        ]
-    },
+        {
+            "name": "castle-window-left",
+            "type": "trigger",
+            "ranges": [[1, 1]]
+        },
 
-    "pipe-2h": {
-        "tiles": [
-            {
-                "pattern": "pipe-cap-vert",
-                "ranges": [[0, 0]]
-            },
-            {
-                "pattern": "pipe-section-vert",
-                "ranges": [[0, 1, 1, 1]]
-            }
-        ]
-    },
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[2, 1]]
+        },
 
-    "pipe-3h": {
-        "tiles": [
-            {
-                "pattern": "pipe-cap-vert",
-                "ranges": [[0, 0]]
-            },
-            {
-                "pattern": "pipe-section-vert",
-                "ranges": [[0, 1, 1, 2]]
-            }
-        ]
-    },
+        {
+            "name": "castle-window-right",
+            "type": "trigger",
+            "ranges": [[3, 1]]
+        },
 
-    "pipe-4h": {
-        "tiles": [
-            {
-                "pattern": "pipe-cap-vert",
-                "ranges": [[0, 0]]
-            },
-            {
-                "pattern": "pipe-section-vert",
-                "ranges": [[0, 1, 1, 3]]
-            }
-        ]
-    },
+        {
+            "name": "castle-crown-sky",
+            "type": "trigger",
+            "ranges": [[0, 2]]
+        },
+        {
+            "name": "castle-crown-wall",
+            "type": "trigger",
+            "ranges": [[1, 2]]
+        },
+        {
+            "name": "castle-crown-wall",
+            "type": "trigger",
+            "ranges": [[2, 2]]
+        },
+        {
+            "name": "castle-crown-wall",
+            "type": "trigger",
+            "ranges": [[3, 2]]
+        },
+        {
+            "name": "castle-crown-sky",
+            "type": "trigger",
+            "ranges": [[4, 2]]
+        },
 
-    "cannon-2h": {
-        "tiles": [
-            {
-                "name": "cannon-1",
-                "type": "ground",
-                "ranges": [[0, 0]]
-            },
-            {
-                "name": "cannon-3",
-                "type": "ground",
-                "ranges": [[0, 1]]
-            }
-        ]
-    }
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[0, 3]]
+        },
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[0, 4]]
+        },
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[1, 3]]
+        },
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[1, 4]]
+        },
+
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[3, 3]]
+        },
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[3, 4]]
+        },
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[4, 3]]
+        },
+        {
+            "name": "castle-wall",
+            "type": "trigger",
+            "ranges": [[4, 4]]
+        },
+
+        {
+            "name": "castle-entrance-top",
+            "type": "trigger",
+            "ranges": [[2, 3]]
+        },
+        {
+            "name": "castle-entrance-bottom",
+            "type": "trigger",
+            "ranges": [[2, 4]]
+        }
+    ],
+
+    "flag": [
+        {
+            "name": "flagpole-top",
+            "type": "flag",
+            "ranges": [[0, 0]]
+        },
+        {
+            "name": "flag",
+            "type": "flag",
+            "ranges": [[0, 1]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 2]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 3]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 4]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 5]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 6]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 7]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 8]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 9]]
+        },
+        {
+            "name": "flagpole",
+            "type": "flag",
+            "ranges": [[0, 10]]
+        },
+        {
+            "name": "block",
+            "type": "ground",
+            "ranges": [[0, 11]]
+        }
+    ]
 }
