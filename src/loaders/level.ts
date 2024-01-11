@@ -155,6 +155,12 @@ const setupTriggers = function (levelSpec: LevelsInterface, level: Level) {
     }
 };
 
+const setupCheckpoints = function (levelSpec: LevelsInterface, level: Level) {
+    if (!levelSpec.checkpoints) return;
+
+    for (const checkpoint of levelSpec.checkpoints) level.checkpoints.push(checkpoint);
+};
+
 export const createLevelLoader = async function (entityFactory: EntityFactories) {
     return async function loadLevel(name: LevelsFileName) {
         const levelSpec = (await loadJSON(`/data/levels/${name}.json`)) as LevelsInterface;
@@ -172,6 +178,7 @@ export const createLevelLoader = async function (entityFactory: EntityFactories)
         setupEntities(levelSpec, level, entityFactory);
         setupTriggers(levelSpec, level);
         setupBehavior(level);
+        setupCheckpoints(levelSpec, level);
 
         return level;
     };

@@ -15,7 +15,7 @@ export default class Player extends Trait {
     endOfLife: boolean;
 
     checkpoint: Vec2;
-    checkpointOffsetX: 500;
+    checkpointOffsetX: number;
 
     constructor() {
         super("player");
@@ -33,7 +33,7 @@ export default class Player extends Trait {
         });
 
         this.checkpoint = new Vec2(0, 0);
-        this.checkpointOffsetX = 500;
+        this.checkpointOffsetX = 250;
     }
 
     public addCoins(count: number) {
@@ -52,20 +52,24 @@ export default class Player extends Trait {
         this.lives += count;
     }
 
-    public die(pos: Vec2) {
+    public die(pos: Vec2, level: Level) {
         if (this.dead) return;
 
         this.lives--;
-        this.calcPos(pos);
+        this.calcPos(pos, level);
         this.dead = true;
     }
 
-    public calcPos(curPos: Vec2) {
+    public calcPos(curPos: Vec2, level: Level) {
         this.checkpoint.y = MARIO_INIT_POS.y;
 
-        if (curPos.x > 500 && curPos.x <= 1000) return (this.checkpoint.x = 500);
-        if (curPos.x > 1000 && curPos.x <= 1500) return (this.checkpoint.x = 1000);
-        if (curPos.x > 1500) return (this.checkpoint.x = 1500);
+        for (const [idx, { range, start }] of level.checkpoints.entries()) {
+            const nextRange = level.checkpoints[idx + 1];
+
+            if (!nextRange && curPos.x > range) return (this.checkpoint.x = start);
+
+            if (curPos.x > range && curPos.x <= nextRange.range) return (this.checkpoint.x = start);
+        }
 
         return (this.checkpoint.x = MARIO_INIT_POS.x);
     }

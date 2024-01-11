@@ -28,6 +28,8 @@ export default class Level extends Scene {
     music: MusicController;
     camera: Camera;
 
+    checkpoints: CheckpointData[];
+
     constructor() {
         super();
         this.name = "";
@@ -39,6 +41,8 @@ export default class Level extends Scene {
         this.entityCollider = new EntityCollider(this.entities);
         this.tileCollider = new TileCollider();
         this.camera = new Camera();
+
+        this.checkpoints = [];
     }
 
     public draw({ videoContext }: GameContext) {

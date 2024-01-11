@@ -33,8 +33,10 @@ export default class Killable extends Trait {
         if (this.deadTime <= this.removeAfter) return;
 
         this.queue(() => {
-            if (entity.traits.has("player")) entity.getTrait("player")?.die(entity.pos);
-            else level.entities.delete(entity);
+            if (entity.traits.has("player"))
+                return entity.getTrait("player")?.die(entity.pos, level);
+
+            level.entities.delete(entity);
         });
     }
 }

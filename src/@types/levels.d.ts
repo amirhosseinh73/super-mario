@@ -4,8 +4,9 @@ interface LevelsInterface {
     patternSheet: PatternsFileName;
     layers: LayersData[];
     // patterns: patternsData;
-    entities: entitiesData[];
-    triggers?: triggersData[];
+    entities: EntitiesData[];
+    triggers?: TriggersData[];
+    checkpoints?: CheckpointData[];
 }
 
 type RangeType = [number, number, number, number] | [number, number, number] | [number, number];
@@ -37,15 +38,20 @@ interface LayersData {
     tiles: BackgroundLayers[];
 }
 
-type entitiesData = {
+type EntitiesData = {
     name: EntityNames;
     pos: number[];
 };
 
-type triggersData = {
+type TriggersData = {
     type: "goto" | "something else";
     name: LevelsFileName;
     pos: number[];
+};
+
+type CheckpointData = {
+    range: number;
+    start: number;
 };
 
 interface MatrixValue {

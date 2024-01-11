@@ -32,7 +32,7 @@ export const runGame = function ({ font, entity: mario, loadLevel, sceneRunner }
 
         level.events.listen(
             Level.EVENT_TRIGGER,
-            async (spec: triggersData, _trigger, touches: Set<Entity>) => {
+            async (spec: TriggersData, _trigger, touches: Set<Entity>) => {
                 if (spec.type !== "goto") return;
                 for (const _entity of findPlayers(touches)) return await runLevel(spec.name);
             }
