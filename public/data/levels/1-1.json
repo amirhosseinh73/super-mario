@@ -8,12 +8,12 @@
             "tiles": [
                 {
                     "name": "sky",
-                    "ranges": [[0, 212, 0, 16]]
+                    "ranges": [[0, 230, 0, 16]]
                 },
                 {
                     "name": "ground",
                     "type": "ground",
-                    "ranges": [[0, 212, 14, 2]]
+                    "ranges": [[0, 216, 14, 2]]
                 },
                 {
                     "name": "sky",

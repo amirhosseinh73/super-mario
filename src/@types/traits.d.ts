@@ -9,7 +9,6 @@ import LevelTimer from "../traits/LevelTimer";
 import PendulumMove from "../traits/PendulumMove";
 import Physics from "../traits/Physics";
 import Player from "../traits/Player";
-import PlayerController from "../traits/PlayerController";
 import Solid from "../traits/Solid";
 import Stomper from "../traits/Stomper";
 import Trigger from "../traits/Trigger";
@@ -22,7 +21,6 @@ type TraitMap = {
     behavior?: KoopaBehavior | GoombaBehavior;
     stomper?: Stomper;
     killable?: Killable;
-    playerController?: PlayerController;
     solid?: Solid;
     physics?: Physics;
     velocity?: Velocity;
@@ -32,8 +30,6 @@ type TraitMap = {
     levelTimer?: LevelTimer;
     trigger?: Trigger;
 };
-
-// type EntityWithTraits = Entity & TraitMap;
 
 type EntityFactories = {
     [key in EntityNames]: () => Entity;

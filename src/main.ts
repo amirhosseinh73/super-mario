@@ -1,11 +1,11 @@
-import { setupKeyboard } from "./helper";
+import { setupKeyboard, writeOnCanvas } from "./helper";
 import Timer from "./Timer";
 import { createLevelLoader } from "./loaders/level";
 import { loadEntities } from "./loaders";
 import { setupMouseEvents } from "./MouseState";
 import { loadFont } from "./loaders/font";
 import { createDashboardLayer } from "./layers/dashboard";
-import { createPlayer, createPlayerEnv, findPlayers } from "./player";
+import { createPlayer, findPlayers } from "./player";
 import { GameContext } from "./@types/traits";
 import { MARIO_INIT_POS } from "./defines";
 import SceneRunner from "./SceneRunner";
@@ -16,7 +16,7 @@ import TimedScene from "./TimedScene";
 import Entity from "./Entity";
 import Scene from "./Scene";
 import { createTextLayer } from "./layers/text";
-// import { createCollisionLayer } from "./layers/collision";
+import { createCollisionLayer } from "./layers/collision";
 
 const main = async function (canvas: HTMLCanvasElement) {
     const videoContext = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -27,7 +27,6 @@ const main = async function (canvas: HTMLCanvasElement) {
 
     const mario = entityFactory.mario();
     createPlayer(mario, "MARIO");
-    mario.pos.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y);
     const inputRouter = setupKeyboard(window);
     inputRouter.addReceiver(mario);
 
@@ -38,12 +37,11 @@ const main = async function (canvas: HTMLCanvasElement) {
         // sceneRunner.reset();
 
         const loadScreen = new Scene();
-        // loadScreen.comp.layers.push(createColorLayer("#000"));
         loadScreen.comp.layers.push(createTextLayer(font, `load level ${name}...`));
         sceneRunner.addScene(loadScreen);
         sceneRunner.runNext();
 
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 500));
 
         const level = await loadLevel(name);
 
@@ -51,12 +49,7 @@ const main = async function (canvas: HTMLCanvasElement) {
             Level.EVENT_TRIGGER,
             async (spec: triggersData, _trigger, touches: Set<Entity>) => {
                 if (spec.type !== "goto") return;
-                for (const _entity of findPlayers(touches)) {
-                    // if (entity.traits.has("player")) {
-                    await runLevel(spec.name);
-                    return;
-                    // }
-                }
+                for (const _entity of findPlayers(touches)) return await runLevel(spec.name);
             }
         );
 
@@ -66,17 +59,14 @@ const main = async function (canvas: HTMLCanvasElement) {
         mario.pos.set(MARIO_INIT_POS.x, MARIO_INIT_POS.y);
         level.entities.add(mario);
 
-        const playerEnv = createPlayerEnv(mario);
-        level.entities.add(playerEnv);
-
         const waitScreen = new TimedScene();
         waitScreen.countDown = 2;
         waitScreen.comp.layers.push(createColorLayer("#000"));
         waitScreen.comp.layers.push(playerProgressLayer);
         sceneRunner.addScene(waitScreen);
 
-        // const debugLayers = createCollisionLayer(level);
-        // if (debugLayers) level.comp.layers.push(debugLayers);
+        const debugLayers = createCollisionLayer(level);
+        if (debugLayers) level.comp.layers.push(debugLayers);
 
         level.comp.layers.push(dashboardLayer);
         sceneRunner.addScene(level);
@@ -97,6 +87,11 @@ const main = async function (canvas: HTMLCanvasElement) {
     timer.update = function update(deltaTime: number) {
         gameContext.deltaTime = deltaTime;
         sceneRunner.update(gameContext);
+
+        if (mario.getTrait("player")?.endOfLife) {
+            writeOnCanvas(videoContext, "Game Over!");
+            sceneRunner.reset();
+        }
     };
 
     videoContext.imageSmoothingEnabled = false;
@@ -107,13 +102,9 @@ const main = async function (canvas: HTMLCanvasElement) {
 };
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;
+const context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-
-ctx.font = "30px Comic Sans MS";
-ctx.fillStyle = "white";
-ctx.textAlign = "center";
-ctx.fillText("Hit Click To Play", canvas.width / 2, canvas.height / 2);
+writeOnCanvas(context, "Hit Click To Play");
 
 const start = function () {
     window.removeEventListener("click", start);

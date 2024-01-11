@@ -36,3 +36,10 @@ export const setupKeyboard = function (window: Window & typeof globalThis) {
 
     return router;
 };
+
+export const writeOnCanvas = function (context: CanvasRenderingContext2D, text: string) {
+    context.font = "30px Comic Sans MS";
+    context.fillStyle = "white";
+    context.textAlign = "center";
+    context.fillText(text, context.canvas.width / 2, context.canvas.height / 2);
+};
